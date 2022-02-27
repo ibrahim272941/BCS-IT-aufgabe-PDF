@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Avatar,
   Button,
   Container,
   Grid,
@@ -13,13 +12,13 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Resim from "../assets/avatar.png";
+
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginFunc } from "../redux/auhtRedux/actions";
 import FirstNavbar from "../component/Navbar";
 import CopyRight from "../component/CopyRight";
-import { border, color, width } from "@mui/system";
+
 import Welcome from "../component/Welcome";
 
 const signUpValidationSchema = Yup.object().shape({
@@ -30,7 +29,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState();
   const navigate = useNavigate();
-  const { currentUser } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
   const initialValues = {

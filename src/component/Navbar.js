@@ -1,16 +1,14 @@
 import React from "react";
-import { Navbar, Container, Button } from "react-bootstrap";
+import { Navbar, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useLocation, useNavigate } from "react-router-dom";
-
-import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const FirstNavbar = () => {
   let path = useLocation().pathname;
 
-  const dispatch = useDispatch();
-  // console.log(currentUser);
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // // console.log(currentUser);
+  // const navigate = useNavigate();
 
   return (
     <Navbar style={{ color: "#393A3B" }}>

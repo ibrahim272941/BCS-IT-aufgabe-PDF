@@ -1,18 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { database } from "../auth/getAuth";
-import { isEmpty } from "lodash";
-import { Button, Grid, TextField, Typography } from "@mui/material";
 
-import MainNavbar from "../component/MainNavbar";
+import { isEmpty } from "lodash";
+import { Button, Grid, TextField } from "@mui/material";
+
 import { useNavigate, useParams } from "react-router-dom";
 
-import { child, get, push, ref, set, update } from "firebase/database";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addInvoiceStart,
-  editInvoiceStart,
-  getInvoiceStart,
-} from "../redux/mainredux/actions";
+import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
 
 const AddEditInvoice = () => {
@@ -50,7 +44,7 @@ const AddEditInvoice = () => {
       productQuantity * (parseFloat(productPrice) + productPrice * VAT)
     ).toFixed(2);
     setValues((prev) => ({ ...prev, totalAmount: calc }));
-  }, [productPrice, productQuantity, localId]);
+  }, [productPrice, productQuantity]);
 
   const navigate = useNavigate();
 

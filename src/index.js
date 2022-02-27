@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 
 import store from "./redux/auhtRedux/store";
-import mainStore from "./redux/mainredux/mainstore";
+
 import { Provider } from "react-redux";
 import { BasePovider } from "./contexts/BaseContext";
 

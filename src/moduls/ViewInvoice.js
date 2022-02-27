@@ -32,10 +32,9 @@ export default function SpanningTable() {
       ids: baseContext.ids,
       setIds: baseContext.setIds,
     }),
-    [baseContext.ids, baseContext.setIds, data]
+    [baseContext.ids, baseContext.setIds]
   );
   const {
-    displayName,
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
 

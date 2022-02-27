@@ -11,8 +11,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import Tooltip from "@mui/material/Tooltip";
-import { useEffect, useState, useMemo, useRef } from "react";
+
+import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { delInvoiceStart, getInvoiceStart } from "../redux/mainredux/actions";
@@ -21,7 +21,6 @@ import { Button, TextField } from "@mui/material";
 import { successNote } from "../utils/customToastify";
 import { useBaseContext } from "../contexts/BaseContext";
 import { ToastContainer, toast } from "react-toastify";
-import { fontSize } from "@mui/system";
 
 const columns = [
   { id: "check", label: "", minWidth: 10, align: "left" },
@@ -92,7 +91,7 @@ export default function EnhancedTable() {
     }),
     [baseContext.setIds, baseContext.ids]
   );
-
+  console.log(uiProps.ids);
   const {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
@@ -117,7 +116,7 @@ export default function EnhancedTable() {
   };
 
   const handleInvoice = () => {
-    navigate("/view");
+    navigate("/pdf");
   };
   const handleChangeSearch = (e) => {
     let txt = e.target.value;
