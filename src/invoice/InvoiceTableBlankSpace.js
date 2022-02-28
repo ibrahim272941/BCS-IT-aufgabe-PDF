@@ -28,6 +28,9 @@ const stylesBlankSpace = StyleSheet.create({
   amount: {
     width: "15%",
   },
+  tax: {
+    width: "15%",
+  },
 });
 const InvoiceTableBlankSpace = ({ rowsCount }) => {
   const blankRows = Array(rowsCount).fill(0);
@@ -38,6 +41,7 @@ const InvoiceTableBlankSpace = ({ rowsCount }) => {
           <Text style={stylesBlankSpace.description}>-</Text>
           <Text style={stylesBlankSpace.qty}>-</Text>
           <Text style={stylesBlankSpace.rate}>-</Text>
+          <Text style={stylesBlankSpace.tax}>-</Text>
           <Text style={stylesBlankSpace.amount}>-</Text>
         </View>
       ))}

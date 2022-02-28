@@ -6,12 +6,13 @@ import BillTo from "../invoice/BillTo";
 import InvoiceItemsTable from "../invoice/InvoiceItemsTable";
 import InvoiceThankYouMsg from "../invoice/InvoiceThankYouMsg";
 import { onValue, query, ref } from "firebase/database";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, memo } from "react";
 import { useSelector } from "react-redux";
 import { useBaseContext } from "../contexts/BaseContext";
 
 import { database } from "../auth/getAuth";
 import { Spinner } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 const styles = StyleSheet.create({
   page: {
     fontFamily: "Helvetica",
@@ -27,6 +28,10 @@ const styles = StyleSheet.create({
     height: 66,
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  viewer: {
+    width: window.innerWidth, //the pdf viewer will take up all of the width and height
+    height: window.innerHeight,
   },
 });
 function PdfViewer() {
@@ -73,40 +78,38 @@ function PdfViewer() {
       },
     ],
   };
+  const location = useLocation();
+  const id = location.state;
   const [data, setData] = useState({});
   const baseContext = useBaseContext();
-  const ids = useMemo(
-    () => ({
-      ids: baseContext.ids,
-      setIds: baseContext.setIds,
-    }),
-    [baseContext.ids, baseContext.setIds]
-  );
+  console.log(id[0]);
+  // const ids = useMemo(
+  //   () => ({
+  //     ids: baseContext.ids,
+  //     setIds: baseContext.setIds,
+  //   }),
+  //   [baseContext.ids, baseContext.setIds]
+  // );
 
   const {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
-  useMemo(() => {}, [data[0], ids]);
-  let values = {};
+
   useEffect(() => {
-    ids.ids.length > 1
-      ? ids.ids.forEach((id, i) => {
+    let values = {};
+    id.length > 1
+      ? id.forEach((id, i) => {
           onValue(query(ref(database, `${localId}/${id}`)), (snapshot) => {
             values[i] = snapshot.val();
+            setData({ ...values });
           });
         })
-      : onValue(
-          query(ref(database, `${localId}/${ids.ids[0]}`)),
-          (snapshot) => {
-            values[0] = snapshot.val();
-          }
-        );
-
-    setData(values);
+      : onValue(query(ref(database, `${localId}/${id}`)), (snapshot) => {
+          // values[0] = snapshot.val();
+          setData({ ...snapshot.val() });
+        });
   }, []);
-
-  console.log(data[0]);
-  console.log(invoice);
+  console.log(data);
   // const invoice2 = {
   //   id: "5df3180a09ea16dc4b95f910",
   //   invoice_no: ids.ids.toString(),
@@ -152,32 +155,20 @@ function PdfViewer() {
   // };
 
   return (
-    <PDFViewer width="2000" height="1000">
-      {data[0] ? (
+    <PDFViewer style={styles.viewer}>
+      {data && (
         <Document>
           <Page size="A4" style={styles.page}>
             {/* <Image style={styles.logo} src={logo} /> */}
             <InvoiceTitle title="Invoice" />
-            <InvoiceNo invoice={ids.ids.toString()} />
-            <BillTo invoice={data[0]} />
-            <InvoiceItemsTable invoice={data[0]} />
+            <InvoiceNo invoice={id.toString()} />
+            <BillTo invoice={data} />
+            <InvoiceItemsTable invoice={data} />
             <InvoiceThankYouMsg />
           </Page>
         </Document>
-      ) : (
-        <Spinner
-          style={{
-            width: "10rem",
-            height: "10rem",
-            marginTop: "10rem",
-            alignItems: "center",
-          }}
-          animation="border"
-          variant="warning"
-          size="lg"
-        />
       )}
     </PDFViewer>
   );
 }
-export default PdfViewer;
+export default memo(PdfViewer);

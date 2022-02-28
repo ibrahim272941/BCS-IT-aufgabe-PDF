@@ -18,6 +18,9 @@ import {
   delInvoiceFail,
   addInvoiceFail,
   editInvoiceFail,
+  viewInvoiceStart,
+  viewInvoiceSucces,
+  viewInvoiceFail,
 } from "./actions";
 import * as types from "./actionsTypes";
 
@@ -96,11 +99,50 @@ export function* onEditInvoiceAsync({ payload }) {
 export function* onEditInvoice() {
   yield takeLatest(types.EDIT_INVOICE_START, onEditInvoiceAsync);
 }
+/*View invoice Saga func */
+export function* inViewInvoiceAsync({ payload }) {
+  console.log(payload);
+  const { localId, id } = payload;
+  let invoice = {};
+  try {
+    id.length > 1
+      ? id.forEach((id, i) => {
+          new Promise((resolve) =>
+            onValue(query(ref(database, `${localId}/${id}`)), (resolve) => {
+              invoice[i] = resolve.val();
+            })
+          );
+        })
+      : onValue(
+          new Promise((resolve) =>
+            onValue(
+              query(ref(database, `${localId}/${id.toString()}`)),
+              (resolve) => {
+                invoice[0] = resolve.val();
+              }
+            )
+          )
+        );
+
+    if (invoice !== null) {
+      yield put(viewInvoiceSucces(invoice.val()));
+    } else {
+      yield put(viewInvoiceSucces({}));
+    }
+  } catch (error) {
+    yield put(viewInvoiceFail(error));
+  }
+}
+
+export function* onViewInvoice() {
+  yield takeLatest(types.VIEW_INVOICE_START, inViewInvoiceAsync);
+}
 const invoiceSagas = [
   fork(onGetInvoice),
   fork(onDeleteInvoice),
   fork(onAddInvoice),
   fork(onEditInvoice),
+  fork(onViewInvoice),
 ];
 
 export default function* rootSaga() {

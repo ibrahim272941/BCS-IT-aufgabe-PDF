@@ -56,3 +56,18 @@ export const editInvoiceFail = (error) => ({
   type: types.EDIT_INVOICE_FAIL,
   payload: error,
 });
+
+/*VIEW invoice */
+
+export const viewInvoiceStart = (localId, id) => ({
+  type: types.VIEW_INVOICE_START,
+  payload: { localId, id },
+});
+export const viewInvoiceSucces = (invoice) => ({
+  type: types.VIEW_INVOICE_SUCCESS,
+  payload: invoice,
+});
+export const viewInvoiceFail = (error) => ({
+  type: types.VIEW_INVOICE_FAIL,
+  payload: error,
+});

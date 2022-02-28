@@ -12,16 +12,19 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginTop: 24,
     borderWidth: 1,
-    borderColor: "#bff0fd",
+    borderColor: "#000",
   },
 });
 
-const InvoiceItemsTable = ({ invoice }) => (
-  <View style={styles.tableContainer}>
-    <InvoiceTableHeader />
-    <InvoiceTableRow items={[invoice]} />
-    {/* <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoice.items.length} /> */}
-    {/* <InvoiceTableFooter items={invoice.items} /> */}
-  </View>
-);
+const InvoiceItemsTable = ({ invoice }) => {
+  console.log();
+  return (
+    <View style={styles.tableContainer}>
+      <InvoiceTableHeader />
+      <InvoiceTableRow items={[invoice]} />
+      {/* <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoice.length} /> */}
+      {/* <InvoiceTableFooter items={invoice.items} /> */}
+    </View>
+  );
+};
 export default InvoiceItemsTable;

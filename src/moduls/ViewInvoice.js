@@ -1,7 +1,6 @@
 // import { Copyright } from "@mui/icons-material";
 import { onValue, query, ref } from "firebase/database";
 import React, { useEffect, useState, useMemo } from "react";
-import { useSelector } from "react-redux";
 
 import { database } from "../auth/getAuth";
 
@@ -14,7 +13,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useBaseContext } from "../contexts/BaseContext";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { viewInvoiceStart } from "../redux/mainredux/actions";
+import BasicModal from "../component/BasicModal";
 
 const TAX_RATE = 0.19;
 
@@ -23,50 +25,48 @@ function ccyFormat(num) {
 }
 
 export default function SpanningTable() {
-  const [data, setData] = useState({});
-
+  const [data, setData] = useState([]);
+  const location = useLocation();
+  const id = location.state;
   const navigate = useNavigate();
+
   const baseContext = useBaseContext();
-  const ids = useMemo(
-    () => ({
-      ids: baseContext.ids,
-      setIds: baseContext.setIds,
-    }),
-    [baseContext.ids, baseContext.setIds]
-  );
+  // const ids = useMemo(
+  //   () => ({
+  //     ids: baseContext.ids,
+  //     setIds: baseContext.setIds,
+  //   }),
+  //   [baseContext.ids, baseContext.setIds]
+  // );
+
   const {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
 
-  let values = {};
   useEffect(() => {
-    ids.ids.length > 1
-      ? ids.ids.forEach((id, i) => {
+    let values = {};
+    id.length > 1
+      ? id.forEach((id, i) => {
           onValue(query(ref(database, `${localId}/${id}`)), (snapshot) => {
             values[i] = snapshot.val();
+            setData({ ...values });
           });
         })
-      : onValue(
-          query(ref(database, `${localId}/${ids.ids[0]}`)),
-          (snapshot) => {
-            values[0] = snapshot.val();
-          }
-        );
+      : onValue(query(ref(database, `${localId}/${id[0]}`)), (snapshot) => {
+          values[0] = snapshot.val();
+          setData(values);
+        });
+    // : onValue(query(ref(database, `${localId}/${id[0]}`)), (snapshot) => {
+    //     values[0] = snapshot.val();
+    //   });
 
-    setData(values);
-    console.log(Object.values(data));
+    // setData(values);
   }, []);
-
-  console.log(Boolean(data[0]));
-  console.log(Boolean(values));
-
+  console.log(data[0]);
   const subT = (data) => {
-    return (
-      data[0] &&
-      Object.values(data)
-        .map((data) => data.productQuantity * data.productPrice)
-        .reduce((sum, i) => sum + i, 0)
-    );
+    return Object.values(data)
+      .map((data) => data.productQuantity * data.productPrice)
+      .reduce((sum, i) => sum + i, 0);
   };
 
   const invoiceTaxes = TAX_RATE * subT(data);
@@ -74,16 +74,44 @@ export default function SpanningTable() {
   const handleClick = () => {
     navigate("/invoicelist");
   };
+  const handlePrintClick = () => {
+    navigate("/pdf", {
+      state: id,
+    });
+  };
   return (
     <TableContainer component={Paper}>
-      <Button
+      <div className="d-flex">
+        <Button
+          sx={{ margin: ".6rem" }}
+          variant="contained"
+          onClick={handleClick}
+        >
+          Back to Invoice List
+        </Button>
+
+        {/* <Button
         sx={{ margin: ".6rem" }}
+        color="warning"
         variant="contained"
-        onClick={handleClick}
+        onClick={handlePrintClick}
       >
-        Back to Invoice List
-      </Button>
+        Print Invoice
+      </Button> */}
+        <BasicModal />
+      </div>
+
       {data[0] ? (
+        <div className="mt-5">
+          <p>{data[0].costumerName}</p>
+          <p>{data[0].costumerAddres}</p>
+          <p>{data[0].costumerEmail}</p>
+          <p>{data[0].costumerMobile}</p>
+        </div>
+      ) : (
+        <p>Pls Wait</p>
+      )}
+      {data ? (
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
             <TableRow>
@@ -118,9 +146,7 @@ export default function SpanningTable() {
             </TableRow>
             <TableRow>
               <TableCell>Tax</TableCell>
-              <TableCell align="right">{`${(TAX_RATE * 100).toFixed(
-                0
-              )} %`}</TableCell>
+              <TableCell align="right">{`${TAX_RATE * 100} %`}</TableCell>
               <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
             </TableRow>
             <TableRow>

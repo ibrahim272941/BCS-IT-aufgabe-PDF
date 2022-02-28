@@ -11,7 +11,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-
+import SpanningTable from "./ViewInvoice";
 import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -78,7 +78,7 @@ const columns = [
 export default function EnhancedTable() {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-
+  const [selectId, setSelectId] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
 
@@ -91,7 +91,7 @@ export default function EnhancedTable() {
     }),
     [baseContext.setIds, baseContext.ids]
   );
-  console.log(uiProps.ids);
+
   const {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
@@ -113,10 +113,14 @@ export default function EnhancedTable() {
   };
   const handleChange = (id, e) => {
     !uiProps.ids.includes(id) && uiProps.setIds([...uiProps.ids, id]);
+    !selectId.includes(id) && setSelectId([...selectId, id]);
+    // setSelectId([...selectId, id]);
   };
 
   const handleInvoice = () => {
-    navigate("/pdf");
+    navigate("/view", {
+      state: selectId,
+    });
   };
   const handleChangeSearch = (e) => {
     let txt = e.target.value;
