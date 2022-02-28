@@ -16,8 +16,10 @@ import { useBaseContext } from "../contexts/BaseContext";
 import { database } from "../auth/getAuth";
 import { Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import logo from "../invoice/logo.png";
 import {
   Document,
+  Image,
   Page,
   PDFViewer,
   StyleSheet,
@@ -48,12 +50,10 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 74,
-    height: 66,
-    marginLeft: "auto",
-    marginRight: "auto",
+    height: 40,
   },
   viewer: {
-    width: 900, //the pdf viewer will take up all of the width and height
+    width: 900,
     height: 600,
   },
 });
@@ -82,7 +82,7 @@ export default function BasicModal() {
           setData({ ...snapshot.val() });
         });
   }, []);
-
+  console.log(Object.values(data));
   return (
     <div>
       <Button
@@ -101,13 +101,26 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <PDFViewer style={styles.viewer}>
-            {data && (
+            {Object.values(data).length === 1 ? (
               <Document>
                 <Page size="A4" style={styles.page}>
-                  {/* <Image style={styles.logo} src={logo} /> */}
+                  <Image style={styles.logo} src={logo} />
                   <InvoiceTitle title="Invoice" />
                   <InvoiceNo invoice={id.toString()} />
                   <BillTo invoice={data} />
+
+                  <InvoiceItemsTable invoice={data} />
+                  <InvoiceThankYouMsg />
+                </Page>
+              </Document>
+            ) : (
+              <Document>
+                <Page size="A4" style={styles.page}>
+                  <Image style={styles.logo} src={logo} />
+                  <InvoiceTitle title="Invoice" />
+                  <InvoiceNo invoice={id[0].toString()} />
+                  <BillTo invoice={data} />
+
                   <InvoiceItemsTable invoice={data} />
                   <InvoiceThankYouMsg />
                 </Page>

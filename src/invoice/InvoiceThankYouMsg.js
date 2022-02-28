@@ -3,18 +3,21 @@ import { StyleSheet, Text, View } from "@react-pdf/renderer";
 const stylesMessage = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
-    marginTop: 12,
+    marginTop: 100,
   },
   reportTitle: {
     fontSize: 12,
     textAlign: "center",
-    textTransform: "uppercase",
   },
 });
 
 const InvoiceThankYouMsg = () => (
   <View style={stylesMessage.titleContainer}>
-    <Text style={stylesMessage.reportTitle}>Thank you for your business</Text>
+    <Text style={stylesMessage.reportTitle}>
+      {" "}
+      Thanks for shopping at BCS-IT. We hope to have the pleasure of doing
+      business with you in the future.
+    </Text>
   </View>
 );
 

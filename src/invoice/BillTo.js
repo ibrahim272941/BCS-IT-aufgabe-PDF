@@ -11,14 +11,14 @@ const stylesBillTo = StyleSheet.create({
   },
 });
 const BillTo = ({ invoice }) => {
-  console.log(invoice.costumerName);
+  // console.log(invoice[0].costumerName);
   return (
     <View style={stylesBillTo.headerContainer}>
-      <Text style={stylesBillTo.billTo}>Bill To:</Text>
-      <Text>{invoice.costumerName}</Text>
-      <Text>{invoice.costumerAddres}</Text>
-      <Text>{invoice.costumerEmail}</Text>
-      <Text>{invoice.costumerMobile}</Text>
+      <Text style={stylesBillTo.billTo}></Text>
+      <Text>{invoice[0].costumerName}</Text>
+      <Text>{invoice[0].costumerAddres}</Text>
+      <Text>{invoice[0].costumerEmail}</Text>
+      <Text>{invoice[0].costumerMobile}</Text>
     </View>
   );
 };

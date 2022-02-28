@@ -4,21 +4,22 @@ import React from "react";
 
 const styleTitle = StyleSheet.create({
   titleContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     marginTop: "24",
   },
   reportTitle: {
     color: "#000",
-    letterSpacing: "4",
-    fontSize: "25",
-    textAlign: "center",
-    textTransform: "uppercase",
+
+    fontSize: "13",
   },
 });
 const InvoiceTitle = ({ title }) => {
   return (
     <View style={styleTitle.titleContainer}>
-      <Text style={styleTitle.reportTitle}>{title}</Text>
+      <Text style={styleTitle.reportTitle}>Hans-Böckler-Straße 40</Text>
+      <Text style={styleTitle.reportTitle}>40764 Langenfeld</Text>
+      <Text style={styleTitle.reportTitle}> 021732697183</Text>
+      <Text style={styleTitle.reportTitle}>info@bcsit-gmbh.de</Text>
     </View>
   );
 };

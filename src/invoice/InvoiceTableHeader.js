@@ -5,9 +5,9 @@ const stylesTableHeader = StyleSheet.create({
   container: {
     flexDirection: "row",
     borderBottomColor: "#000",
-    backgroundColor: "#000",
+    backgroundColor: "#525659",
     borderBottomWidth: 1,
-    alignItems: "left",
+    paddingTop: 5,
     height: 24,
     textAlign: "center",
     fontStyle: "bold",
@@ -17,21 +17,18 @@ const stylesTableHeader = StyleSheet.create({
   description: {
     width: "40%",
     textAlign: "center",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+
     paddingLeft: 8,
   },
   qty: {
     width: "10%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+
     textAlign: "center",
     paddingRight: 8,
   },
   rate: {
     width: "25%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+
     textAlign: "center",
     paddingRight: 8,
   },
@@ -44,8 +41,6 @@ const stylesTableHeader = StyleSheet.create({
   tax: {
     width: "15%",
     textAlign: "center",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
   },
 });
 

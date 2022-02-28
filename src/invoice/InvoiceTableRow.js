@@ -5,6 +5,7 @@ const stylesTableRow = StyleSheet.create({
     flexDirection: "row",
     borderBottomColor: "#bff0fd",
     borderBottomWidth: 1,
+    paddingTop: 5,
     alignItems: "center",
     height: 24,
     fontStyle: "bold",
@@ -12,21 +13,19 @@ const stylesTableRow = StyleSheet.create({
   description: {
     width: "40%",
     textAlign: "center",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+    borderRight: "2px solid",
+
     paddingLeft: 8,
   },
   qty: {
     width: "10%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+
     textAlign: "center",
     paddingRight: 8,
   },
   rate: {
     width: "25%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
+
     textAlign: "center",
     paddingRight: 8,
   },
@@ -34,27 +33,30 @@ const stylesTableRow = StyleSheet.create({
     width: "25%",
     textAlign: "center",
     paddingRight: 8,
-    marginLeft: "1rem",
   },
   tax: {
     width: "15%",
     textAlign: "center",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
   },
 });
 
 const InvoiceTableRow = ({ items }) => {
-  console.log(items[0]);
-
+  console.log(Object.values(items[0].invoice));
+  const invoice = Object.values(items[0].invoice);
   return (
-    <View style={stylesTableRow.row}>
-      <Text style={stylesTableRow.description}>{items[0].productName}</Text>
-      <Text style={stylesTableRow.qty}>{items[0].productQuantity}</Text>
-      <Text style={stylesTableRow.rate}>{items[0].productPrice}</Text>
-      <Text style={stylesTableRow.tax}>%19</Text>
-      <Text style={stylesTableRow.amount}>{items[0].totalAmount}</Text>
-    </View>
+    <div>
+      {invoice.map((items) => {
+        return (
+          <View style={stylesTableRow.row}>
+            <Text style={stylesTableRow.description}>{items.productName}</Text>
+            <Text style={stylesTableRow.qty}>{items.productQuantity}</Text>
+            <Text style={stylesTableRow.rate}>{items.productPrice}€</Text>
+            <Text style={stylesTableRow.tax}>%19</Text>
+            <Text style={stylesTableRow.amount}>{items.totalAmount}€</Text>
+          </View>
+        );
+      })}
+    </div>
   );
 };
 export default InvoiceTableRow;
