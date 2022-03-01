@@ -82,7 +82,9 @@ export default function BasicModal() {
           setData({ ...snapshot.val() });
         });
   }, []);
-  console.log(Object.values(data));
+  console.log(data);
+  console.log(Object.values(data).length);
+
   return (
     <div>
       <Button
@@ -101,7 +103,7 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <PDFViewer style={styles.viewer}>
-            {Object.values(data).length === 1 ? (
+            {Object.values(data).length === 8 ? (
               <Document>
                 <Page size="A4" style={styles.page}>
                   <Image style={styles.logo} src={logo} />

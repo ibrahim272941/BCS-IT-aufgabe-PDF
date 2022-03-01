@@ -11,15 +11,27 @@ const stylesBillTo = StyleSheet.create({
   },
 });
 const BillTo = ({ invoice }) => {
-  // console.log(invoice[0].costumerName);
+  console.log(Object.values(invoice).length);
   return (
-    <View style={stylesBillTo.headerContainer}>
-      <Text style={stylesBillTo.billTo}></Text>
-      <Text>{invoice[0].costumerName}</Text>
-      <Text>{invoice[0].costumerAddres}</Text>
-      <Text>{invoice[0].costumerEmail}</Text>
-      <Text>{invoice[0].costumerMobile}</Text>
-    </View>
+    <div>
+      {Object.values(invoice).length === 8 ? (
+        <View style={stylesBillTo.headerContainer}>
+          <Text style={stylesBillTo.billTo}></Text>
+          <Text>{invoice.costumerName}</Text>
+          <Text>{invoice.costumerAddres}</Text>
+          <Text>{invoice.costumerEmail}</Text>
+          <Text>{invoice.costumerMobile}</Text>
+        </View>
+      ) : (
+        <View style={stylesBillTo.headerContainer}>
+          <Text style={stylesBillTo.billTo}></Text>
+          <Text>{invoice[0].costumerName}</Text>
+          <Text>{invoice[0].costumerAddres}</Text>
+          <Text>{invoice[0].costumerEmail}</Text>
+          <Text>{invoice[0].costumerMobile}</Text>
+        </View>
+      )}
+    </div>
   );
 };
 export default BillTo;

@@ -17,13 +17,17 @@ const styles = StyleSheet.create({
 });
 
 const InvoiceItemsTable = (invoice) => {
-  console.log(invoice);
+  const inv = invoice.invoice;
+  console.log(Object.values(inv).length);
+  console.log();
   return (
     <View style={styles.tableContainer}>
       <InvoiceTableHeader />
       <InvoiceTableRow items={[invoice]} />
       {/* <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoice.length} /> */}
-      <InvoiceTableFooter items={[invoice]} />
+      {Object.values(inv).length !== 8 && (
+        <InvoiceTableFooter items={[invoice]} />
+      )}
     </View>
   );
 };

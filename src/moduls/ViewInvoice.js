@@ -62,7 +62,7 @@ export default function SpanningTable() {
 
     // setData(values);
   }, []);
-  console.log(data[0]);
+
   const subT = (data) => {
     return Object.values(data)
       .map((data) => data.productQuantity * data.productPrice)

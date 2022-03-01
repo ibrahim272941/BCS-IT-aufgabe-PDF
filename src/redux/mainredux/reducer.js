@@ -27,7 +27,6 @@ const invoiceReducer = (state = initialState, action) => {
         loading: false,
       };
     case types.GET_INVOICE_SUCCESS:
-    case types.VIEW_INVOICE_SUCCESS:
       return {
         ...state,
         invoice: action.payload,

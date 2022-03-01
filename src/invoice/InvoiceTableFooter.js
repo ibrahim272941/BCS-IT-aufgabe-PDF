@@ -30,6 +30,7 @@ const InvoiceTableFooter = ({ items }) => {
   const subT = Object.values(items[0].invoice)
     .map((item) => item.productQuantity * item.productPrice)
     .reduce((sum, i) => sum + i, 0);
+  console.log(items);
 
   let total = subT * 0.19 + subT;
   return (

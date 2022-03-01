@@ -29,7 +29,7 @@ const InvoiceNo = ({ invoice }) => {
       </View>
       <View style={styleInvoiceNo.invoiceDateContainer}>
         <Text style={styleInvoiceNo.label}>Date</Text>
-        <Text>:{moment().subtract(10, "days").calendar()}</Text>
+        <Text>:{moment().format("L")}</Text>
       </View>
     </div>
   );
