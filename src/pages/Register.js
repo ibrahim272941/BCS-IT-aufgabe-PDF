@@ -60,27 +60,22 @@ const Register = () => {
     currentUser && navigate("/");
   };
   return (
-    <div className="container-fluid cont h-100">
+    <div className=" cont ">
       <FirstNavbar />
-      <Container
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          minWidth: "100%",
-
-          minHeight: "90vh",
-          bgcolor: "#393a3b",
-        }}
-      >
-        <Welcome />
+      <div className="conte ">
+        <div
+          style={{}}
+          className="d-flex  flex-direction-column  justify-content-center align-items-center"
+        >
+          <h1 className="">BCS - IT Aufgabe</h1>
+        </div>
 
         <Container
           sx={{
-            marginTop: "12rem",
             maxHeight: "48vh",
             marginBottom: "2rem",
             textAlign: "center",
-            borderRadius: "1rem",
+
             padding: "2rem",
 
             // boxShadow: "3px 5px 5px 3px #555",
@@ -175,37 +170,6 @@ const Register = () => {
                       }}
                     />
                   </Grid>
-                  {/* <Grid item xs={12}>
-                  <TextField
-                    type={showPassword2 ? "text" : "password"}
-                    name="password2"
-                    label="Password Again"
-                    variant="outlined"
-                    value={values.password2}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    helperText={touched.password2 && errors.password2}
-                    error={touched.password2 && Boolean(errors.password2)}
-                    fullWidth
-                    InputProps={{
-                      endAdornment: values.password2 && (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword2}
-                            onMouseDown={handleMouseDownPassword2}
-                          >
-                            {showPassword2 ? (
-                              <VisibilityIcon />
-                            ) : (
-                              <VisibilityOffIcon />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Grid> */}
                   <Grid item xs={12}>
                     <Button
                       type="submit"
@@ -222,7 +186,7 @@ const Register = () => {
             )}
           </Formik>
         </Container>
-      </Container>
+      </div>
       <CopyRight />
     </div>
   );

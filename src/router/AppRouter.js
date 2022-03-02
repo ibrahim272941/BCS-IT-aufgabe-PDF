@@ -10,6 +10,9 @@ import InvoiceList from "../moduls/InvoiceList";
 import AuthRouter from "./AuthRouter";
 import ViewInvoice from "../moduls/ViewInvoice";
 import PdfViewer from "../component/PdfViewer";
+import SelectCostumer from "../moduls/SelectCostumer";
+import AddCostumer from "../moduls/AddCoustumer";
+import Add from "../moduls/Add";
 
 const AppRouter = () => {
   return (
@@ -20,6 +23,9 @@ const AppRouter = () => {
           <Route path="/invoice" element={<AddEditInvoice />} />
           <Route path="/update/:id" element={<AddEditInvoice />} />
           <Route path="invoicelist" element={<InvoiceList />} />
+          <Route path="/selectcostumer" element={<SelectCostumer />} />
+          <Route path="/addcostumer" element={<AddCostumer />} />
+          <Route path="/add" element={<Add />} />
           <Route path="/view" element={<ViewInvoice />} />
           <Route path="/pdf" element={<PdfViewer />} />
         </Route>

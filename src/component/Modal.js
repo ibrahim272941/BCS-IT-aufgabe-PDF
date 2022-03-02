@@ -128,25 +128,31 @@ export default function PersistentDrawerLeft() {
           <div className="d-flex flex-column">
             <div style={{ marginLeft: "1rem" }}>
               <ListItem button>
-                <NavLink to="/invoice" className="btn btn-warning w-100">
-                  New invoice
-                </NavLink>
-
-                <ListItemText />
-              </ListItem>
-              <ListItem button>
                 <NavLink to="/" className="btn btn-warning w-100">
                   Main Page
                 </NavLink>
-
-                <ListItemText />
               </ListItem>
+              <ListItem button>
+                <NavLink to="/invoice" className="btn btn-warning w-100">
+                  New invoice
+                </NavLink>
+              </ListItem>
+
               <ListItem button>
                 <NavLink to="/invoicelist" className="btn btn-warning w-100">
                   Invoice List
                 </NavLink>
-
-                <ListItemText />
+              </ListItem>
+              <ListItem button>
+                <NavLink to="/addcostumer" className="btn btn-warning w-100">
+                  {" "}
+                  Add Costumer
+                </NavLink>
+              </ListItem>
+              <ListItem button>
+                <NavLink to="/selectcostumer" className="btn btn-warning w-100">
+                  Select Costumer
+                </NavLink>
               </ListItem>
             </div>
           </div>

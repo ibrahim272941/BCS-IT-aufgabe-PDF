@@ -52,29 +52,18 @@ const Login = () => {
     resetForm();
   };
   return (
-    <div className="container-fluid cont h-100 ">
+    <div className=" cont ">
       <FirstNavbar />
-      <Container
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          minWidth: "100%",
-
-          minHeight: "100vh",
-        }}
-      >
+      <div className="conte">
         <Welcome />
         <Container
           sx={{
-            // height: "calc(100vh -3rem)",
-            marginTop: "14rem",
-
             marginBottom: "2rem",
             textAlign: "center",
-            borderRadius: "1rem",
+
             padding: "2rem",
             bgcolor: "#393a3b",
-            // boxShadow: "3px 5px 5px 3px #555",
+
             maxHeight: "40vh",
           }}
           maxWidth="xs"
@@ -182,7 +171,7 @@ const Login = () => {
             )}
           </Formik>
         </Container>
-      </Container>
+      </div>
       <CopyRight />
     </div>
   );
