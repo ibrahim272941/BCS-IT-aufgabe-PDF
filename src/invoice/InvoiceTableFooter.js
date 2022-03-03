@@ -31,12 +31,15 @@ const InvoiceTableFooter = ({ items }) => {
     .map((item) => item.productQuantity * item.productPrice)
     .reduce((sum, i) => sum + i, 0);
   console.log(items);
-
   let total = subT * 0.19 + subT;
+  const amount = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  }).format(total);
   return (
     <View style={stylesTableFooter.row}>
       <Text style={stylesTableFooter.description}>TOTAL</Text>
-      <Text style={stylesTableFooter.total}>{total.toFixed(2)}€</Text>
+      <Text style={stylesTableFooter.total}>{amount}€</Text>
     </View>
   );
 };

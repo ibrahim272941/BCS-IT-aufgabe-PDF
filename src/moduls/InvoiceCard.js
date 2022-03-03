@@ -22,7 +22,10 @@ const InvoiceCard = () => {
   const total = Object.values(invoice)
     .map((item) => item.totalAmount)
     .reduce((sum, i) => parseFloat(sum) + parseFloat(i), 0);
-
+  const amount = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  }).format(total);
   return (
     <div
       style={{
@@ -45,7 +48,7 @@ const InvoiceCard = () => {
         <EuroIcon sx={{ margin: "auto", fontSize: "4rem" }} color="success" />
         <Card.Body className="d-flex justify-content-center flex-column align-items-center">
           <Card.Title>Total Sales</Card.Title>
-          <Card.Text>{total}€</Card.Text>
+          <Card.Text>{amount}</Card.Text>
         </Card.Body>
       </Card>
     </div>

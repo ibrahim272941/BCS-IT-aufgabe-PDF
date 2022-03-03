@@ -13,10 +13,17 @@ import PdfViewer from "../component/PdfViewer";
 import SelectCostumer from "../moduls/SelectCostumer";
 import AddCostumer from "../moduls/AddCoustumer";
 import Add from "../moduls/Add";
+import LogRouter from "./LogRouter";
+import MainRouter from "./MainRouter";
+import { useSelector } from "react-redux";
 
 const AppRouter = () => {
+  const { isLogin } = useSelector((state) => state.user);
+  console.log(isLogin);
   return (
     <Router>
+      {/* {isLogin ? <MainRouter /> : <LogRouter />} */}
+
       <Routes>
         <Route element={<UserRoute />}>
           <Route path="/" element={<MainPage />} />
