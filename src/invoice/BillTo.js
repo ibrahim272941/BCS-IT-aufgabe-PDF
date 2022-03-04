@@ -14,7 +14,7 @@ const BillTo = ({ invoice }) => {
   console.log(Object.values(invoice).length);
   return (
     <div>
-      {Object.values(invoice).length === 8 ? (
+      {Object.values(invoice).length === 9 ? (
         <View style={stylesBillTo.headerContainer}>
           <Text style={stylesBillTo.billTo}></Text>
           <Text>{invoice.costumerName}</Text>

@@ -10,6 +10,9 @@ import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
 
 const AddEditInvoice = () => {
+  let d = new Date().toString().slice(0, 15).split(" ");
+  [d[1], d[2]] = [d[2], d[1]];
+  const { invoice } = useSelector((state) => state.invoice);
   const VAT = 0.19;
   let values = {
     costumerName: "",
@@ -20,6 +23,7 @@ const AddEditInvoice = () => {
     productPrice: "",
     productQuantity: "",
     totalAmount: "",
+    invoiceDate: d.join(" "),
   };
 
   const [initialValues, setValues] = useState(values);
@@ -37,6 +41,7 @@ const AddEditInvoice = () => {
     productPrice,
     productQuantity,
     totalAmount,
+    invoiceDate,
   } = initialValues;
 
   useMemo(() => {

@@ -1,4 +1,5 @@
 import PersistentDrawerLeft from "../component/Modal";
+import Chart from "../moduls/Chart";
 import InvoiceCard from "../moduls/InvoiceCard";
 
 const MainPage = () => {
@@ -7,6 +8,7 @@ const MainPage = () => {
       {/* <MainNavbar /> */}
       <PersistentDrawerLeft />
       <InvoiceCard />
+      <Chart />
     </div>
   );
 };

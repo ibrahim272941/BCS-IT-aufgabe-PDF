@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "@react-pdf/renderer";
-import InvoiceTableBlankSpace from "./InvoiceTableBlankSpace";
+
 import InvoiceTableFooter from "./InvoiceTableFooter";
 import InvoiceTableHeader from "./InvoiceTableHeader";
 import InvoiceTableRow from "./InvoiceTableRow";
@@ -25,7 +25,7 @@ const InvoiceItemsTable = (invoice) => {
       <InvoiceTableHeader />
       <InvoiceTableRow items={[invoice]} />
       {/* <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoice.length} /> */}
-      {Object.values(inv).length !== 8 && (
+      {Object.values(inv).length !== 9 && (
         <InvoiceTableFooter items={[invoice]} />
       )}
     </View>

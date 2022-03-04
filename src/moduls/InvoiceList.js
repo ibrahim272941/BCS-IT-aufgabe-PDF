@@ -81,7 +81,7 @@ export default function EnhancedTable() {
   const [selectId, setSelectId] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
-
+  const { invoice } = useSelector((state) => state.invoice);
   const [search, setSearch] = useState("");
   const baseContext = useBaseContext();
   const uiProps = useMemo(
@@ -126,9 +126,11 @@ export default function EnhancedTable() {
     let txt = e.target.value;
     setSearch(txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
   };
-  const data2 = Object.keys(data).filter((id) => {
-    return search !== "" ? data[id].costumerName.includes(search) : id;
-  });
+  const data2 = invoice
+    ? Object.keys(data).filter((id) => {
+        return search !== "" ? data[id].costumerName.includes(search) : id;
+      })
+    : 1;
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -216,81 +218,86 @@ export default function EnhancedTable() {
             </Button>
           )}
         </Toolbar>
-
-        <TableContainer>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                    sx={{ marginLeft: "3rem" }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data ? (
-                data2.map((id, i) => {
-                  return (
-                    <TableRow
-                      key={i}
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      onClick={(event) => handleClick(event, data[id])}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          onClick={(e) => handleChange(id, e)}
-                        />
+        {invoice ? (
+          <>
+            <TableContainer>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                        sx={{ marginLeft: "3rem" }}
+                      >
+                        {column.label}
                       </TableCell>
-                      <TableCell>{data[id].costumerName}</TableCell>
-                      <TableCell>{data[id].costumerEmail}</TableCell>
-                      <TableCell>{data[id].costumerMobile}</TableCell>
-                      <TableCell>{data[id].costumerAddres}</TableCell>
-                      <TableCell>{data[id].productName}</TableCell>
-                      <TableCell>{data[id].productPrice}</TableCell>
-                      <TableCell>{data[id].productQuantity}</TableCell>
-                      <TableCell>{data[id].totalAmount}€</TableCell>
-                      <TableCell>
-                        <Link to={`/update/${id}`}>
-                          <p className="btn text-primary">
-                            <i className="fas fa-pencil" />
-                          </p>
-                        </Link>
-                        <Link to="/invoicelist">
-                          <p
-                            className="btn text-danger"
-                            onClick={() => deleteInvoice(id)}
-                          >
-                            <i className="fas fa-trash-alt" />
-                          </p>
-                        </Link>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
-              ) : (
-                <TableCell>No Invoice to Show</TableCell>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data2.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data ? (
+                    data2.map((id, i) => {
+                      return (
+                        <TableRow
+                          key={i}
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          onClick={(event) => handleClick(event, data[id])}
+                        >
+                          <TableCell padding="checkbox">
+                            <Checkbox
+                              color="primary"
+                              onClick={(e) => handleChange(id, e)}
+                            />
+                          </TableCell>
+                          <TableCell>{data[id].costumerName}</TableCell>
+                          <TableCell>{data[id].costumerEmail}</TableCell>
+                          <TableCell>{data[id].costumerMobile}</TableCell>
+                          <TableCell>{data[id].costumerAddres}</TableCell>
+                          <TableCell>{data[id].productName}</TableCell>
+                          <TableCell>{data[id].productPrice}</TableCell>
+                          <TableCell>{data[id].productQuantity}</TableCell>
+                          <TableCell>{data[id].totalAmount}€</TableCell>
+                          <TableCell>
+                            <Link to={`/update/${id}`}>
+                              <p className="btn text-primary">
+                                <i className="fas fa-pencil" />
+                              </p>
+                            </Link>
+                            <Link to="/invoicelist">
+                              <p
+                                className="btn text-danger"
+                                onClick={() => deleteInvoice(id)}
+                              >
+                                <i className="fas fa-trash-alt" />
+                              </p>
+                            </Link>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                  ) : (
+                    <TableCell>No Invoice to Show</TableCell>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={data2.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </>
+        ) : (
+          <p>There is no invoice to show</p>
+        )}
       </Paper>
     </Box>
   );
