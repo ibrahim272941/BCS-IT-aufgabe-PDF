@@ -4,8 +4,6 @@ import InvoiceTableFooter from "./InvoiceTableFooter";
 import InvoiceTableHeader from "./InvoiceTableHeader";
 import InvoiceTableRow from "./InvoiceTableRow";
 
-const tableRowsCount = 11;
-
 const styles = StyleSheet.create({
   tableContainer: {
     flexDirection: "row",

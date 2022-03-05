@@ -14,8 +14,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 
-import ListItemText from "@mui/material/ListItemText";
-
 import { useDispatch, useSelector } from "react-redux";
 import { logoutFunc } from "../redux/auhtRedux/actions";
 import { Button } from "react-bootstrap";

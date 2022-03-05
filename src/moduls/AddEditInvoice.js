@@ -12,7 +12,7 @@ import PersistentDrawerLeft from "../component/Modal";
 const AddEditInvoice = () => {
   let d = new Date().toString().slice(0, 15).split(" ");
   [d[1], d[2]] = [d[2], d[1]];
-  const { invoice } = useSelector((state) => state.invoice);
+
   const VAT = 0.19;
   let values = {
     costumerName: "",
@@ -56,9 +56,6 @@ const AddEditInvoice = () => {
   const { id } = useParams();
   const data2 = useSelector((state) => state.invoice.invoice);
 
-  useEffect(() => {
-    // dispatch(getInvoiceStart(localId));
-  }, [id]);
   useEffect(() => {
     if (isEmpty(id)) {
       setValues({ ...values });

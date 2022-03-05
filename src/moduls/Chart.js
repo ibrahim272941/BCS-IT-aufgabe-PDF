@@ -22,11 +22,10 @@ ChartJS.register(
 
 const Chart = () => {
   const {
-    displayName,
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
   const { invoice } = useSelector((state) => state.invoice);
-  const { metaData } = useSelector((state) => state.user.currentUser);
+
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,42 +34,43 @@ const Chart = () => {
   const total = invoice
     ? Object.values(invoice).map((item) => parseFloat(item.totalAmount))
     : 1;
-  const totalDay = Math.round(
-    (Date.parse(currentUser.metadata.lastSignInTime) -
-      Date.parse(currentUser.metadata.creationTime)) /
-      (1000 * 60 * 60 * 24)
-  );
+  // const totalDay = Math.round(
+  //   (Date.parse(currentUser.metadata.lastSignInTime) -
+  //     Date.parse(currentUser.metadata.creationTime)) /
+  //     (1000 * 60 * 60 * 24)
+  // );
   const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const sorted_list = day
     .slice(day.indexOf(currentUser.metadata.creationTime.slice(0, 3)))
     .concat(
       day.slice(0, day.indexOf(currentUser.metadata.creationTime.slice(0, 3)))
     );
-  const tag = Array.from({ length: 3 }, () => sorted_list).flat();
+  const tag = Array.from(
+    { length: Math.round(total.length / 7) },
+    () => sorted_list
+  ).flat();
+
+  let color = [];
+  for (let i = 0; i < total.length; i++) {
+    color.push(`rgba(2${i + 2}, 1${i + 5}, 1${i}, .4)`);
+  }
 
   const myChart = {
-    labels: tag.map((item, totalDay) => item),
+    labels: tag.map((item) => item),
     datasets: [
       {
         label: "Sales",
-        data:
-          total.length < 1 ? total.map((item) => item) : [4, 5, 6, 3, 2, 19],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
+        data: total.map((item) => item),
+        // backgroundColor: [
+        //   "rgba(255, 99, 132, 0.2)",
+        //   "rgba(54, 162, 235, 0.2)",
+        //   "rgba(255, 206, 86, 0.2)",
+        //   "rgba(75, 192, 192, 0.2)",
+        //   "rgba(153, 102, 255, 0.2)",
+        //   "rgba(255, 159, 64, 0.2)",
+        // ],
+        backgroundColor: color,
+        borderColor: color,
         borderWidth: 1,
       },
     ],
@@ -91,7 +91,7 @@ const Chart = () => {
   return (
     <div>
       {invoice ? (
-        <Line height={300} options={options} data={myChart} />
+        <Bar height={300} options={options} data={myChart} />
       ) : (
         <p>There is no Invoice</p>
       )}

@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
 
-const borderColor = "#000";
 const stylesTableHeader = StyleSheet.create({
   container: {
     flexDirection: "row",

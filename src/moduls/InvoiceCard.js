@@ -8,7 +8,6 @@ import EuroIcon from "@mui/icons-material/Euro";
 
 const InvoiceCard = () => {
   const {
-    displayName,
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
   const { invoice } = useSelector((state) => state.invoice);
@@ -17,7 +16,7 @@ const InvoiceCard = () => {
 
   useEffect(() => {
     dispatch(getInvoiceStart(localId));
-  }, []);
+  }, [localId]);
 
   const total = invoice
     ? Object.values(invoice)
@@ -29,7 +28,7 @@ const InvoiceCard = () => {
     style: "currency",
     currency: "EUR",
   }).format(total);
-  console.log(Boolean(invoice));
+
   return (
     <div>
       {invoice ? (

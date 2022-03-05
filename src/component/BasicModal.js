@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+
 import Modal from "@mui/material/Modal";
 
 import InvoiceTitle from "../invoice/InvoiceTitle";
@@ -9,12 +9,11 @@ import BillTo from "../invoice/BillTo";
 import InvoiceItemsTable from "../invoice/InvoiceItemsTable";
 import InvoiceThankYouMsg from "../invoice/InvoiceThankYouMsg";
 import { onValue, query, ref } from "firebase/database";
-import React, { useEffect, useState, useMemo, memo } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useBaseContext } from "../contexts/BaseContext";
 
 import { database } from "../auth/getAuth";
-import { Spinner } from "react-bootstrap";
+
 import { useLocation } from "react-router-dom";
 import logo from "../invoice/logo.png";
 import {
@@ -23,7 +22,6 @@ import {
   Page,
   PDFViewer,
   StyleSheet,
-  Text,
 } from "@react-pdf/renderer";
 
 const style = {
@@ -81,9 +79,7 @@ export default function BasicModal() {
           // values[0] = snapshot.val();
           setData({ ...snapshot.val() });
         });
-  }, []);
-  console.log(Boolean(data));
-  console.log(Object.values(data).length);
+  }, [localId, id]);
 
   return (
     <div>

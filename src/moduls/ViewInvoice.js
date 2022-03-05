@@ -1,6 +1,6 @@
 // import { Copyright } from "@mui/icons-material";
 import { onValue, query, ref } from "firebase/database";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
 import { database } from "../auth/getAuth";
 
@@ -11,11 +11,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useBaseContext } from "../contexts/BaseContext";
+
 import { Button } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { viewInvoiceStart } from "../redux/mainredux/actions";
+import { useSelector } from "react-redux";
+
 import BasicModal from "../component/BasicModal";
 
 const TAX_RATE = 0.19;
@@ -30,7 +30,6 @@ export default function SpanningTable() {
   const id = location.state;
   const navigate = useNavigate();
 
-  const baseContext = useBaseContext();
   // const ids = useMemo(
   //   () => ({
   //     ids: baseContext.ids,
@@ -74,11 +73,7 @@ export default function SpanningTable() {
   const handleClick = () => {
     navigate("/invoicelist");
   };
-  const handlePrintClick = () => {
-    navigate("/pdf", {
-      state: id,
-    });
-  };
+
   return (
     <TableContainer component={Paper}>
       <div className="d-flex">
@@ -90,14 +85,6 @@ export default function SpanningTable() {
           Back to Invoice List
         </Button>
 
-        {/* <Button
-        sx={{ margin: ".6rem" }}
-        color="warning"
-        variant="contained"
-        onClick={handlePrintClick}
-      >
-        Print Invoice
-      </Button> */}
         <BasicModal />
       </div>
 
