@@ -62,7 +62,7 @@ const Chart = () => {
   }
 
   let tagges = [...tag, tag[tag.length - 1 - 6], tag[tag.length - 1 - 5]];
-  const generalTotal = total.reduce((sum, i) => sum + i, 0);
+  const generalTotal = invoice ? total.reduce((sum, i) => sum + i, 0) : 1;
   console.log(generalTotal);
   // const myChart = {
   //   labels: tagges.map((item) => item),
@@ -138,7 +138,32 @@ const Chart = () => {
           />
         </div>
       ) : (
-        <p>There is no Invoice</p>
+        <div
+          class="chart-container"
+          style={{
+            position: " relative",
+            height: "50vh",
+            width: "80vw",
+
+            margin: "auto",
+          }}
+        >
+          <Pie
+            style={{ margin: "2rem  auto", width: "100%" }}
+            options={{ maintainAspectRatio: false }}
+            data={{
+              labels: ["There is no Invoice to show"],
+              datasets: [
+                {
+                  data: [300],
+                  backgroundColor: ["#2E7D32", "#1976d2"],
+                  borderColor: ["#09DD23", "#1976d2"],
+                  borderWidth: 1,
+                },
+              ],
+            }}
+          />
+        </div>
       )}
     </div>
   );

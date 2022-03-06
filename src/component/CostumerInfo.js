@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 
 const CostumerInfo = () => {
   const { invoice } = useSelector((state) => state.invoice);
-  const costumer = Object.values(invoice).map((item) => item.costumerName);
+  const costumer = invoice
+    ? Object.values(invoice).map((item) => item.costumerName)
+    : [1, 1];
   const mostCostumer = costumer.filter(
     (item, i) => costumer.indexOf(item) !== i
   );
@@ -14,7 +16,8 @@ const CostumerInfo = () => {
     return counts;
   }, {});
   mostCostumer.sort((a, b) => counts[b] - counts[a]);
-  const sortedCostumer = [...new Set(mostCostumer)].slice(0, 5);
+  costumer.sort((a, b) => counts[b] - counts[a]);
+  const sortedCostumer = [...new Set(mostCostumer)].slice(0, 3);
   console.log(
     [...new Set(costumer)].slice(
       [...new Set(costumer)].length - 4,
@@ -32,14 +35,21 @@ const CostumerInfo = () => {
           </tr>
         </thead>
         <tbody>
-          {sortedCostumer.map((item, i) => {
-            return (
-              <tr>
-                <td>{i + 1}</td>
-                <td>{item}</td>
-              </tr>
-            );
-          })}
+          {invoice ? (
+            sortedCostumer.map((item, i) => {
+              return (
+                <tr>
+                  <td>{i + 1}</td>
+                  <td>{item}</td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+          )}
         </tbody>
       </Table>
       <Table className="w-25" striped bordered hover>
@@ -50,19 +60,26 @@ const CostumerInfo = () => {
           </tr>
         </thead>
         <tbody>
-          {[...new Set(costumer)]
-            .slice(
-              [...new Set(costumer)].length - 4,
-              [...new Set(costumer)].length - 1
-            )
-            .map((item, i) => {
-              return (
-                <tr>
-                  <td>{i + 1}</td>
-                  <td>{item}</td>
-                </tr>
-              );
-            })}
+          {invoice ? (
+            [...new Set(costumer)]
+              .slice(
+                [...new Set(costumer)].length - 4,
+                [...new Set(costumer)].length - 1
+              )
+              .map((item, i) => {
+                return (
+                  <tr>
+                    <td>{i + 1}</td>
+                    <td>{item}</td>
+                  </tr>
+                );
+              })
+          ) : (
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </div>

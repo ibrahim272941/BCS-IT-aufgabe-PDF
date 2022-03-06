@@ -62,26 +62,39 @@ const InvoiceCard = () => {
               </Card.Body>
             </Card>
           </div>
-          {/* <div>
-            {" "}
-            <p>
-              From:
-              {`${currentUser.metadata.creationTime.slice(
-                0,
-                3
-              )} ${currentUser.metadata.creationTime.slice(4, 16)}`}
-            </p>
-            <p>
-              To:
-              {`${currentUser.metadata.lastSignInTime.slice(
-                0,
-                3
-              )} ${currentUser.metadata.lastSignInTime.slice(4, 16)} `}
-            </p>
-          </div> */}
         </>
       ) : (
-        <p>There is no Invoice</p>
+        <>
+          <div
+            style={{
+              marginTop: "6rem ",
+              display: "flex",
+              justifyContent: "space-around",
+            }}
+          >
+            <Card style={{ width: "18rem" }}>
+              <NextWeekIcon
+                sx={{ margin: "auto", fontSize: "4rem" }}
+                color="primary"
+              />
+              <Card.Body className="d-flex justify-content-center flex-column align-items-center">
+                <Card.Title>Total Invoice</Card.Title>
+                <Card.Text>0</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card style={{ width: "18rem" }}>
+              <EuroIcon
+                sx={{ margin: "auto", fontSize: "4rem" }}
+                color="success"
+              />
+              <Card.Body className="d-flex justify-content-center flex-column align-items-center">
+                <Card.Title>Total Sales</Card.Title>
+
+                <Card.Text>0</Card.Text>
+              </Card.Body>
+            </Card>
+          </div>
+        </>
       )}
     </div>
   );
