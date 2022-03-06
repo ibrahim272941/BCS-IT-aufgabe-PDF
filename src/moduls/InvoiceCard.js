@@ -35,7 +35,7 @@ const InvoiceCard = () => {
         <>
           <div
             style={{
-              margin: "6rem 0  0 6rem",
+              marginTop: "6rem ",
               display: "flex",
               justifyContent: "space-around",
             }}
@@ -62,7 +62,7 @@ const InvoiceCard = () => {
               </Card.Body>
             </Card>
           </div>
-          <div>
+          {/* <div>
             {" "}
             <p>
               From:
@@ -78,7 +78,7 @@ const InvoiceCard = () => {
                 3
               )} ${currentUser.metadata.lastSignInTime.slice(4, 16)} `}
             </p>
-          </div>
+          </div> */}
         </>
       ) : (
         <p>There is no Invoice</p>

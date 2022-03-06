@@ -1,3 +1,4 @@
+import CostumerInfo from "../component/CostumerInfo";
 import PersistentDrawerLeft from "../component/Modal";
 import Chart from "../moduls/Chart";
 import InvoiceCard from "../moduls/InvoiceCard";
@@ -9,6 +10,7 @@ const MainPage = () => {
       <PersistentDrawerLeft />
       <InvoiceCard />
       <Chart />
+      <CostumerInfo />
     </div>
   );
 };

@@ -19,8 +19,6 @@ import { loginFunc } from "../redux/auhtRedux/actions";
 import FirstNavbar from "../component/Navbar";
 import CopyRight from "../component/CopyRight";
 
-import Welcome from "../component/Welcome";
-
 const signUpValidationSchema = Yup.object().shape({
   email: Yup.string().required("Email is required").email("Invalid Email"),
   password: Yup.string().required("Password not entered"),
@@ -55,7 +53,6 @@ const Login = () => {
     <div className=" cont ">
       <FirstNavbar />
       <div className="conte">
-        <Welcome />
         <Container
           sx={{
             marginBottom: "2rem",

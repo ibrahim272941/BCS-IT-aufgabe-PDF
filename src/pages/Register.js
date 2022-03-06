@@ -18,7 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerFunc } from "../redux/auhtRedux/actions";
 import FirstNavbar from "../component/Navbar";
 import CopyRight from "../component/CopyRight";
-import Welcome from "../component/Welcome";
 
 const signUpValidationSchema = Yup.object().shape({
   username: Yup.string().required("User Name is required"),

@@ -23,7 +23,7 @@ const InvoiceItemsTable = (invoice) => {
       <InvoiceTableHeader />
       <InvoiceTableRow items={[invoice]} />
       {/* <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoice.length} /> */}
-      {Object.values(inv).length !== 9 && (
+      {Object.values(inv).length !== 8 && (
         <InvoiceTableFooter items={[invoice]} />
       )}
     </View>

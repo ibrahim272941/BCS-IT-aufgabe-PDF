@@ -46,7 +46,7 @@ const InvoiceTableRow = ({ items }) => {
   console.log(invoice);
   return (
     <div>
-      {invoice.length === 9 ? (
+      {invoice.length === 8 ? (
         <View style={stylesTableRow.row}>
           <Text style={stylesTableRow.description}>{invoice[4]}</Text>
           <Text style={stylesTableRow.qty}>{invoice[6]}</Text>
