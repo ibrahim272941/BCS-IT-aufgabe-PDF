@@ -17,27 +17,29 @@ export default function SelectCostumer() {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
   const { invoice } = useSelector((state) => state.invoice);
+  const selectedCostumer =
+    invoice !== null &&
+    Object.values(invoice).filter((item) => select === item.costumerName);
   // const state = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getInvoiceStart(localId));
   }, []);
-  const costumer = Object.values(invoice).map((item) => item.costumerName);
-  const data = costumer.filter((item, i) => costumer.indexOf(item) === i);
+  const costumer =
+    invoice !== null
+      ? Object.values(invoice).map((item) => item.costumerName)
+      : ["There is Costumer to show"];
+  const data =
+    invoice !== null
+      ? costumer.filter((item, i) => costumer.indexOf(item) === i)
+      : ["There is Costumer to show"];
   const handleChange = (e) => {
     setSelect(e.target.innerText);
   };
-  const selectedCostumer = Object.values(invoice).filter(
-    (item) => select === item.costumerName
-  );
 
   console.log(Boolean(selectedCostumer[0]));
-  console.log(selectedCostumer);
-  const handleClick = () => {
-    navigate("/add", {
-      state: selectedCostumer,
-    });
-  };
+  console.log(invoice);
+
   return (
     <div>
       <PersistentDrawerLeft />
@@ -67,7 +69,6 @@ export default function SelectCostumer() {
               </div>
             );
           })}
-          <Button onClick={handleClick}>Add Invoice</Button>
         </div>
       ) : (
         <p>Select a Costumer</p>
