@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getInvoiceStart } from "../redux/mainredux/actions";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function SelectCostumer() {
@@ -54,21 +54,31 @@ export default function SelectCostumer() {
         )}
       />
       {selectedCostumer[0] ? (
-        <div className="border w-25 m-auto mt-5 text-center">
+        <div className="border w-75 m-auto mt-5">
           <h2>{selectedCostumer[0].costumerName}</h2>
           <p>{selectedCostumer[0].costumerAddres}</p>
           <p>{selectedCostumer[0].costumerMobile}</p>
           <p>{selectedCostumer[0].costumerEmail}</p>
 
-          {selectedCostumer.map((item, i) => {
-            return (
-              <div key={i}>
-                <p>
-                  {item.productName}={item.productPrice}
-                </p>
-              </div>
-            );
-          })}
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th> Price</th>
+              </tr>
+            </thead>
+            {selectedCostumer.map((item, i) => {
+              return (
+                <tbody>
+                  <tr>
+                    <td>{item.productName}</td>
+
+                    <td>{item.productPrice}€</td>
+                  </tr>
+                </tbody>
+              );
+            })}
+          </Table>
         </div>
       ) : (
         <p>Select a Costumer</p>

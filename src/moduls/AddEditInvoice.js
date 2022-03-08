@@ -23,7 +23,7 @@ const AddEditInvoice = () => {
     productPrice: "",
     productQuantity: "",
     totalAmount: "",
-    invoiceDate: d.join(" "),
+    // invoiceDate: d.join(" "),
   };
 
   const [initialValues, setValues] = useState(values);
@@ -41,7 +41,7 @@ const AddEditInvoice = () => {
     productPrice,
     productQuantity,
     totalAmount,
-    invoiceDate,
+    // invoiceDate,
   } = initialValues;
 
   useMemo(() => {

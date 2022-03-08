@@ -141,12 +141,7 @@ export default function PersistentDrawerLeft() {
                   Invoice List
                 </NavLink>
               </ListItem>
-              <ListItem button>
-                <NavLink to="/addcostumer" className="btn btn-warning w-100">
-                  {" "}
-                  Add Costumer
-                </NavLink>
-              </ListItem>
+
               <ListItem button>
                 <NavLink to="/selectcostumer" className="btn btn-warning w-100">
                   Select Costumer

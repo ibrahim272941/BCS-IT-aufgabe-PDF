@@ -78,11 +78,12 @@ const columns = [
 export default function EnhancedTable() {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [selectId, setSelectId] = useState([]);
+
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
   const { invoice } = useSelector((state) => state.invoice);
   const [search, setSearch] = useState("");
+  const [setName, setSelectedName] = useState([]);
   const baseContext = useBaseContext();
   const uiProps = useMemo(
     () => ({
@@ -96,7 +97,8 @@ export default function EnhancedTable() {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
   const data = useSelector((state) => state.invoice.invoice);
-
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser.metadata.lastSignInTime.slice(4, 16));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -111,16 +113,19 @@ export default function EnhancedTable() {
       window.location.reload();
     }
   };
-  const handleChange = (id, e) => {
-    !uiProps.ids.includes(id) && uiProps.setIds([...uiProps.ids, id]);
-    !selectId.includes(id) && setSelectId([...selectId, id]);
-    // setSelectId([...selectId, id]);
-  };
 
+  let last = selected.map((item) => data[item].costumerName);
   const handleInvoice = () => {
-    navigate("/view", {
-      state: selectId,
-    });
+    if (selected.length <= 1) {
+      navigate("/view", {
+        state: selected,
+      });
+    }
+    data && [...new Set(last)].length === 1
+      ? navigate("/view", {
+          state: selected,
+        })
+      : alert("The invoices you choose must belong to the same customer.");
   };
   const handleChangeSearch = (e) => {
     let txt = e.target.value;
@@ -169,6 +174,10 @@ export default function EnhancedTable() {
 
         <Toolbar
           sx={{
+            position: "-webkit-sticky",
+
+            position: "sticky",
+            top: "50px",
             pl: { sm: 2 },
             pr: { xs: 1, sm: 1 },
             ...(selected.length > 0 && {
@@ -178,6 +187,7 @@ export default function EnhancedTable() {
                   theme.palette.action.activatedOpacity
                 ),
             }),
+            background: "#F9F9FB",
           }}
         >
           {selected.length > 0 ? (
@@ -245,13 +255,10 @@ export default function EnhancedTable() {
                           hover
                           role="checkbox"
                           tabIndex={-1}
-                          onClick={(event) => handleClick(event, data[id])}
+                          onClick={(event) => handleClick(event, id)}
                         >
                           <TableCell padding="checkbox">
-                            <Checkbox
-                              color="primary"
-                              onClick={(e) => handleChange(id, e)}
-                            />
+                            <Checkbox color="primary" />
                           </TableCell>
                           <TableCell>{data[id].costumerName}</TableCell>
                           <TableCell>{data[id].costumerEmail}</TableCell>

@@ -35,7 +35,7 @@ const stylesTableHeader = StyleSheet.create({
     width: "25%",
     textAlign: "center",
     paddingRight: 8,
-    marginLeft: "1rem",
+    marginLeft: 6,
   },
   tax: {
     width: "15%",
