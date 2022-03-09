@@ -6,8 +6,10 @@ import { useEffect } from "react";
 import { getInvoiceStart } from "../redux/mainredux/actions";
 import { useState } from "react";
 import { Table } from "react-bootstrap";
+import Mailer from "../component/Mailer";
 
 export default function SelectCostumer() {
+  const [show, setShow] = useState(true);
   const [select, setSelect] = useState();
   const {
     reloadUserInfo: { localId },
@@ -32,9 +34,6 @@ export default function SelectCostumer() {
   const handleChange = (e) => {
     setSelect(e.target.innerText);
   };
-
-  console.log(Boolean(selectedCostumer[0]));
-  console.log(invoice);
 
   return (
     <div>
@@ -66,7 +65,7 @@ export default function SelectCostumer() {
             </thead>
             {selectedCostumer.map((item, i) => {
               return (
-                <tbody>
+                <tbody key={i}>
                   <tr>
                     <td>{item.productName}</td>
                     <td>{item.invoiceDate}</td>
@@ -80,6 +79,7 @@ export default function SelectCostumer() {
       ) : (
         <p>Select a Costumer</p>
       )}
+      <Mailer values={selectedCostumer} />
     </div>
   );
 }

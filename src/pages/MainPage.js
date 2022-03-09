@@ -1,5 +1,5 @@
 import CostumerInfo from "../component/CostumerInfo";
-import Mailer from "../component/Mailer";
+
 import PersistentDrawerLeft from "../component/Modal";
 import Chart from "../moduls/Chart";
 import InvoiceCard from "../moduls/InvoiceCard";
@@ -12,7 +12,6 @@ const MainPage = () => {
       <InvoiceCard />
       <Chart />
       <CostumerInfo />
-      <Mailer />
     </div>
   );
 };

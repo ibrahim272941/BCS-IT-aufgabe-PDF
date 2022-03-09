@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
+import { successNote } from "../utils/customToastify";
 
 const AddEditInvoice = () => {
   let d = new Date().toString().slice(0, 15).split(" ");
@@ -63,6 +64,7 @@ const AddEditInvoice = () => {
   }, [id, data2]);
 
   const handleSubmit = async (userId) => {
+    successNote("Invoice is created");
     if (isEmpty(id)) {
       navigate("/invoicelist");
       dispatch(addInvoiceStart(initialValues, localId));
@@ -70,8 +72,10 @@ const AddEditInvoice = () => {
       // const updates = {};
       // updates[`${localId}/${id}`] = initialValues;
       // update(ref(database), updates);
-      navigate("/invoicelist");
-      dispatch(editInvoiceStart(initialValues, localId, id));
+      setTimeout(() => {
+        navigate("/invoicelist");
+        dispatch(editInvoiceStart(initialValues, localId, id));
+      }, 5000);
     }
   };
   const handleChange = (e) => {

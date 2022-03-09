@@ -117,7 +117,9 @@ export default function EnhancedTable() {
     if (window.confirm("Are you sure to delete the invoice")) {
       dispatch(delInvoiceStart(localId, id));
       successNote("Invoice is deleted");
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     }
   };
 

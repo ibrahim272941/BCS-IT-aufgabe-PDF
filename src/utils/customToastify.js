@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const successNote = (msg) => {
   toast.success(msg, {
     position: "top-right",
-    autoClose: 6000,
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
