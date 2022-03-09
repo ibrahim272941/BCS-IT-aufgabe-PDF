@@ -64,7 +64,6 @@ const AddEditInvoice = () => {
   }, [id, data2]);
 
   const handleSubmit = async (userId) => {
-    successNote("Invoice is created");
     if (isEmpty(id)) {
       navigate("/invoicelist");
       dispatch(addInvoiceStart(initialValues, localId));
@@ -72,10 +71,9 @@ const AddEditInvoice = () => {
       // const updates = {};
       // updates[`${localId}/${id}`] = initialValues;
       // update(ref(database), updates);
-      setTimeout(() => {
-        navigate("/invoicelist");
-        dispatch(editInvoiceStart(initialValues, localId, id));
-      }, 5000);
+      successNote("Invoice is created");
+      navigate("/invoicelist");
+      dispatch(editInvoiceStart(initialValues, localId, id));
     }
   };
   const handleChange = (e) => {
