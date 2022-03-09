@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 
 import { isEmpty } from "lodash";
-import { Button, Grid, TextField } from "@mui/material";
+import { Autocomplete, Button, Grid, TextField } from "@mui/material";
 
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -9,10 +9,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
 import { successNote } from "../utils/customToastify";
+import { products } from "../utils/products";
 
 const AddEditInvoice = () => {
   let d = new Date().toString().slice(0, 15).split(" ");
   [d[1], d[2]] = [d[2], d[1]];
+
+  const productTitle = Object.values(products).map((item) => item.title);
+  const price = Object.values(products).map((item) => item.price);
 
   const VAT = 0.19;
   let values = {
@@ -45,13 +49,22 @@ const AddEditInvoice = () => {
     totalAmount,
     invoiceDate,
   } = initialValues;
+  const prc = productTitle.map((item, i) => {
+    return item === productName ? (productPrice = price[i]) : null;
+  });
 
   useMemo(() => {
     const calc = parseFloat(
       productQuantity * (parseFloat(productPrice) + productPrice * VAT)
     ).toFixed(2);
-    setValues((prev) => ({ ...prev, totalAmount: calc }));
-  }, [productPrice, productQuantity]);
+    const prc2 = prc.filter((item) => item !== null);
+
+    setValues((prev) => ({
+      ...prev,
+      totalAmount: calc,
+      productPrice: prc2.toString(),
+    }));
+  }, [productPrice, productQuantity, productName]);
 
   const navigate = useNavigate();
 
@@ -81,9 +94,18 @@ const AddEditInvoice = () => {
 
     let { name, value } = e.target;
 
-    setValues((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    console.log(name, value);
   };
-
+  const handleChange2 = (e) => {
+    setValues((prev) => ({
+      ...prev,
+      productName: e.target.innerText,
+    }));
+  };
   return (
     <>
       <PersistentDrawerLeft />
@@ -137,6 +159,22 @@ const AddEditInvoice = () => {
                 />
               </Grid>
               <Grid item xs={12}>
+                <Autocomplete
+                  options={productTitle}
+                  onChange={handleChange2}
+                  fullWidth
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Product"
+                      variant="standard"
+                      name="productName"
+                      value={productName}
+                    />
+                  )}
+                />
+              </Grid>
+              {/* <Grid item xs={12}>
                 <TextField
                   type="text"
                   name="productName"
@@ -146,7 +184,7 @@ const AddEditInvoice = () => {
                   onChange={handleChange}
                   fullWidth
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   type="number"
