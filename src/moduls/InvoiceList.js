@@ -20,7 +20,7 @@ import PersistentDrawerLeft from "../component/Modal";
 import { Button, TextField } from "@mui/material";
 import { successNote } from "../utils/customToastify";
 import { useBaseContext } from "../contexts/BaseContext";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const columns = [
   { id: "check", label: "", minWidth: 10, align: "left" },
@@ -61,6 +61,13 @@ const columns = [
     align: "left",
     format: (value) => value.toFixed(2),
   },
+
+  {
+    id: "invoiceDate",
+    label: "Invoice Date",
+    minWidth: 100,
+    align: "left",
+  },
   {
     id: "totalAmount",
     label: "Total Amount",
@@ -83,7 +90,7 @@ export default function EnhancedTable() {
   const navigate = useNavigate();
   const { invoice } = useSelector((state) => state.invoice);
   const [search, setSearch] = useState("");
-  const [setName, setSelectedName] = useState([]);
+
   const baseContext = useBaseContext();
   const uiProps = useMemo(
     () => ({
@@ -98,13 +105,13 @@ export default function EnhancedTable() {
   } = useSelector((state) => state.user.currentUser);
   const data = useSelector((state) => state.invoice.invoice);
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser.metadata.lastSignInTime.slice(4, 16));
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getInvoiceStart(localId));
     uiProps.setIds([]);
-  }, []);
+  }, [localId]);
 
   const deleteInvoice = (id) => {
     if (window.confirm("Are you sure to delete the invoice")) {
@@ -174,9 +181,9 @@ export default function EnhancedTable() {
 
         <Toolbar
           sx={{
-            position: "-webkit-sticky",
-
+            // position: "-webkit-sticky",
             position: "sticky",
+
             top: "50px",
             pl: { sm: 2 },
             pr: { xs: 1, sm: 1 },
@@ -267,6 +274,7 @@ export default function EnhancedTable() {
                           <TableCell>{data[id].productName}</TableCell>
                           <TableCell>{data[id].productPrice}</TableCell>
                           <TableCell>{data[id].productQuantity}</TableCell>
+                          <TableCell>{data[id].invoiceDate}</TableCell>
                           <TableCell>{data[id].totalAmount}€</TableCell>
                           <TableCell>
                             <Link to={`/update/${id}`}>

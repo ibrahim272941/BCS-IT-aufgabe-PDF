@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "@react-pdf/renderer";
 const stylesTableRow = StyleSheet.create({
   row: {
     flexDirection: "row",
-    borderBottomColor: "#bff0fd",
+    borderBottomColor: "#7F7F7F",
     borderBottomWidth: 1,
     paddingTop: 5,
     alignItems: "center",
@@ -46,13 +46,13 @@ const InvoiceTableRow = ({ items }) => {
   console.log(invoice);
   return (
     <div>
-      {invoice.length === 8 ? (
+      {invoice.length === 9 ? (
         <View style={stylesTableRow.row}>
-          <Text style={stylesTableRow.description}>{invoice[4]}</Text>
-          <Text style={stylesTableRow.qty}>{invoice[6]}</Text>
-          <Text style={stylesTableRow.rate}>{invoice[5]}€</Text>
-          <Text style={stylesTableRow.tax}>%19</Text>
-          <Text style={stylesTableRow.amount}>{invoice[7]}€</Text>
+          <Text style={stylesTableRow.description}>{invoice[5]}</Text>
+          <Text style={stylesTableRow.qty}>{invoice[7]}</Text>
+          <Text style={stylesTableRow.rate}>{invoice[6]}€</Text>
+          {/* <Text style={stylesTableRow.tax}>%19</Text> */}
+          <Text style={stylesTableRow.amount}>{invoice[8]}€</Text>
         </View>
       ) : (
         invoice.map((items) => {
@@ -63,8 +63,10 @@ const InvoiceTableRow = ({ items }) => {
               </Text>
               <Text style={stylesTableRow.qty}>{items.productQuantity}</Text>
               <Text style={stylesTableRow.rate}>{items.productPrice}€</Text>
-              <Text style={stylesTableRow.tax}>%19</Text>
-              <Text style={stylesTableRow.amount}>{items.totalAmount}€</Text>
+              {/* <Text style={stylesTableRow.tax}>%19</Text> */}
+              <Text style={stylesTableRow.amount}>
+                {items.productQuantity * items.productPrice}€
+              </Text>
             </View>
           );
         })

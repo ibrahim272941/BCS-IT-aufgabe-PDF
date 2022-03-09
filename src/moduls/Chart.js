@@ -10,10 +10,9 @@ import {
   Legend,
 } from "chart.js";
 import { useEffect } from "react";
-import { Doughnut, Line, Pie } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceStart } from "../redux/mainredux/actions";
-import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
   LineElement,
@@ -32,38 +31,38 @@ const Chart = () => {
   } = useSelector((state) => state.user.currentUser);
   const { invoice } = useSelector((state) => state.invoice);
 
-  const { currentUser } = useSelector((state) => state.user);
+  // const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getInvoiceStart(localId));
-  }, []);
+  }, [dispatch, localId]);
   const total = invoice
     ? Object.values(invoice).map((item) => parseFloat(item.totalAmount))
     : 1;
-  const totalDay = Math.round(
-    (Date.parse(currentUser.metadata.lastSignInTime) -
-      Date.parse(currentUser.metadata.creationTime)) /
-      (1000 * 60 * 60 * 24) +
-      1
-  );
-  const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const sorted_list = day
-    .slice(day.indexOf(currentUser.metadata.creationTime.slice(0, 3)))
-    .concat(
-      day.slice(0, day.indexOf(currentUser.metadata.creationTime.slice(0, 3)))
-    );
-  const tag = Array.from(
-    { length: Math.round(totalDay / 7) },
-    () => sorted_list
-  ).flat();
-  let color = [];
-  for (let i = 0; i < totalDay; i++) {
-    color.push(`rgba(2${i + 2}, 1${i + 5}, 1${i}, .4)`);
-  }
+  // const totalDay = Math.round(
+  //   (Date.parse(currentUser.metadata.lastSignInTime) -
+  //     Date.parse(currentUser.metadata.creationTime)) /
+  //     (1000 * 60 * 60 * 24) +
+  //     1
+  // );
+  // const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  // const sorted_list = day
+  //   .slice(day.indexOf(currentUser.metadata.creationTime.slice(0, 3)))
+  //   .concat(
+  //     day.slice(0, day.indexOf(currentUser.metadata.creationTime.slice(0, 3)))
+  //   );
+  // const tag = Array.from(
+  //   { length: Math.round(totalDay / 7) },
+  //   () => sorted_list
+  // ).flat();
+  // let color = [];
+  // for (let i = 0; i < totalDay; i++) {
+  //   color.push(`rgba(2${i + 2}, 1${i + 5}, 1${i}, .4)`);
+  // }
 
-  let tagges = [...tag, tag[tag.length - 1 - 6], tag[tag.length - 1 - 5]];
+  // let tagges = [...tag, tag[tag.length - 1 - 6], tag[tag.length - 1 - 5]];
   const generalTotal = invoice ? total.reduce((sum, i) => sum + i, 0) : 1;
-  console.log(generalTotal);
+
   // const myChart = {
   //   labels: tagges.map((item) => item),
   //   datasets: [
@@ -122,7 +121,7 @@ const Chart = () => {
     <div>
       {invoice ? (
         <div
-          class="chart-container"
+          className="chart-container"
           style={{
             position: " relative",
             height: "50vh",
@@ -139,7 +138,7 @@ const Chart = () => {
         </div>
       ) : (
         <div
-          class="chart-container"
+          className="chart-container"
           style={{
             position: " relative",
             height: "50vh",

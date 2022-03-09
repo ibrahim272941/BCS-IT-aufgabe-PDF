@@ -4,14 +4,14 @@ const stylesTableHeader = StyleSheet.create({
   container: {
     flexDirection: "row",
     borderBottomColor: "#000",
-    backgroundColor: "#525659",
+    // backgroundColor: "#525659",
     borderBottomWidth: 1,
     paddingTop: 5,
     height: 24,
     textAlign: "center",
     fontStyle: "bold",
     flexGrow: 1,
-    color: "#fff",
+    color: "#000",
   },
   description: {
     width: "40%",
@@ -47,9 +47,9 @@ const InvoiceTableHeader = () => (
   <View style={stylesTableHeader.container}>
     <Text style={stylesTableHeader.description}>Product</Text>
     <Text style={stylesTableHeader.qty}>Qty</Text>
-    <Text style={stylesTableHeader.rate}>Netto</Text>
-    <Text style={stylesTableHeader.tax}>Tax</Text>
-    <Text style={stylesTableHeader.amount}>Total</Text>
+    <Text style={stylesTableHeader.rate}>Price</Text>
+    {/* <Text style={stylesTableHeader.tax}>Tax</Text> */}
+    <Text style={stylesTableHeader.amount}>Sum</Text>
   </View>
 );
 export default InvoiceTableHeader;

@@ -60,7 +60,7 @@ export default function SpanningTable() {
     //   });
 
     // setData(values);
-  }, []);
+  }, [localId, id]);
 
   const subT = (data) => {
     return Object.values(data)

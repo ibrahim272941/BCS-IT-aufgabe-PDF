@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
@@ -18,11 +17,9 @@ const CostumerInfo = () => {
   mostCostumer.sort((a, b) => counts[b] - counts[a]);
   costumer.sort((a, b) => counts[b] - counts[a]);
   const sortedCostumer = [...new Set(mostCostumer)].slice(0, 3);
-  console.log(
-    [...new Set(costumer)].slice(
-      [...new Set(costumer)].length - 4,
-      [...new Set(costumer)].length - 1
-    )
+  const leastCostumer = [...new Set(costumer)].slice(
+    [...new Set(costumer)].length - 3,
+    [...new Set(costumer)].length
   );
 
   return (
@@ -38,7 +35,7 @@ const CostumerInfo = () => {
           {invoice ? (
             sortedCostumer.map((item, i) => {
               return (
-                <tr>
+                <tr key={i}>
                   <td>{i + 1}</td>
                   <td>{item}</td>
                 </tr>
@@ -60,20 +57,15 @@ const CostumerInfo = () => {
           </tr>
         </thead>
         <tbody>
-          {invoice ? (
-            [...new Set(costumer)]
-              .slice(
-                [...new Set(costumer)].length - 4,
-                [...new Set(costumer)].length - 1
-              )
-              .map((item, i) => {
-                return (
-                  <tr>
-                    <td>{i + 1}</td>
-                    <td>{item}</td>
-                  </tr>
-                );
-              })
+          {invoice && [...new Set(costumer)].length > 6 ? (
+            leastCostumer.reverse().map((item, i) => {
+              return (
+                <tr key={i}>
+                  <td>{i + 1}</td>
+                  <td>{item}</td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
               <td></td>

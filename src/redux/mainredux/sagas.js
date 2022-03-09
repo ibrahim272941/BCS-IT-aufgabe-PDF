@@ -9,7 +9,6 @@ import {
 } from "firebase/database";
 import { takeLatest, all, put, fork } from "redux-saga/effects";
 import { database } from "../../auth/getAuth";
-import { successNote } from "../../utils/customToastify";
 
 import {
   getInvoiceFail,
@@ -18,7 +17,6 @@ import {
   delInvoiceFail,
   addInvoiceFail,
   editInvoiceFail,
-  viewInvoiceStart,
   viewInvoiceSucces,
   viewInvoiceFail,
 } from "./actions";
@@ -69,7 +67,7 @@ export function* onDeleteInvoice() {
 /*Add Invoice */
 export function* onAddInvoiceAsync({ payload }) {
   const { initialValues, localId } = payload;
-  console.log(initialValues, localId);
+
   try {
     const userRef = ref(database, `${localId}`);
     const newUserRef = push(userRef);

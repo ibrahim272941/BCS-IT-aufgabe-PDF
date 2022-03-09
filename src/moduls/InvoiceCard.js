@@ -11,12 +11,12 @@ const InvoiceCard = () => {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
   const { invoice } = useSelector((state) => state.invoice);
-  const { currentUser } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getInvoiceStart(localId));
-  }, [localId]);
+  }, [localId, dispatch]);
 
   const total = invoice
     ? Object.values(invoice)

@@ -8,9 +8,9 @@ const styles = StyleSheet.create({
   tableContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 24,
-    borderWidth: 1,
-    borderColor: "#000",
+    marginTop: 50,
+    // borderWidth: 1,
+    // borderColor: "#000",
   },
 });
 
@@ -23,7 +23,7 @@ const InvoiceItemsTable = (invoice) => {
       <InvoiceTableHeader />
       <InvoiceTableRow items={[invoice]} />
       {/* <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoice.length} /> */}
-      {Object.values(inv).length !== 8 && (
+      {Object.values(inv).length !== 9 && (
         <InvoiceTableFooter items={[invoice]} />
       )}
     </View>

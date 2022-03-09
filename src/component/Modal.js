@@ -152,13 +152,16 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
         <div className="text-center ">
-          {currentUser.displayName ? (
+          {/* {currentUser.displayName ? (
             <Button className="btn btn-warning w-50 my-3" onClick={signOutFunc}>
               Sign Out
             </Button>
           ) : (
             window.location.reload()
-          )}
+          )} */}
+          <Button className="btn btn-warning w-50 my-3" onClick={signOutFunc}>
+            Sign Out
+          </Button>
         </div>
       </Drawer>
     </Box>

@@ -2,28 +2,41 @@ import { StyleSheet, Text, View } from "@react-pdf/renderer";
 
 const borderColor = "#000";
 const stylesTableFooter = StyleSheet.create({
+  pdfFooter: {
+    marginTop: 10,
+    display: "flex",
+    justifyContent: "flex-end",
+
+    width: "100%",
+  },
   row: {
     flexDirection: "row",
-    borderBottomColor: "#000",
+
+    borderBottomColor: "#7F7F7F",
     borderBottomWidth: 1,
-    alignItems: "center",
-    height: 30,
+    alignItems: "left",
+    height: 20,
     fontSize: 12,
+    fontWeight: "black",
+    textAlign: "left",
+    width: "40%",
+
+    marginLeft: 287,
   },
   description: {
-    width: "80%",
+    width: "50%",
     textAlign: "right",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-    paddingRight: 8,
-    textDecoration: "underline",
-    fontWeight: "900",
+    // borderRightColor: borderColor,
+    // borderRightWidth: 1,
+    // paddingRight: 8,
+    // textDecoration: "underline",
+    marginRight: 8,
   },
   total: {
-    width: "20%",
-    textAlign: "center",
+    width: "50%",
+    textAlign: "left",
     fontSize: 12,
-    paddingRight: 7,
+    marginLeft: 9,
   },
 });
 const InvoiceTableFooter = ({ items }) => {
@@ -37,9 +50,15 @@ const InvoiceTableFooter = ({ items }) => {
     currency: "EUR",
   }).format(total);
   return (
-    <View style={stylesTableFooter.row}>
-      <Text style={stylesTableFooter.description}>TOTAL</Text>
-      <Text style={stylesTableFooter.total}>{amount}€</Text>
+    <View style={stylesTableFooter.pdfFooter}>
+      <View style={stylesTableFooter.row}>
+        <Text style={stylesTableFooter.description}>Tax:</Text>
+        <Text style={stylesTableFooter.total}>{subT * 0.19}€</Text>
+      </View>
+      <View style={stylesTableFooter.row}>
+        <Text style={stylesTableFooter.description}>Total Amount:</Text>
+        <Text style={stylesTableFooter.total}>{amount}</Text>
+      </View>
     </View>
   );
 };

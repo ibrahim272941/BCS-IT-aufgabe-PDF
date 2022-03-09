@@ -68,3 +68,8 @@ span {
   margin-right: 1rem;
   margin-left: 1rem;
 }
+
+.pdfFooter {
+  margin-top: 10rem;
+  justify-content: flex-end,
+}

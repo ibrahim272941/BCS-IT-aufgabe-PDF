@@ -29,8 +29,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 1000,
-  height: 700,
+  width: "50vw",
+  height: "80vh",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     height: 40,
   },
   viewer: {
-    width: 900,
-    height: 600,
+    width: "47vw",
+    height: "72vh",
   },
 });
 export default function BasicModal() {
