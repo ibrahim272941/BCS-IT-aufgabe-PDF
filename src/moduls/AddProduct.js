@@ -15,10 +15,11 @@ const AddProduct = () => {
     productTitle: "",
     price: "",
     quantity: "",
+    img: "",
   };
   const navigate = useNavigate();
   const [initialValue, setValue] = useState(values);
-  let { productTitle, price, quantity } = initialValue;
+  let { productTitle, price, quantity, img } = initialValue;
   const { id } = useParams();
   const getProduct = useFetch();
   console.log(getProduct[id]);
@@ -83,6 +84,17 @@ const AddProduct = () => {
                 label="Product Qauntity"
                 variant="standard"
                 value={quantity}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="text"
+                name="img"
+                label="Image URL"
+                variant="standard"
+                value={img}
                 onChange={handleChange}
                 fullWidth
               />

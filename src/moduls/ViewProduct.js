@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import PersistentDrawerLeft from "../component/Modal";
 import { deleteProduct, useFetch } from "../redux/mainredux/crudFunctions";
 const columns = [
-  { id: "check", label: "", minWidth: 10, align: "left" },
+  { id: "img", label: "Image", minWidth: 180, align: "left" },
   { id: "title", label: "Title", minWidth: 170, align: "left" },
   { id: "price", label: "Price", minWidth: 100, align: "left" },
   { id: "quantity", label: "Quantity", minWidth: 170, align: "left" },
@@ -40,7 +40,7 @@ const ViewProduct = () => {
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
-                    sx={{ marginLeft: "3rem" }}
+                    // sx={{ marginLeft: "3rem" }}
                   >
                     {column.label}
                   </TableCell>
@@ -56,10 +56,14 @@ const ViewProduct = () => {
                       hover
                       role="checkbox"
                       tabIndex={-1}
+
                       //   onClick={(event) => handleClick(event, id)}
                     >
-                      <TableCell padding="checkbox">
-                        {/* <Checkbox color="primary" /> */}
+                      <TableCell>
+                        <img
+                          style={{ width: "6rem" }}
+                          src={getProduct[id].img}
+                        />
                       </TableCell>
                       <TableCell>{getProduct[id].productTitle}</TableCell>
                       <TableCell>{getProduct[id].price}</TableCell>

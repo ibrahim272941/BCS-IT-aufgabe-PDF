@@ -34,6 +34,7 @@ export const addProduct = (initialValue) => {
     productTitle: initialValue.productTitle,
     price: initialValue.price,
     quantity: initialValue.quantity,
+    img: initialValue.img,
   });
   console.log("veri eklendi");
 };
