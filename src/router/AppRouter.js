@@ -11,6 +11,8 @@ import AuthRouter from "./AuthRouter";
 import ViewInvoice from "../moduls/ViewInvoice";
 
 import SelectCostumer from "../moduls/SelectCostumer";
+import AddProduct from "../moduls/AddProduct";
+import ViewProduct from "../moduls/ViewProduct";
 
 const AppRouter = () => {
   return (
@@ -24,9 +26,10 @@ const AppRouter = () => {
           <Route path="/update/:id" element={<AddEditInvoice />} />
           <Route path="invoicelist" element={<InvoiceList />} />
           <Route path="/selectcostumer" element={<SelectCostumer />} />
-          {/* <Route path="/addcostumer" element={<AddCostumer />} />
-          <Route path="/add" element={<Add />} /> */}
 
+          <Route path="/addproduct" element={<AddProduct />} />
+          <Route path="/updateproduct/:id" element={<AddProduct />} />
+          <Route path="/viewproduct" element={<ViewProduct />} />
           <Route path="/view" element={<ViewInvoice />} />
         </Route>
 

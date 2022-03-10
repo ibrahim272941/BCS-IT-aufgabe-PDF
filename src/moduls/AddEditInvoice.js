@@ -9,14 +9,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
 import { successNote } from "../utils/customToastify";
-import { products } from "../utils/products";
+
+import { useFetch } from "../redux/mainredux/crudFunctions";
 
 const AddEditInvoice = () => {
   let d = new Date().toString().slice(0, 15).split(" ");
   [d[1], d[2]] = [d[2], d[1]];
+  const getPrice = useFetch();
+  const productTitle = Object.values(getPrice).map((item) => item.productTitle);
+  const price = Object.values(getPrice).map((item) => item.price);
 
-  const productTitle = Object.values(products).map((item) => item.title);
-  const price = Object.values(products).map((item) => item.price);
+  // const productTitle = Object.values(products).map((item) => item.title);
+  // const price = Object.values(products).map((item) => item.price);
 
   const VAT = 0.19;
   let values = {

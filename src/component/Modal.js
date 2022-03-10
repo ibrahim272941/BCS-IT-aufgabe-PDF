@@ -147,6 +147,16 @@ export default function PersistentDrawerLeft() {
                   Select Costumer
                 </NavLink>
               </ListItem>
+              <ListItem button>
+                <NavLink to="/addproduct" className="btn btn-warning w-100">
+                  Add Product
+                </NavLink>
+              </ListItem>
+              <ListItem button>
+                <NavLink to="/viewproduct" className="btn btn-warning w-100">
+                  View Products
+                </NavLink>
+              </ListItem>
             </div>
           </div>
         </List>
