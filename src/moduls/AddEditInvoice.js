@@ -9,39 +9,37 @@ import { useSelector, useDispatch } from "react-redux";
 import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
 import { successNote } from "../utils/customToastify";
-
 import { useFetch } from "../redux/mainredux/crudFunctions";
 
+let d = new Date().toString().slice(0, 15).split(" ");
+[d[1], d[2]] = [d[2], d[1]];
+const VAT = 0.19;
+let values = {
+  costumerName: "",
+  costumerEmail: "",
+  costumerMobile: "",
+  costumerAddres: "",
+  productName: "",
+  productPrice: "",
+  productQuantity: "",
+  totalAmount: "",
+  invoiceDate: d.join(" "),
+};
+
 const AddEditInvoice = () => {
-  let d = new Date().toString().slice(0, 15).split(" ");
-  [d[1], d[2]] = [d[2], d[1]];
-  const getPrice = useFetch();
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [getPrice] = useFetch();
   const productTitle = Object.values(getPrice).map((item) => item.productTitle);
   const price = Object.values(getPrice).map((item) => item.price);
 
-  // const productTitle = Object.values(products).map((item) => item.title);
-  // const price = Object.values(products).map((item) => item.price);
-
-  const VAT = 0.19;
-  let values = {
-    costumerName: "",
-    costumerEmail: "",
-    costumerMobile: "",
-    costumerAddres: "",
-    productName: "",
-    productPrice: "",
-    productQuantity: "",
-    totalAmount: "",
-    invoiceDate: d.join(" "),
-  };
-  const { id } = useParams();
   const data2 = useSelector((state) => state.invoice.invoice);
-  const [initialValues, setValues] = useState(values);
-  const dispatch = useDispatch();
   const {
     displayName,
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
+  const [initialValues, setValues] = useState(values);
   let {
     costumerName,
     costumerEmail,
@@ -56,38 +54,29 @@ const AddEditInvoice = () => {
   const prc = productTitle.map((item, i) => {
     return item === productName ? (productPrice = price[i]) : null;
   });
+  useEffect(() => {
+    if (id) {
+      setValues({ ...data2[id] });
+    }
+  }, [data2, id]);
 
   useMemo(() => {
     const calc = parseFloat(
       productQuantity * (parseFloat(productPrice) + productPrice * VAT)
     ).toFixed(2);
     const prc2 = prc.filter((item) => item !== null);
-
     setValues((prev) => ({
       ...prev,
       totalAmount: calc,
       productPrice: prc2.toString(),
     }));
-  }, [productPrice, productQuantity, productName]);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isEmpty(id)) {
-      setValues({ ...values });
-    } else {
-      setValues({ ...data2[id] });
-    }
-  }, [id, data2]);
+  }, [productPrice, productQuantity]);
 
   const handleSubmit = async (userId) => {
     if (isEmpty(id)) {
       navigate("/invoicelist");
       dispatch(addInvoiceStart(initialValues, localId));
     } else {
-      // const updates = {};
-      // updates[`${localId}/${id}`] = initialValues;
-      // update(ref(database), updates);
       successNote("Invoice is created");
       navigate("/invoicelist");
       dispatch(editInvoiceStart(initialValues, localId, id));
@@ -102,7 +91,6 @@ const AddEditInvoice = () => {
       ...prev,
       [name]: value,
     }));
-    console.log(name, value);
   };
   const handleChange2 = (e) => {
     setValues((prev) => ({
@@ -110,6 +98,7 @@ const AddEditInvoice = () => {
       productName: e.target.innerText,
     }));
   };
+
   return (
     <>
       <PersistentDrawerLeft />

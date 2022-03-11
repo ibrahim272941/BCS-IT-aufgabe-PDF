@@ -31,7 +31,7 @@ const Mailer = ({ values }) => {
     //   });
     setName([]);
   };
-  console.log(values1);
+
   return (
     <div className="">
       {" "}

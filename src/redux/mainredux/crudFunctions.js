@@ -14,6 +14,7 @@ import { database } from "../../auth/getAuth";
 
 export const useFetch = (product) => {
   const [data, setData] = useState({});
+  const [result, setResult] = useState([]);
   const {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
@@ -21,13 +22,23 @@ export const useFetch = (product) => {
   useEffect(() => {
     const userRef = ref(database, `product`);
     onValue(query(userRef), (snapshot) => {
+      const results = [];
+      const object = snapshot.val();
+      for (const key in object) {
+        if (Object.hasOwnProperty.call(object, key)) {
+          const value = object[key];
+          results.push({ id: key, ...value });
+        }
+      }
+      setResult(results);
       setData({ ...snapshot.val() });
     });
   }, []);
 
-  return data;
+  return [data, result];
 };
-export const addProduct = (initialValue) => {
+export const addProduct = (initialValue , localId) => {
+  
   const userRef = ref(database, "product");
   const newUserRef = push(userRef);
   set(newUserRef, {
@@ -44,6 +55,14 @@ export const deleteProduct = (id) => {
 };
 
 export const updateProduct = (id, initialValue) => {
+  console.log(initialValue);
+  const updates = {};
+  updates[`product/${id}`] = initialValue;
+  update(ref(database), updates);
+
+  return updateProduct(ref(database), updates);
+};
+export const updateProduct2 = (id, initialValue) => {
   console.log(initialValue);
   const updates = {};
   updates[`product/${id}`] = initialValue;

@@ -19,11 +19,12 @@ const columns = [
   { id: "action", label: "Actions", minWidth: 170, align: "left" },
 ];
 const ViewProduct = () => {
-  const getProduct = useFetch();
+  const [getProduct, results] = useFetch();
   const delProduct = (id) => {
     deleteProduct(id);
   };
 
+  console.log({ getProduct, results });
   return (
     <>
       <PersistentDrawerLeft />
@@ -48,11 +49,11 @@ const ViewProduct = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {getProduct ? (
-                Object.keys(getProduct).map((id, i) => {
+              {results && results.length > 0 ? (
+                results.map((prod, i) => {
                   return (
                     <TableRow
-                      key={i}
+                      key={prod.id}
                       hover
                       role="checkbox"
                       tabIndex={-1}
@@ -60,17 +61,14 @@ const ViewProduct = () => {
                       //   onClick={(event) => handleClick(event, id)}
                     >
                       <TableCell>
-                        <img
-                          style={{ width: "6rem" }}
-                          src={getProduct[id].img}
-                        />
+                        <img style={{ width: "6rem" }} src={prod.img} />
                       </TableCell>
-                      <TableCell>{getProduct[id].productTitle}</TableCell>
-                      <TableCell>{getProduct[id].price}</TableCell>
-                      <TableCell>{getProduct[id].quantity}</TableCell>
+                      <TableCell>{prod.productTitle}</TableCell>
+                      <TableCell>{prod.price}</TableCell>
+                      <TableCell>{prod.quantity}</TableCell>
 
                       <TableCell>
-                        <Link to={`/updateproduct/${id}`}>
+                        <Link to={`/updateproduct/${prod.id}`}>
                           <p className="btn text-primary">
                             <i className="fas fa-pencil" />
                           </p>
@@ -78,7 +76,7 @@ const ViewProduct = () => {
                         <Link to="/viewproduct">
                           <p
                             className="btn text-danger"
-                            onClick={() => delProduct(id)}
+                            onClick={() => delProduct(prod.id)}
                           >
                             <i className="fas fa-trash-alt" />
                           </p>
