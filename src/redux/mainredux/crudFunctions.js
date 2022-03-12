@@ -8,9 +8,10 @@ import {
   set,
   update,
 } from "firebase/database";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { database } from "../../auth/getAuth";
+import { BaseContextUi } from "../../contexts/BaseContext";
 
 export const useFetch = (product) => {
   const [data, setData] = useState({});
@@ -20,7 +21,7 @@ export const useFetch = (product) => {
   } = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
-    const userRef = ref(database, `product`);
+    const userRef = ref(database, `${localId}/product`);
     onValue(query(userRef), (snapshot) => {
       const results = [];
       const object = snapshot.val();
@@ -37,9 +38,8 @@ export const useFetch = (product) => {
 
   return [data, result];
 };
-export const addProduct = (initialValue , localId) => {
-  
-  const userRef = ref(database, "product");
+export const addProduct = (initialValue, localId) => {
+  const userRef = ref(database, `${localId}/product`);
   const newUserRef = push(userRef);
   set(newUserRef, {
     productTitle: initialValue.productTitle,
@@ -54,19 +54,39 @@ export const deleteProduct = (id) => {
   remove(ref(database, "product/" + id));
 };
 
-export const updateProduct = (id, initialValue) => {
-  console.log(initialValue);
+export const updateProduct = (id, initialValue, localId) => {
   const updates = {};
-  updates[`product/${id}`] = initialValue;
+  updates[`${localId}/product/${id}`] = initialValue;
   update(ref(database), updates);
-
   return updateProduct(ref(database), updates);
+  // console.log(baseContext);
+  // if (baseContext.length === 0) {
+  //   const updates = {};
+  //   updates[`${localId}/product/${id}`] = initialValue;
+  //   update(ref(database), updates);
+  //   return updateProduct(ref(database), updates);
+  // } else {
+  //   initialValue = {
+  //     productTitle: initialValue.productTitle,
+  //     price: initialValue.price,
+  //     quantity: initialValue.quantity - baseContext[1],
+  //     img: initialValue.img,
+  //   };
+  //   const updates = {};
+  //   updates[`${localId}/product/${baseContext[0]}`] = initialValue;
+  //   update(ref(database), updates);
+  // }
 };
-export const updateProduct2 = (id, initialValue) => {
-  console.log(initialValue);
-  const updates = {};
-  updates[`product/${id}`] = initialValue;
-  update(ref(database), updates);
+// export const updateProduct2 = (baseContext) => {
+//   const {
+//     reloadUserInfo: { localId },
+//   } = useSelector((state) => state.user.currentUser);
 
-  return updateProduct(ref(database), updates);
-};
+//   console.log(baseContext);
+
+//   const updates = {};
+//   updates[`${localId}/${baseContext[0]}`] = initialValue;
+//   update(ref(database), updates);
+
+//   return update(ref(database), updates);
+// };

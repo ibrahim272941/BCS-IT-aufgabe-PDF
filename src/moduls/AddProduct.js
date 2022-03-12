@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PersistentDrawerLeft from "../component/Modal";
 import { isEmpty } from "lodash";
 import { useNavigate } from "react-router-dom";
@@ -9,8 +9,8 @@ import {
   useFetch,
 } from "../redux/mainredux/crudFunctions";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getInvoiceStart } from "../redux/mainredux/actions";
+import { useSelector } from "react-redux";
+import { BaseContextUi } from "../contexts/BaseContext";
 
 const AddProduct = () => {
   let values = {
@@ -24,37 +24,16 @@ const AddProduct = () => {
   let { productTitle, price, quantity, img } = initialValue;
   const { id } = useParams();
   const [getProduct] = useFetch();
-  let getProduct2 = getProduct;
+  const baseContext = useContext(BaseContextUi);
+
   const {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
-  const data = useSelector((state) => state.invoice.invoice);
-  const { currentUser } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const dta = Object.values(getProduct).map((item) => item.productTitle);
-  const quan =
-    Object.values(getProduct) &&
-    Object.values(data).filter((item, i) => dta.includes(item.productName));
-  useEffect(() => {
-    for (const key in getProduct) {
-      if (Object.hasOwnProperty.call(getProduct, key)) {
-        const value = getProduct[key];
-        console.log(value);
-      }
-    }
-  }, []);
-  useEffect(() => {
-    dispatch(getInvoiceStart(localId));
-  }, [localId]);
-
-  // getProduct2 = quan.filter((item, i) => {
-  //   console.log(Object.values(getProduct)[i].includes(item.productName));
-  //   if (Object.keys(getProduct).includes(item.productName)) {
-  //     return (Object.values(getProduct2).quantity =
-  //       Object.values(getProduct2).quantity - item.productQuantity);
+  // useEffect(() => {
+  //   if (baseContext.length !== 0) {
+  //     updateProduct(id, initialValue, localId, baseContext);
   //   }
-  // });
-  console.log(quan);
+  // }, []);
   useEffect(() => {
     if (isEmpty(id)) {
       setValue({ ...values });
@@ -64,11 +43,11 @@ const AddProduct = () => {
   }, [id, getProduct]);
   const handleSubmit = () => {
     if (id) {
-      updateProduct(id, initialValue);
+      updateProduct(id, initialValue, localId);
       navigate("/viewproduct");
     } else {
+      addProduct(initialValue, localId);
       navigate("/viewproduct");
-      addProduct(initialValue);
     }
   };
   const handleChange = (e) => {

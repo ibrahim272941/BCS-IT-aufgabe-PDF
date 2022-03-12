@@ -12,16 +12,15 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { delInvoiceStart, getInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
 import { Button, TextField } from "@mui/material";
 import { successNote } from "../utils/customToastify";
-import { useBaseContext } from "../contexts/BaseContext";
+
 import { ToastContainer } from "react-toastify";
-import { useFetch } from "../redux/mainredux/crudFunctions";
 
 const columns = [
   { id: "check", label: "", minWidth: 10, align: "left" },
@@ -92,14 +91,14 @@ export default function EnhancedTable() {
   const { invoice } = useSelector((state) => state.invoice);
   const [search, setSearch] = useState("");
 
-  const baseContext = useBaseContext();
-  const uiProps = useMemo(
-    () => ({
-      ids: baseContext.ids,
-      setIds: baseContext.setIds,
-    }),
-    [baseContext.setIds, baseContext.ids]
-  );
+  // const baseContext = useBaseContext();
+  // const uiProps = useMemo(
+  //   () => ({
+  //     ids: baseContext.ids,
+  //     setIds: baseContext.setIds,
+  //   }),
+  //   [baseContext.setIds, baseContext.ids]
+  // );
 
   const {
     reloadUserInfo: { localId },
@@ -110,7 +109,6 @@ export default function EnhancedTable() {
 
   useEffect(() => {
     dispatch(getInvoiceStart(localId));
-    uiProps.setIds([]);
   }, [localId]);
 
   const deleteInvoice = (id) => {

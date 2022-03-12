@@ -27,7 +27,7 @@ export function* onGetInvoiceAsync(action) {
   const { localId } = action.payload;
 
   try {
-    const userRef = ref(database, `${localId}`);
+    const userRef = ref(database, `${localId}/invoice`);
     const invoice2 = yield new Promise((resolve) =>
       onValue(query(userRef), resolve)
     );
@@ -52,9 +52,9 @@ export function* onGetInvoice() {
 /*Delete Invoice from Database */
 export function* onDeleteInvoiceAsync({ payload }) {
   const { id, localId } = payload;
-
+  console.log(id, localId);
   try {
-    yield remove(ref(database, `${id}/${localId}`));
+    yield remove(ref(database, `${id}/invoice/${localId}`));
     yield put(delInvoiceSucces());
   } catch (error) {
     yield put(delInvoiceFail(error));
@@ -69,7 +69,7 @@ export function* onAddInvoiceAsync({ payload }) {
   const { initialValues, localId } = payload;
 
   try {
-    const userRef = ref(database, `${localId}`);
+    const userRef = ref(database, `${localId}/invoice`);
     const newUserRef = push(userRef);
     set(newUserRef, initialValues);
   } catch (error) {
@@ -87,7 +87,7 @@ export function* onEditInvoiceAsync({ payload }) {
   console.log(payload);
   try {
     const updates = {};
-    updates[`${localId}/${id}`] = initialValues;
+    updates[`${localId}/invoice/${id}`] = initialValues;
     update(ref(database), updates);
   } catch (error) {
     yield put(editInvoiceFail(error));

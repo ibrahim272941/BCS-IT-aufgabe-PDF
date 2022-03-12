@@ -1,16 +1,18 @@
 import { useContext, createContext, useState } from "react";
 
-export const BaseContext = createContext();
+export const BaseContextUi = createContext();
 
-export const BaseConsumer = BaseContext.Consumer;
+// export const BaseConsumer = BaseContext.Consumer;
 
-export const useBaseContext = () => useContext(BaseContext);
+// export const useBaseContext = useContext(BaseContext);
 
 export const BasePovider = (props) => {
   const [ids, setIds] = useState([]);
 
   const value = { ids, setIds };
   return (
-    <BaseContext.Provider value={value}>{props.children}</BaseContext.Provider>
+    <BaseContextUi.Provider value={value}>
+      {props.children}
+    </BaseContextUi.Provider>
   );
 };

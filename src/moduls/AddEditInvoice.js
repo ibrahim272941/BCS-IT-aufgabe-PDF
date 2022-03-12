@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 
 import { isEmpty } from "lodash";
 import { Autocomplete, Button, Grid, TextField } from "@mui/material";
@@ -10,6 +10,7 @@ import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
 import { successNote } from "../utils/customToastify";
 import { useFetch } from "../redux/mainredux/crudFunctions";
+import { BaseContextUi } from "../contexts/BaseContext";
 
 let d = new Date().toString().slice(0, 15).split(" ");
 [d[1], d[2]] = [d[2], d[1]];
@@ -30,9 +31,7 @@ const AddEditInvoice = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [getPrice] = useFetch();
-  const productTitle = Object.values(getPrice).map((item) => item.productTitle);
-  const price = Object.values(getPrice).map((item) => item.price);
+  let [getPrice] = useFetch();
 
   const data2 = useSelector((state) => state.invoice.invoice);
   const {
@@ -40,6 +39,10 @@ const AddEditInvoice = () => {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
   const [initialValues, setValues] = useState(values);
+  const [productTitle, setProductTitle] = useState([]);
+  const [price, setPrice] = useState([]);
+  const [seletedPrice, setSelectedPrice] = useState();
+
   let {
     costumerName,
     costumerEmail,
@@ -51,9 +54,30 @@ const AddEditInvoice = () => {
     totalAmount,
     invoiceDate,
   } = initialValues;
-  const prc = productTitle.map((item, i) => {
-    return item === productName ? (productPrice = price[i]) : null;
-  });
+  const selectedID = Object.values(getPrice)
+    .map(
+      (item, i) => item.productTitle === productName && Object.keys(getPrice)[i]
+    )
+    .filter((item) => item !== false);
+
+  const baseContext = useContext(BaseContextUi);
+
+  const sendToContext = () => {
+    if (selectedID.toString() !== "") {
+      baseContext.ids.push(selectedID.toString(), productQuantity);
+
+      // updateProduct2(baseContext.ids);
+    }
+  };
+
+  useEffect(() => {
+    for (let i = 0; i < Object.values(getPrice).length; i++) {
+      const value = Object.values(getPrice)[i];
+
+      productTitle.push(value.productTitle);
+      price.push(value.price);
+    }
+  }, [getPrice]);
   useEffect(() => {
     if (id) {
       setValues({ ...data2[id] });
@@ -62,15 +86,14 @@ const AddEditInvoice = () => {
 
   useMemo(() => {
     const calc = parseFloat(
-      productQuantity * (parseFloat(productPrice) + productPrice * VAT)
+      productQuantity * (parseFloat(seletedPrice) + seletedPrice * VAT)
     ).toFixed(2);
-    const prc2 = prc.filter((item) => item !== null);
+
     setValues((prev) => ({
       ...prev,
       totalAmount: calc,
-      productPrice: prc2.toString(),
     }));
-  }, [productPrice, productQuantity]);
+  }, [seletedPrice, productQuantity]);
 
   const handleSubmit = async (userId) => {
     if (isEmpty(id)) {
@@ -82,6 +105,7 @@ const AddEditInvoice = () => {
       dispatch(editInvoiceStart(initialValues, localId, id));
     }
   };
+
   const handleChange = (e) => {
     e.preventDefault();
 
@@ -93,9 +117,18 @@ const AddEditInvoice = () => {
     }));
   };
   const handleChange2 = (e) => {
+    let prc;
+    prc =
+      price[
+        productTitle.indexOf(e.target.innerText) === -1
+          ? 0
+          : productTitle.indexOf(e.target.innerText)
+      ];
+    setSelectedPrice(prc);
     setValues((prev) => ({
       ...prev,
       productName: e.target.innerText,
+      productPrice: prc,
     }));
   };
 
@@ -185,8 +218,9 @@ const AddEditInvoice = () => {
                   label="Product Price"
                   variant="standard"
                   value={productPrice}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   fullWidth
+                  InputProps={{ readOnly: true }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -220,6 +254,7 @@ const AddEditInvoice = () => {
                   variant="contained"
                   color="warning"
                   fullWidth
+                  onClick={sendToContext}
                 >
                   Create Invoice
                 </Button>

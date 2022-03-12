@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -24,7 +23,6 @@ const ViewProduct = () => {
     deleteProduct(id);
   };
 
-  console.log({ getProduct, results });
   return (
     <>
       <PersistentDrawerLeft />
