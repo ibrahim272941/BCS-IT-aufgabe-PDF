@@ -28,7 +28,7 @@ let values = {
   productPrice: "",
   productQuantity: "",
   totalAmount: "",
-  invoiceDate: d.join(" "),
+  // invoiceDate: d.join(" "),
 };
 
 const AddEditInvoice = () => {
@@ -55,7 +55,7 @@ const AddEditInvoice = () => {
     productPrice,
     productQuantity,
     totalAmount,
-    invoiceDate,
+    // invoiceDate,
   } = initialValues;
   const selectedID = Object.values(getPrice)
     .map(

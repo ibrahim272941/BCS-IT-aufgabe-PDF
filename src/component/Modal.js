@@ -63,7 +63,7 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  console.log(currentUser.displayName);
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -85,7 +85,9 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography sx={{ color: "#F49B02" }} variant="h6" component="p">
-            {currentUser.displayName}
+            {!currentUser.displayName
+              ? window.location.reload()
+              : currentUser.displayName}
           </Typography>
         </Toolbar>
       </AppBar>
