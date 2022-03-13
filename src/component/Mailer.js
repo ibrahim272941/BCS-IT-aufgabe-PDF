@@ -1,6 +1,5 @@
 import { Button, Form } from "react-bootstrap";
-import emailjs from "@emailjs/browser";
-import { useSelector } from "react-redux";
+
 import { useEffect, useState } from "react";
 
 export const message = {

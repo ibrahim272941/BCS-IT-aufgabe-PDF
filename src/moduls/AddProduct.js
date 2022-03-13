@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PersistentDrawerLeft from "../component/Modal";
 import { isEmpty } from "lodash";
 import { useNavigate } from "react-router-dom";
@@ -10,44 +10,36 @@ import {
 } from "../redux/mainredux/crudFunctions";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { BaseContextUi } from "../contexts/BaseContext";
 
+let values = {
+  productTitle: "",
+  price: "",
+  quantity: "",
+  img: "",
+};
 const AddProduct = () => {
-  let values = {
-    productTitle: "",
-    price: "",
-    quantity: "",
-    img: "",
-  };
   const navigate = useNavigate();
   const [initialValue, setValue] = useState(values);
   let { productTitle, price, quantity, img } = initialValue;
   const { id } = useParams();
   const [getProduct] = useFetch();
-  const baseContext = useContext(BaseContextUi);
 
   const {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
-  // useEffect(() => {
-  //   if (baseContext.length !== 0) {
-  //     updateProduct(id, initialValue, localId, baseContext);
-  //   }
-  // }, []);
+
   useEffect(() => {
-    if (isEmpty(id)) {
-      setValue({ ...values });
-    } else {
+    if (id) {
       setValue({ ...getProduct[id] });
     }
-  }, [id, getProduct]);
+  }, [getProduct, id]);
   const handleSubmit = () => {
-    if (id) {
-      updateProduct(id, initialValue, localId);
+    if (isEmpty(id)) {
       navigate("/viewproduct");
-    } else {
       addProduct(initialValue, localId);
+    } else {
       navigate("/viewproduct");
+      updateProduct(id, initialValue, localId);
     }
   };
   const handleChange = (e) => {
@@ -71,7 +63,7 @@ const AddProduct = () => {
                 name="productTitle"
                 label="Product Title"
                 variant="standard"
-                value={productTitle}
+                value={productTitle || ""}
                 onChange={handleChange}
                 fullWidth
               />
@@ -83,7 +75,7 @@ const AddProduct = () => {
                 name="price"
                 label="Product Price"
                 variant="standard"
-                value={price}
+                value={price || ""}
                 onChange={handleChange}
                 fullWidth
               />
@@ -94,7 +86,7 @@ const AddProduct = () => {
                 name="quantity"
                 label="Product Qauntity"
                 variant="standard"
-                value={quantity}
+                value={quantity || ""}
                 onChange={handleChange}
                 fullWidth
               />
@@ -105,7 +97,7 @@ const AddProduct = () => {
                 name="img"
                 label="Image URL"
                 variant="standard"
-                value={img}
+                value={img || ""}
                 onChange={handleChange}
                 fullWidth
               />

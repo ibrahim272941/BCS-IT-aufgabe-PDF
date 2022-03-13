@@ -1,4 +1,5 @@
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -7,9 +8,12 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PersistentDrawerLeft from "../component/Modal";
 import { deleteProduct, useFetch } from "../redux/mainredux/crudFunctions";
+import { useSelector } from "react-redux";
+
 const columns = [
   { id: "img", label: "Image", minWidth: 180, align: "left" },
   { id: "title", label: "Title", minWidth: 170, align: "left" },
@@ -18,18 +22,38 @@ const columns = [
   { id: "action", label: "Actions", minWidth: 170, align: "left" },
 ];
 const ViewProduct = () => {
+  const navigate = useNavigate();
+  const {
+    currentUser: {
+      reloadUserInfo: { localId },
+    },
+  } = useSelector((state) => state.user);
+
   const [getProduct, results] = useFetch();
   const delProduct = (id) => {
-    deleteProduct(id);
+    deleteProduct(id, localId);
+  };
+  const navigateClick = () => {
+    navigate("/addproduct");
   };
 
   return (
     <>
       <PersistentDrawerLeft />
       <div className="container mx-6" style={{ marginTop: "5rem" }}>
-        <Typography sx={{ margin: "7rem 0 2rem 0" }} variant="h5">
-          SHOW PRODUCT
-        </Typography>
+        <div className="d-flex justify-content-between ">
+          <Typography sx={{ margin: ".2rem 0 2rem 0" }} variant="h5">
+            REGISTERED PRODUCTS
+          </Typography>
+          <Button
+            sx={{ height: "2rem", padding: "1.5rem" }}
+            variant="contained"
+            color="warning"
+            onClick={navigateClick}
+          >
+            Add Product
+          </Button>
+        </div>
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -59,7 +83,11 @@ const ViewProduct = () => {
                       //   onClick={(event) => handleClick(event, id)}
                     >
                       <TableCell>
-                        <img style={{ width: "6rem" }} src={prod.img} />
+                        <img
+                          style={{ width: "6rem" }}
+                          src={prod.img}
+                          alt="img"
+                        />
                       </TableCell>
                       <TableCell>{prod.productTitle}</TableCell>
                       <TableCell>{prod.price}</TableCell>
@@ -84,7 +112,9 @@ const ViewProduct = () => {
                   );
                 })
               ) : (
-                <TableCell>No Invoice to Show</TableCell>
+                <TableRow>
+                  <TableCell>No Product to Show</TableCell>
+                </TableRow>
               )}
             </TableBody>
           </Table>

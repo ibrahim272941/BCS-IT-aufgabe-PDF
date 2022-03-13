@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
 import PersistentDrawerLeft from "../component/Modal";
 import { successNote } from "../utils/customToastify";
-import { useFetch } from "../redux/mainredux/crudFunctions";
+import { updateProduct2, useFetch } from "../redux/mainredux/crudFunctions";
 import { BaseContextUi } from "../contexts/BaseContext";
 
 let d = new Date().toString().slice(0, 15).split(" ");
@@ -42,7 +42,6 @@ const AddEditInvoice = () => {
   const [productTitle, setProductTitle] = useState([]);
   const [price, setPrice] = useState([]);
   const [seletedPrice, setSelectedPrice] = useState();
-
   let {
     costumerName,
     costumerEmail,
@@ -66,7 +65,7 @@ const AddEditInvoice = () => {
     if (selectedID.toString() !== "") {
       baseContext.ids.push(selectedID.toString(), productQuantity);
 
-      // updateProduct2(baseContext.ids);
+      updateProduct2(baseContext.ids, localId);
     }
   };
 

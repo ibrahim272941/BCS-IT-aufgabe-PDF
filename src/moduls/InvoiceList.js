@@ -104,12 +104,12 @@ export default function EnhancedTable() {
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
   const data = useSelector((state) => state.invoice.invoice);
-  const { currentUser } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getInvoiceStart(localId));
-  }, [localId]);
+  }, [dispatch, localId]);
 
   const deleteInvoice = (id) => {
     if (window.confirm("Are you sure to delete the invoice")) {

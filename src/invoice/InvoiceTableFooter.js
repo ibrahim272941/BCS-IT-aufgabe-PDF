@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
 
-const borderColor = "#000";
 const stylesTableFooter = StyleSheet.create({
   pdfFooter: {
     marginTop: 10,

@@ -9,7 +9,6 @@ import { Table } from "react-bootstrap";
 import Mailer from "../component/Mailer";
 
 export default function SelectCostumer() {
-  const [show, setShow] = useState(true);
   const [select, setSelect] = useState();
   const {
     reloadUserInfo: { localId },
