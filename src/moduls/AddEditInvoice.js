@@ -28,7 +28,7 @@ let values = {
   productPrice: "",
   productQuantity: "",
   totalAmount: "",
-  // invoiceDate: d.join(" "),
+  invoiceDate: d.join(" "),
 };
 
 const AddEditInvoice = () => {
@@ -46,6 +46,7 @@ const AddEditInvoice = () => {
   const [productTitle, setProductTitle] = useState([]);
   const [price, setPrice] = useState([]);
   const [seletedPrice, setSelectedPrice] = useState();
+  const baseContext = useContext(BaseContextUi);
   let {
     costumerName,
     costumerEmail,
@@ -55,7 +56,7 @@ const AddEditInvoice = () => {
     productPrice,
     productQuantity,
     totalAmount,
-    // invoiceDate,
+    invoiceDate,
   } = initialValues;
   const selectedID = Object.values(getPrice)
     .map(
@@ -63,7 +64,6 @@ const AddEditInvoice = () => {
     )
     .filter((item) => item !== false);
 
-  const baseContext = useContext(BaseContextUi);
   let quan = Object.values(getPrice)
     .map((item) => item.productTitle === productName && item.quantity)
     .filter((item) => item !== false);

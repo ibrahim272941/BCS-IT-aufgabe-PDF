@@ -274,7 +274,7 @@ export default function EnhancedTable() {
                           <TableCell>{data[id].productName}</TableCell>
                           <TableCell>{data[id].productPrice}</TableCell>
                           <TableCell>{data[id].productQuantity}</TableCell>
-                          {/* <TableCell>{data[id].invoiceDate}</TableCell> */}
+                          <TableCell>{data[id].invoiceDate}</TableCell>
                           <TableCell>{data[id].totalAmount}€</TableCell>
                           <TableCell>
                             <Link to={`/update/${id}`}>
