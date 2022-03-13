@@ -7,9 +7,10 @@ import {
   set,
   update,
 } from "firebase/database";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { database } from "../../auth/getAuth";
+import { BaseContextUi } from "../../contexts/BaseContext";
 
 export const useFetch = (product) => {
   const [data, setData] = useState({});
@@ -58,6 +59,7 @@ export const updateProduct = (id, initialValue, localId) => {
   // return updateProduct(ref(database), updates);
 };
 export const updateProduct2 = (baseContext, localId) => {
+  console.log(`${localId}/product/${baseContext[0]}`);
   let object;
   const userRef = ref(database, `${localId}/product/${baseContext[0]}`);
   onValue(query(userRef), (snapshot) => {
@@ -76,3 +78,28 @@ export const updateProduct2 = (baseContext, localId) => {
 
   return updateProduct2(ref(database), updates);
 };
+
+// export const useFetch2 = (product) => {
+//   const baseContext = useContext(BaseContextUi);
+//   const {
+//     reloadUserInfo: { localId },
+//   } = useSelector((state) => state.user.currentUser);
+//   let object;
+//   useEffect(() => {
+//     const userRef = ref(database, `${localId}/product/${baseContext.ids[0]}`);
+//     onValue(query(userRef), (snapshot) => {
+//       object = snapshot.val();
+//     });
+//   }, [localId]);
+//   let initialValue = {
+//     productTitle: object.productTitle,
+//     price: object.price,
+//     quantity: object.quantity - baseContext[1],
+//     img: object.img,
+//   };
+//   const updates = {};
+//   updates[`${localId}/product/${baseContext[0]}`] = initialValue;
+//   update(ref(database), updates);
+
+//   return useFetch2(ref(database), updates);
+// };

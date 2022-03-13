@@ -55,9 +55,9 @@ const InvoiceTableRow = ({ items }) => {
           <Text style={stylesTableRow.amount}>{invoice[8]}€</Text>
         </View>
       ) : (
-        invoice.map((items) => {
+        invoice.map((items, i) => {
           return (
-            <View style={stylesTableRow.row}>
+            <View key={i} style={stylesTableRow.row}>
               <Text style={stylesTableRow.description}>
                 {items.productName}
               </Text>

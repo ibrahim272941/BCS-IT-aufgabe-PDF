@@ -46,15 +46,21 @@ export default function SpanningTable() {
     let values = {};
     id.length > 1
       ? id.forEach((id, i) => {
-          onValue(query(ref(database, `${localId}/${id}`)), (snapshot) => {
-            values[i] = snapshot.val();
-            setData({ ...values });
-          });
+          onValue(
+            query(ref(database, `${localId}/invoice/${id}`)),
+            (snapshot) => {
+              values[i] = snapshot.val();
+              setData({ ...values });
+            }
+          );
         })
-      : onValue(query(ref(database, `${localId}/${id[0]}`)), (snapshot) => {
-          values[0] = snapshot.val();
-          setData(values);
-        });
+      : onValue(
+          query(ref(database, `${localId}/invoice/${id[0]}`)),
+          (snapshot) => {
+            values[0] = snapshot.val();
+            setData(values);
+          }
+        );
     // : onValue(query(ref(database, `${localId}/${id[0]}`)), (snapshot) => {
     //     values[0] = snapshot.val();
     //   });
@@ -98,7 +104,7 @@ export default function SpanningTable() {
       ) : (
         <p>Pls Wait</p>
       )}
-      {data ? (
+      {data[0] ? (
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
             <TableRow>

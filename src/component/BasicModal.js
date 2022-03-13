@@ -70,15 +70,21 @@ export default function BasicModal() {
     let values = {};
     id.length > 1
       ? id.forEach((id, i) => {
-          onValue(query(ref(database, `${localId}/${id}`)), (snapshot) => {
-            values[i] = snapshot.val();
-            setData({ ...values });
-          });
+          onValue(
+            query(ref(database, `${localId}/invoice/${id}`)),
+            (snapshot) => {
+              values[i] = snapshot.val();
+              setData({ ...values });
+            }
+          );
         })
-      : onValue(query(ref(database, `${localId}/${id}`)), (snapshot) => {
-          // values[0] = snapshot.val();
-          setData({ ...snapshot.val() });
-        });
+      : onValue(
+          query(ref(database, `${localId}/invoice/${id}`)),
+          (snapshot) => {
+            // values[0] = snapshot.val();
+            setData({ ...snapshot.val() });
+          }
+        );
   }, [localId, id]);
 
   return (

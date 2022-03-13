@@ -52,7 +52,7 @@ const InvoiceTableFooter = ({ items }) => {
     <View style={stylesTableFooter.pdfFooter}>
       <View style={stylesTableFooter.row}>
         <Text style={stylesTableFooter.description}>Tax:</Text>
-        <Text style={stylesTableFooter.total}>{subT * 0.19}€</Text>
+        <Text style={stylesTableFooter.total}>{(subT * 0.19).toFixed(2)}€</Text>
       </View>
       <View style={stylesTableFooter.row}>
         <Text style={stylesTableFooter.description}>Total Amount:</Text>
