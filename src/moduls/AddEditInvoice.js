@@ -64,7 +64,14 @@ const AddEditInvoice = () => {
     .filter((item) => item !== false);
 
   const baseContext = useContext(BaseContextUi);
-
+  let quan = Object.values(getPrice)
+    .map((item) => item.productTitle === productName && item.quantity)
+    .filter((item) => item !== false);
+  if (quan[0] <= 0) {
+    alert(
+      "The stock amount of the product you selected is 0. If you no longer sell the selected product, you can delete the product from the View product menu."
+    );
+  }
   const sendToContext = () => {
     if (selectedID.toString() !== "") {
       baseContext.ids.push(selectedID.toString(), productQuantity);
@@ -107,6 +114,11 @@ const AddEditInvoice = () => {
       navigate("/invoicelist");
       dispatch(editInvoiceStart(initialValues, localId, id));
     }
+    // if (quan[0] === 0) {
+    //   alert(
+    //     "The stock amount of the product you selected is 0. If you no longer sell the selected product, you can delete the product from the View product menu."
+    //   );
+    // }
   };
 
   const handleChange = (e) => {
@@ -192,8 +204,9 @@ const AddEditInvoice = () => {
                   options={productTitle}
                   onChange={handleChange2}
                   fullWidth
-                  renderInput={(params) => (
+                  renderInput={(params, i) => (
                     <TextField
+                      key={i}
                       {...params}
                       label="Select Product"
                       variant="standard"

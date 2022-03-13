@@ -7,10 +7,9 @@ import {
   set,
   update,
 } from "firebase/database";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { database } from "../../auth/getAuth";
-import { BaseContextUi } from "../../contexts/BaseContext";
 
 export const useFetch = (product) => {
   const [data, setData] = useState({});
