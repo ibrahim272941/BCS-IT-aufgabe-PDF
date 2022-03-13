@@ -75,7 +75,7 @@ export const updateProduct2 = (baseContext, localId) => {
   const updates = {};
   updates[`${localId}/product/${baseContext[0]}`] = initialValue;
   update(ref(database), updates);
-
+  console.log("product is updated");
   return updateProduct2(ref(database), updates);
 };
 
