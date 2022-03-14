@@ -6,10 +6,12 @@ import { auth } from "./auth/getAuth";
 import { persistUser } from "./redux/auhtRedux/actions";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
+import { useLocation, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
-
+  // const location = useLocation();
+  // console.log(location);
   useEffect(() => {
     onAuthStateChanged(auth, (authUser) => {
       if (authUser) {

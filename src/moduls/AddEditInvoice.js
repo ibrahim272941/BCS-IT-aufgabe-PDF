@@ -77,7 +77,6 @@ const AddEditInvoice = () => {
       baseContext.ids.push(selectedID.toString(), productQuantity);
       updateProduct2(baseContext.ids, localId);
     }
-    // delStok();
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 const FirstNavbar = () => {
   let path = useLocation().pathname;
-
+  console.log(path);
   // const dispatch = useDispatch();
   // // console.log(currentUser);
   // const navigate = useNavigate();

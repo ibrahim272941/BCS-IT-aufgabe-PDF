@@ -57,48 +57,25 @@ export const updateProduct = (id, initialValue, localId) => {
   update(ref(database), updates);
   // return updateProduct(ref(database), updates);
 };
-export const updateProduct2 = (baseContext, localId) => {
-  console.log(`${localId}/product/${baseContext[0]}`);
+export const updateProduct2 = async (baseContext, localId) => {
   let object;
-  const userRef = ref(database, `${localId}/product/${baseContext[0]}`);
-  onValue(query(userRef), (snapshot) => {
-    object = snapshot.val();
-  });
+  try {
+    const userRef = ref(database, `${localId}/product/${baseContext[0]}`);
+    onValue(query(userRef), (snapshot) => {
+      object = snapshot.val();
+    });
 
-  let initialValue = {
-    productTitle: object.productTitle,
-    price: object.price,
-    quantity: object.quantity - baseContext[1],
-    img: object.img,
-  };
-  const updates = {};
-  updates[`${localId}/product/${baseContext[0]}`] = initialValue;
-  update(ref(database), updates);
-  console.log("product is updated");
-  return updateProduct2(ref(database), updates);
+    let initialValue = {
+      productTitle: object.productTitle,
+      price: object.price,
+      quantity: object.quantity - baseContext[1],
+      img: object.img,
+    };
+    const updates = {};
+    updates[`${localId}/product/${baseContext[0]}`] = initialValue;
+    update(ref(database), updates);
+    return updateProduct2(ref(database), updates);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
-
-// export const useFetch2 = (product) => {
-//   const baseContext = useContext(BaseContextUi);
-//   const {
-//     reloadUserInfo: { localId },
-//   } = useSelector((state) => state.user.currentUser);
-//   let object;
-//   useEffect(() => {
-//     const userRef = ref(database, `${localId}/product/${baseContext.ids[0]}`);
-//     onValue(query(userRef), (snapshot) => {
-//       object = snapshot.val();
-//     });
-//   }, [localId]);
-//   let initialValue = {
-//     productTitle: object.productTitle,
-//     price: object.price,
-//     quantity: object.quantity - baseContext[1],
-//     img: object.img,
-//   };
-//   const updates = {};
-//   updates[`${localId}/product/${baseContext[0]}`] = initialValue;
-//   update(ref(database), updates);
-
-//   return useFetch2(ref(database), updates);
-// };

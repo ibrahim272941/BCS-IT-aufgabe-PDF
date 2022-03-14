@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
@@ -32,7 +37,7 @@ const AppRouter = () => {
           <Route path="/viewproduct" element={<ViewProduct />} />
           <Route path="/view" element={<ViewInvoice />} />
         </Route>
-
+        <Route path="*" element={<Navigate replace to="/" />} />
         <Route element={<AuthRouter />}>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
