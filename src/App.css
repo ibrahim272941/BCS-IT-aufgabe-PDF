@@ -73,3 +73,18 @@ span {
   margin-top: 10rem;
   justify-content: flex-end,
 }
+
+.stokless {
+  background-color: #f1f1f0;
+  animation: stokless 3s infinite;
+}
+
+@keyframes stokless {
+  from {
+    background-color: #e6cdc6;
+  }
+
+  to {
+    background-color: #ec4629;
+  }
+}

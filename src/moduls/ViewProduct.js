@@ -87,7 +87,8 @@ const ViewProduct = () => {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      sx={{ backgroundColor: "#db540c" }}
+                      // sx={{ backgroundColor: "#db540c" }}
+                      className="stokless"
 
                       //   onClick={(event) => handleClick(event, id)}
                     >
