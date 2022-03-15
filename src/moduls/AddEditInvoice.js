@@ -15,6 +15,7 @@ import {
   useFetch2,
 } from "../redux/mainredux/crudFunctions";
 import { BaseContextUi } from "../contexts/BaseContext";
+import BasicModal from "../component/BasicModalAlert";
 
 let d = new Date().toString().slice(0, 15).split(" ");
 [d[1], d[2]] = [d[2], d[1]];
@@ -67,11 +68,19 @@ const AddEditInvoice = () => {
   let quan = Object.values(getPrice)
     .map((item) => item.productTitle === productName && item.quantity)
     .filter((item) => item !== false);
-  if (quan[0] <= 0) {
-    alert(
-      "The stock amount of the product you selected is 0. If you no longer sell the selected product, you can delete the product from the View product menu."
-    );
+  let quanName = Object.values(getPrice).filter(
+    (item) => item.productTitle === productName
+  );
+
+  if (quan[0] < productQuantity) {
+    alert(`The stock amount of the product you selected is ${quan[0]}`);
+    navigate("/viewproduct", {
+      state: {
+        quanName,
+      },
+    });
   }
+  console.log(quanName);
   const sendToContext = () => {
     if (selectedID.toString() !== "") {
       baseContext.ids.push(selectedID.toString(), productQuantity);
@@ -113,11 +122,6 @@ const AddEditInvoice = () => {
       navigate("/invoicelist");
       dispatch(editInvoiceStart(initialValues, localId, id));
     }
-    // if (quan[0] === 0) {
-    //   alert(
-    //     "The stock amount of the product you selected is 0. If you no longer sell the selected product, you can delete the product from the View product menu."
-    //   );
-    // }
   };
 
   const handleChange = (e) => {
@@ -149,6 +153,8 @@ const AddEditInvoice = () => {
   return (
     <>
       <PersistentDrawerLeft />
+
+      {quan[0] < productQuantity && <BasicModal quan={quan[0]} />}
       {displayName ? (
         <div className="container mx-6" style={{ marginTop: "5rem" }}>
           <form onSubmit={handleSubmit}>

@@ -2,6 +2,7 @@ import * as types from "./actionTypes";
 import { auth } from "../../auth/getAuth";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
@@ -83,3 +84,16 @@ export const logoutFunc = () => {
     }
   };
 };
+
+// export const persistUserFunc = (user) => {
+//   return function (dispatch) {
+//     dispatch(persistUser());
+//     onAuthStateChanged(auth, (authUser) => {
+//       if (authUser) {
+//         dispatch(persistUser(authUser));
+//       } else {
+//         dispatch(persistUser(null));
+//       }
+//     });
+//   };
+// };

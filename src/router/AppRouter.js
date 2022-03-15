@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,8 +18,23 @@ import ViewInvoice from "../moduls/ViewInvoice";
 import SelectCostumer from "../moduls/SelectCostumer";
 import AddProduct from "../moduls/AddProduct";
 import ViewProduct from "../moduls/ViewProduct";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { persistUser, persistUserFunc } from "../redux/auhtRedux/actions";
+import { auth } from "../auth/getAuth";
 
 const AppRouter = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        dispatch(persistUser(authUser));
+      } else {
+        dispatch(persistUser(null));
+      }
+    });
+  }, [dispatch]);
   return (
     <Router>
       {/* {isLogin ? <MainRouter /> : <LogRouter />} */}

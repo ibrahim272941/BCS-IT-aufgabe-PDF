@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PersistentDrawerLeft from "../component/Modal";
 import { deleteProduct, useFetch } from "../redux/mainredux/crudFunctions";
@@ -22,7 +22,15 @@ const columns = [
   { id: "action", label: "Actions", minWidth: 170, align: "left" },
 ];
 const ViewProduct = () => {
+  const location = useLocation();
+  const quanName = location.state;
   const navigate = useNavigate();
+  const stoklessProduct = quanName
+    ? Object.values(quanName)[0]
+        .map((item) => item.productTitle)
+        .toString()
+    : [];
+
   const {
     currentUser: {
       reloadUserInfo: { localId },
@@ -73,7 +81,44 @@ const ViewProduct = () => {
             <TableBody>
               {results && results.length > 0 ? (
                 results.map((prod, i) => {
-                  return (
+                  return stoklessProduct === prod.productTitle ? (
+                    <TableRow
+                      key={prod.id}
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      sx={{ backgroundColor: "#db540c" }}
+
+                      //   onClick={(event) => handleClick(event, id)}
+                    >
+                      <TableCell>
+                        <img
+                          style={{ width: "6rem" }}
+                          src={prod.img}
+                          alt="img"
+                        />
+                      </TableCell>
+                      <TableCell>{prod.productTitle}</TableCell>
+                      <TableCell>{prod.price}</TableCell>
+                      <TableCell>{prod.quantity}</TableCell>
+
+                      <TableCell>
+                        <Link to={`/updateproduct/${prod.id}`}>
+                          <p className="btn text-primary">
+                            <i className="fas fa-pencil" />
+                          </p>
+                        </Link>
+                        <Link to="/viewproduct">
+                          <p
+                            className="btn text-danger"
+                            onClick={() => delProduct(prod.id)}
+                          >
+                            <i className="fas fa-trash-alt" />
+                          </p>
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ) : (
                     <TableRow
                       key={prod.id}
                       hover
