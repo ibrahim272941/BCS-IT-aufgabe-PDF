@@ -70,6 +70,7 @@ const Register = () => {
         </div>
 
         <Container
+          className="text-warning logform"
           sx={{
             maxHeight: "48vh",
             marginBottom: "2rem",
@@ -80,7 +81,7 @@ const Register = () => {
             // boxShadow: "3px 5px 5px 3px #555",
             bgcolor: "#393a3b",
           }}
-          maxWidth="xs"
+          maxWidth="sm"
         >
           {/* <Avatar
           src={Resim}

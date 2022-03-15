@@ -53,7 +53,15 @@ const Login = () => {
     <div className=" cont ">
       <FirstNavbar />
       <div className="conte">
+        <div
+          style={{}}
+          className="d-flex  flex-direction-column  justify-content-center align-items-center"
+        >
+          <h1 className="">BCS - IT Aufgabe</h1>
+        </div>
+
         <Container
+          className="text-warning logform"
           sx={{
             marginBottom: "2rem",
             textAlign: "center",
@@ -63,8 +71,8 @@ const Login = () => {
 
             maxHeight: "40vh",
           }}
-          maxWidth="xs"
           color="warning"
+          maxWidth="sm"
         >
           {/* <Avatar
           src={Resim}
@@ -88,7 +96,7 @@ const Login = () => {
               errors,
               handleBlur,
             }) => (
-              <form className="text-warning" onSubmit={handleSubmit}>
+              <form className="text-warning logform" onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   {/* <Grid item xs={12}>
                 <TextField

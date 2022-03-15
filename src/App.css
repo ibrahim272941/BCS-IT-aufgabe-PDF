@@ -88,3 +88,18 @@ span {
     background-color: #ec4629;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .cont .conte {
+
+    margin: auto;
+
+  }
+
+  .cont .conte .logform {
+    width: 90vw;
+    margin: 0;
+    padding: 0;
+
+  }
+}
