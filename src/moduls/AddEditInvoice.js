@@ -158,8 +158,8 @@ const AddEditInvoice = () => {
       {displayName ? (
         <div className="container mx-6" style={{ marginTop: "5rem" }}>
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
+            <Grid container spacing={2} sx={{ justifyContent: "center" }}>
+              <Grid item xs={8}>
                 <TextField
                   type="text"
                   name="costumerName"
@@ -171,7 +171,7 @@ const AddEditInvoice = () => {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <TextField
                   type="email"
                   name="costumerEmail"
@@ -182,7 +182,7 @@ const AddEditInvoice = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <TextField
                   type="tel"
                   name="costumerMobile"
@@ -193,7 +193,7 @@ const AddEditInvoice = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <TextField
                   type="text"
                   name="costumerAddres"
@@ -204,7 +204,7 @@ const AddEditInvoice = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <Autocomplete
                   options={productTitle}
                   onChange={handleChange2}
@@ -221,7 +221,7 @@ const AddEditInvoice = () => {
                   )}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
+              {/* <Grid item xs={8}>
                 <TextField
                   type="text"
                   name="productName"
@@ -232,7 +232,7 @@ const AddEditInvoice = () => {
                   fullWidth
                 />
               </Grid> */}
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <TextField
                   type="number"
                   name="productPrice"
@@ -244,7 +244,7 @@ const AddEditInvoice = () => {
                   InputProps={{ readOnly: true }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <TextField
                   type="number"
                   name="productQuantity"
@@ -255,7 +255,7 @@ const AddEditInvoice = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 {}
                 <TextField
                   type="number"
@@ -269,7 +269,7 @@ const AddEditInvoice = () => {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <Button
                   type="submit"
                   variant="contained"
