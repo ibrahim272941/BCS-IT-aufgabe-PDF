@@ -147,7 +147,12 @@ const ViewProduct = () => {
                       //   onClick={(event) => handleClick(event, id)}
                     >
                       <TableCell>
-                        <QRCode size={60} value={prod.productTitle} />
+                        <QRCode
+                          size={80}
+                          value={`titel: ${prod.productTitle},
+                              price: ${prod.price},
+                              quantity: ${prod.quantity},`}
+                        />
                       </TableCell>
 
                       <TableCell>
