@@ -11,10 +11,19 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PersistentDrawerLeft from "../component/Modal";
-import { deleteProduct, useFetch } from "../redux/mainredux/crudFunctions";
+import {
+  addProduct,
+  deleteProduct,
+  useFetch,
+} from "../redux/mainredux/crudFunctions";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useState } from "react";
+
+import QRCode from "react-qr-code";
 
 const columns = [
+  { id: "qrCode", label: "Qr Code", minWidth: 180, align: "left" },
   { id: "img", label: "Image", minWidth: 180, align: "left" },
   { id: "title", label: "Title", minWidth: 170, align: "left" },
   { id: "price", label: "Price", minWidth: 100, align: "left" },
@@ -22,6 +31,7 @@ const columns = [
   { id: "action", label: "Actions", minWidth: 170, align: "left" },
 ];
 const ViewProduct = () => {
+  const [fetch, setFetch] = useState([]);
   const location = useLocation();
   const quanName = location.state;
   const navigate = useNavigate();
@@ -38,6 +48,14 @@ const ViewProduct = () => {
   } = useSelector((state) => state.user);
 
   const [getProduct, results] = useFetch();
+  // const fetchProduct = async () => {
+  //   const product = await axios.get("https://fakestoreapi.com/products");
+  //   setFetch(product.data);
+  // };
+  // useState(() => {
+  //   fetchProduct();
+  //   fetch.map((item) => addProduct(item));
+  // }, []);
   const delProduct = (id) => {
     deleteProduct(id, localId);
   };
@@ -128,6 +146,10 @@ const ViewProduct = () => {
 
                       //   onClick={(event) => handleClick(event, id)}
                     >
+                      <TableCell>
+                        <QRCode size={60} value={prod.productTitle} />
+                      </TableCell>
+
                       <TableCell>
                         <img
                           style={{ width: "6rem" }}

@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 const CostumerInfo = () => {
   const { invoice } = useSelector((state) => state.invoice);
 
-  const product = Object.values(invoice).map((item, i) => ({
-    [item.productName]: item.productQuantity,
-  }));
+  const product = invoice
+    ? Object.values(invoice).map((item, i) => ({
+        [item.productName]: item.productQuantity,
+      }))
+    : [1, 1];
 
   const sumArray = (product) => {
     const res = {};

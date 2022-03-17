@@ -11,7 +11,7 @@ const Mailer = ({ values }) => {
   console.log(values.length);
 
   const sendMail = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     emailjs
       .sendForm(
         "service_wra63rk",
@@ -26,7 +26,7 @@ const Mailer = ({ values }) => {
         console.log(err);
       });
     console.log(e.target);
-    navigate("/selectcostumer");
+    navigate("/");
   };
 
   return (
