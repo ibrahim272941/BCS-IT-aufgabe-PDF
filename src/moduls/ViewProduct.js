@@ -11,14 +11,8 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PersistentDrawerLeft from "../component/Modal";
-import {
-  addProduct,
-  deleteProduct,
-  useFetch,
-} from "../redux/mainredux/crudFunctions";
+import { deleteProduct, useFetch } from "../redux/mainredux/crudFunctions";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { useState } from "react";
 
 import QRCode from "react-qr-code";
 
@@ -31,7 +25,6 @@ const columns = [
   { id: "action", label: "Actions", minWidth: 170, align: "left" },
 ];
 const ViewProduct = () => {
-  const [fetch, setFetch] = useState([]);
   const location = useLocation();
   const quanName = location.state;
   const navigate = useNavigate();
@@ -48,14 +41,7 @@ const ViewProduct = () => {
   } = useSelector((state) => state.user);
 
   const [getProduct, results] = useFetch();
-  // const fetchProduct = async () => {
-  //   const product = await axios.get("https://fakestoreapi.com/products");
-  //   setFetch(product.data);
-  // };
-  // useState(() => {
-  //   fetchProduct();
-  //   fetch.map((item) => addProduct(item));
-  // }, []);
+
   const delProduct = (id) => {
     deleteProduct(id, localId);
   };
@@ -89,7 +75,6 @@ const ViewProduct = () => {
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
-                    // sx={{ marginLeft: "3rem" }}
                   >
                     {column.label}
                   </TableCell>
@@ -105,10 +90,7 @@ const ViewProduct = () => {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      // sx={{ backgroundColor: "#db540c" }}
                       className="stokless"
-
-                      //   onClick={(event) => handleClick(event, id)}
                     >
                       <TableCell>
                         <img

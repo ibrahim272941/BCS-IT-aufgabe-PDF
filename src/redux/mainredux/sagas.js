@@ -6,9 +6,9 @@ import {
   remove,
   set,
   update,
-} from "firebase/database";
-import { takeLatest, all, put, fork } from "redux-saga/effects";
-import { database } from "../../auth/getAuth";
+} from 'firebase/database';
+import { takeLatest, all, put, fork } from 'redux-saga/effects';
+import { database } from '../../auth/getAuth';
 
 import {
   getInvoiceFail,
@@ -19,8 +19,8 @@ import {
   editInvoiceFail,
   viewInvoiceSucces,
   viewInvoiceFail,
-} from "./actions";
-import * as types from "./actionsTypes";
+} from './actions';
+import * as types from './actionsTypes';
 
 /*GET invoice to database */
 export function* onGetInvoiceAsync(action) {
@@ -32,11 +32,11 @@ export function* onGetInvoiceAsync(action) {
       onValue(query(userRef), resolve)
     );
 
-    const invoice = yield onValue(query(userRef), (snapshot) => {
-      snapshot.val();
-    });
+    // const invoice = yield onValue(query(userRef), (snapshot) => {
+    //   snapshot.val();
+    // });
 
-    if (invoice !== null) {
+    if (invoice2 !== null) {
       yield put(getInvoiceSucces(invoice2.val()));
     } else {
       yield put(getInvoiceSucces({}));
