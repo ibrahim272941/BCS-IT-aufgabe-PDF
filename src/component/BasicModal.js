@@ -1,58 +1,58 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
-import Modal from "@mui/material/Modal";
+import Modal from '@mui/material/Modal';
 
-import InvoiceTitle from "../invoice/InvoiceTitle";
-import InvoiceNo from "../invoice/InvoiceNo";
-import BillTo from "../invoice/BillTo";
-import InvoiceItemsTable from "../invoice/InvoiceItemsTable";
-import InvoiceThankYouMsg from "../invoice/InvoiceThankYouMsg";
-import { onValue, query, ref } from "firebase/database";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import InvoiceTitle from '../invoice/InvoiceTitle';
+import InvoiceNo from '../invoice/InvoiceNo';
+import BillTo from '../invoice/BillTo';
+import InvoiceItemsTable from '../invoice/InvoiceItemsTable';
+import InvoiceThankYouMsg from '../invoice/InvoiceThankYouMsg';
+import { onValue, query, ref } from 'firebase/database';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { database } from "../auth/getAuth";
+import { database } from '../auth/getAuth';
 
-import { useLocation } from "react-router-dom";
-import logo from "../invoice/logo.png";
+import { useLocation } from 'react-router-dom';
+import logo from '../invoice/logo.png';
 import {
   Document,
   Image,
   Page,
   PDFViewer,
   StyleSheet,
-} from "@react-pdf/renderer";
+} from '@react-pdf/renderer';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50vw",
-  height: "80vh",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '50vw',
+  height: '80vh',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 const styles = StyleSheet.create({
   page: {
-    fontFamily: "Helvetica",
+    fontFamily: 'Helvetica',
     fontSize: 11,
     paddingTop: 30,
     paddingLeft: 60,
     paddingRight: 60,
     lineHeight: 1.5,
-    flexDirection: "column",
+    flexDirection: 'column',
   },
   logo: {
     width: 74,
     height: 40,
   },
   viewer: {
-    width: "47vw",
-    height: "72vh",
+    width: '47vw',
+    height: '72vh',
   },
 });
 export default function BasicModal() {
@@ -91,9 +91,9 @@ export default function BasicModal() {
     <div>
       <Button
         onClick={handleOpen}
-        sx={{ margin: ".6rem" }}
-        color="warning"
+        sx={{ height: '1rem', padding: '1.5rem' }}
         variant="contained"
+        color="warning"
       >
         Print Invoice
       </Button>

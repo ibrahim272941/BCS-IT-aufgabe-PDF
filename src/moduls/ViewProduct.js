@@ -7,22 +7,23 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import PersistentDrawerLeft from "../component/Modal";
-import { deleteProduct, useFetch } from "../redux/mainredux/crudFunctions";
-import { useSelector } from "react-redux";
+} from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PersistentDrawerLeft from '../component/Modal';
+import { deleteProduct, useFetch } from '../redux/mainredux/crudFunctions';
+import { useSelector } from 'react-redux';
 
-import QRCode from "react-qr-code";
+import QRCode from 'react-qr-code';
+import ModalqrCode from '../component/ModalqrCode';
 
 const columns = [
-  { id: "qrCode", label: "Qr Code", minWidth: 180, align: "left" },
-  { id: "img", label: "Image", minWidth: 180, align: "left" },
-  { id: "title", label: "Title", minWidth: 170, align: "left" },
-  { id: "price", label: "Price", minWidth: 100, align: "left" },
-  { id: "quantity", label: "Quantity", minWidth: 170, align: "left" },
-  { id: "action", label: "Actions", minWidth: 170, align: "left" },
+  { id: 'qrCode', label: 'Qr Code', minWidth: 180, align: 'left' },
+  { id: 'img', label: 'Image', minWidth: 180, align: 'left' },
+  { id: 'title', label: 'Title', minWidth: 170, align: 'left' },
+  { id: 'price', label: 'Price', minWidth: 100, align: 'left' },
+  { id: 'quantity', label: 'Quantity', minWidth: 170, align: 'left' },
+  { id: 'action', label: 'Actions', minWidth: 170, align: 'left' },
 ];
 const ViewProduct = () => {
   const location = useLocation();
@@ -46,25 +47,28 @@ const ViewProduct = () => {
     deleteProduct(id, localId);
   };
   const navigateClick = () => {
-    navigate("/addproduct");
+    navigate('/addproduct');
   };
 
   return (
     <>
       <PersistentDrawerLeft />
-      <div className="container mx-6" style={{ marginTop: "5rem" }}>
+      <div className="container mx-6" style={{ marginTop: '5rem' }}>
         <div className="d-flex justify-content-between ">
-          <Typography sx={{ margin: ".2rem 0 2rem 0" }} variant="h5">
+          <Typography sx={{ margin: '.2rem 0 2rem 0' }} variant="h5">
             REGISTERED PRODUCTS
           </Typography>
-          <Button
-            sx={{ height: "2rem", padding: "1.5rem" }}
-            variant="contained"
-            color="warning"
-            onClick={navigateClick}
-          >
-            Add Product
-          </Button>
+          <div className="d-flex ">
+            <Button
+              sx={{ height: '2rem', padding: '1.5rem', marginRight: '.5rem' }}
+              variant="contained"
+              color="warning"
+              onClick={navigateClick}
+            >
+              Add Product
+            </Button>
+            {/* <ModalqrCode /> */}
+          </div>
         </div>
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
@@ -94,7 +98,7 @@ const ViewProduct = () => {
                     >
                       <TableCell>
                         <img
-                          style={{ width: "6rem" }}
+                          style={{ width: '6rem' }}
                           src={prod.img}
                           alt="img"
                         />
@@ -130,16 +134,25 @@ const ViewProduct = () => {
                     >
                       <TableCell>
                         <QRCode
-                          size={80}
-                          value={`titel: ${prod.productTitle},
-                              price: ${prod.price},
-                              quantity: ${prod.quantity},`}
+                          size={100}
+                          value={`${prod.productTitle},
+                                ${prod.price},
+                              ${prod.quantity},`}
+                        />
+                        <ModalqrCode
+                          value={
+                            <QRCode
+                              size={250}
+                              value={`${prod.productTitle}||${prod.price}€||${prod.quantity}`}
+                            />
+                          }
+                          productValue={prod}
                         />
                       </TableCell>
 
                       <TableCell>
                         <img
-                          style={{ width: "6rem" }}
+                          style={{ width: '6rem' }}
                           src={prod.img}
                           alt="img"
                         />
