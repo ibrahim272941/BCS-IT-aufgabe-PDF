@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Button,
   Container,
@@ -7,21 +7,22 @@ import {
   InputAdornment,
   TextField,
   Typography,
-} from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Formik } from "formik";
-import * as Yup from "yup";
+} from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { loginFunc } from "../redux/auhtRedux/actions";
-import FirstNavbar from "../component/Navbar";
-import CopyRight from "../component/CopyRight";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginFunc } from '../redux/auhtRedux/actions';
+import FirstNavbar from '../component/Navbar';
+import CopyRight from '../component/CopyRight';
+import { Helmet } from 'react-helmet-async';
 
 const signUpValidationSchema = Yup.object().shape({
-  email: Yup.string().required("Email is required").email("Invalid Email"),
-  password: Yup.string().required("Password not entered"),
+  email: Yup.string().required('Email is required').email('Invalid Email'),
+  password: Yup.string().required('Password not entered'),
 });
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,9 +32,9 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const initialValues = {
-    username: "",
-    email: "",
-    password: "",
+    username: '',
+    email: '',
+    password: '',
   };
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -46,11 +47,14 @@ const Login = () => {
     setLoading(true);
     dispatch(loginFunc(values.email, values.password));
 
-    navigate("/");
+    navigate('/');
     resetForm();
   };
   return (
     <div className=" cont ">
+      <Helmet>
+        <title>Login Page</title>
+      </Helmet>
       <FirstNavbar />
       <div className="conte">
         <div
@@ -63,13 +67,13 @@ const Login = () => {
         <Container
           className="text-warning logform"
           sx={{
-            marginBottom: "2rem",
-            textAlign: "center",
+            marginBottom: '2rem',
+            textAlign: 'center',
 
-            padding: "2rem",
-            bgcolor: "#393a3b",
+            padding: '2rem',
+            bgcolor: '#393a3b',
 
-            maxHeight: "40vh",
+            maxHeight: '40vh',
           }}
           color="warning"
           maxWidth="sm"
@@ -80,7 +84,7 @@ const Login = () => {
         >
         
         </Avatar> */}
-          <Typography sx={{ margin: "1rem", color: "#F49B02" }} variant="h4">
+          <Typography sx={{ margin: '1rem', color: '#F49B02' }} variant="h4">
             Login
           </Typography>
           <Formik
@@ -128,7 +132,7 @@ const Login = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       name="password"
                       label="Password"
                       value={values.password}

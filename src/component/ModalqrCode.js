@@ -72,8 +72,7 @@ const ModalqrCode = ({ value, productValue }) => {
       >
         <Box sx={style}>
           <div className="my-4">{value}</div>
-          <div>{value.props.value}</div>
-          {display && <Button onClick={handleClick}>Print Qr Code</Button>}
+          <div onClick={handleClick}>{value.props.value}</div>
 
           {/* <PDFViewer style={styles.viewer}>
             <Document>

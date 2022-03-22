@@ -1,8 +1,9 @@
-import CostumerInfo from "../component/CostumerInfo";
+import { Helmet } from 'react-helmet-async';
+import CostumerInfo from '../component/CostumerInfo';
 
-import PersistentDrawerLeft from "../component/Modal";
-import Chart from "../moduls/Chart";
-import InvoiceCard from "../moduls/InvoiceCard";
+import PersistentDrawerLeft from '../component/Modal';
+import Chart from '../moduls/Chart';
+import InvoiceCard from '../moduls/InvoiceCard';
 
 const MainPage = () => {
   // let weg = useLocation().pathname;
@@ -13,6 +14,9 @@ const MainPage = () => {
   return (
     <div>
       {/* <MainNavbar /> */}
+      <Helmet>
+        <title>Main Page</title>
+      </Helmet>
       <PersistentDrawerLeft />
       <InvoiceCard />
       <Chart />

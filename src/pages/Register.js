@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Button,
   Container,
@@ -7,31 +7,32 @@ import {
   InputAdornment,
   TextField,
   Typography,
-} from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Formik } from "formik";
-import * as Yup from "yup";
+} from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { registerFunc } from "../redux/auhtRedux/actions";
-import FirstNavbar from "../component/Navbar";
-import CopyRight from "../component/CopyRight";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerFunc } from '../redux/auhtRedux/actions';
+import FirstNavbar from '../component/Navbar';
+import CopyRight from '../component/CopyRight';
+import { Helmet } from 'react-helmet-async';
 
 const signUpValidationSchema = Yup.object().shape({
-  username: Yup.string().required("User Name is required"),
-  email: Yup.string().required("Email is required").email("Invalid Email"),
+  username: Yup.string().required('User Name is required'),
+  email: Yup.string().required('Email is required').email('Invalid Email'),
   password: Yup.string()
-    .required("Password not entered")
-    .min(6, "Password is too short - should be 6 chars minimum")
-    .matches(/\d+/, "Password must have a number")
-    .matches(/[a-z]+/, "Pasword must have a lowercase")
-    .matches(/[A-Z]/, "Password must have a uppercase")
-    .matches(/[!?.@#$%^&*()-+]/, "Password must have a special char"),
+    .required('Password not entered')
+    .min(6, 'Password is too short - should be 6 chars minimum')
+    .matches(/\d+/, 'Password must have a number')
+    .matches(/[a-z]+/, 'Pasword must have a lowercase')
+    .matches(/[A-Z]/, 'Password must have a uppercase')
+    .matches(/[!?.@#$%^&*()-+]/, 'Password must have a special char'),
   password2: Yup.string()
-    .min(6, "Password is too short - should be 6 chars minimum")
-    .oneOf([Yup.ref("password"), null], "password didn't match"),
+    .min(6, 'Password is too short - should be 6 chars minimum')
+    .oneOf([Yup.ref('password'), null], "password didn't match"),
 });
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,9 +43,9 @@ const Register = () => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const initialValues = {
-    email: "",
-    password: "",
-    password2: "",
+    email: '',
+    password: '',
+    password2: '',
   };
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -56,10 +57,13 @@ const Register = () => {
   const handleSubmit = async (values) => {
     setLoading(true);
     dispatch(registerFunc(values.email, values.password, values.username));
-    currentUser && navigate("/");
+    currentUser && navigate('/');
   };
   return (
     <div className=" cont ">
+      <Helmet>
+        <title>Register Page</title>
+      </Helmet>
       <FirstNavbar />
       <div className="conte ">
         <div
@@ -72,14 +76,14 @@ const Register = () => {
         <Container
           className="text-warning logform"
           sx={{
-            maxHeight: "48vh",
-            marginBottom: "2rem",
-            textAlign: "center",
+            maxHeight: '48vh',
+            marginBottom: '2rem',
+            textAlign: 'center',
 
-            padding: "2rem",
+            padding: '2rem',
 
             // boxShadow: "3px 5px 5px 3px #555",
-            bgcolor: "#393a3b",
+            bgcolor: '#393a3b',
           }}
           maxWidth="sm"
         >
@@ -89,7 +93,7 @@ const Register = () => {
         >
          
         </Avatar> */}
-          <Typography sx={{ margin: "1rem", color: "#F49B02" }} variant="h4">
+          <Typography sx={{ margin: '1rem', color: '#F49B02' }} variant="h4">
             Sign Up
           </Typography>
           <Formik
@@ -139,7 +143,7 @@ const Register = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       name="password"
                       label="Password"
                       value={values.password}

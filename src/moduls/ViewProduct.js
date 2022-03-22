@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 
 import QRCode from 'react-qr-code';
 import ModalqrCode from '../component/ModalqrCode';
+import { Badge } from 'react-bootstrap';
 
 const columns = [
   { id: 'qrCode', label: 'Qr Code', minWidth: 180, align: 'left' },
@@ -23,6 +24,7 @@ const columns = [
   { id: 'title', label: 'Title', minWidth: 170, align: 'left' },
   { id: 'price', label: 'Price', minWidth: 100, align: 'left' },
   { id: 'quantity', label: 'Quantity', minWidth: 170, align: 'left' },
+  { id: 'status', label: 'Status', minWidth: 170, align: 'left' },
   { id: 'action', label: 'Actions', minWidth: 170, align: 'left' },
 ];
 const ViewProduct = () => {
@@ -96,6 +98,12 @@ const ViewProduct = () => {
                       tabIndex={-1}
                       className="stokless"
                     >
+                      <QRCode
+                        size={100}
+                        value={`${prod.productTitle},
+                                ${prod.price},
+                              ${prod.quantity},`}
+                      />
                       <TableCell>
                         <img
                           style={{ width: '6rem' }}
@@ -106,6 +114,13 @@ const ViewProduct = () => {
                       <TableCell>{prod.productTitle}</TableCell>
                       <TableCell>{prod.price}</TableCell>
                       <TableCell>{prod.quantity}</TableCell>
+                      <TableCell>
+                        {prod.quantity > 0 ? (
+                          <Badge bg="success">In Stock</Badge>
+                        ) : (
+                          <Badge bg="danger">Out Stock</Badge>
+                        )}
+                      </TableCell>
 
                       <TableCell>
                         <Link to={`/updateproduct/${prod.id}`}>
@@ -160,7 +175,13 @@ const ViewProduct = () => {
                       <TableCell>{prod.productTitle}</TableCell>
                       <TableCell>{prod.price}</TableCell>
                       <TableCell>{prod.quantity}</TableCell>
-
+                      <TableCell>
+                        {prod.quantity > 0 ? (
+                          <Badge bg="success">In Stock</Badge>
+                        ) : (
+                          <Badge bg="danger">Out Stock</Badge>
+                        )}
+                      </TableCell>
                       <TableCell>
                         <Link to={`/updateproduct/${prod.id}`}>
                           <p className="btn text-primary">
