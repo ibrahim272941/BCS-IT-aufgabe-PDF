@@ -1,35 +1,35 @@
-import React, { useState, useEffect, useMemo, useContext } from "react";
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 
-import { isEmpty } from "lodash";
-import { Autocomplete, Button, Grid, TextField } from "@mui/material";
+import { isEmpty } from 'lodash';
+import { Autocomplete, Button, Grid, TextField } from '@mui/material';
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { useSelector, useDispatch } from "react-redux";
-import { addInvoiceStart, editInvoiceStart } from "../redux/mainredux/actions";
-import PersistentDrawerLeft from "../component/Modal";
-import { successNote } from "../utils/customToastify";
+import { useSelector, useDispatch } from 'react-redux';
+import { addInvoiceStart, editInvoiceStart } from '../redux/mainredux/actions';
+import PersistentDrawerLeft from '../component/Modal';
+import { successNote } from '../utils/customToastify';
 import {
   updateProduct2,
   useFetch,
   useFetch2,
-} from "../redux/mainredux/crudFunctions";
-import { BaseContextUi } from "../contexts/BaseContext";
-import BasicModal from "../component/BasicModalAlert";
+} from '../redux/mainredux/crudFunctions';
+import { BaseContextUi } from '../contexts/BaseContext';
+import BasicModal from '../component/BasicModalAlert';
 
-let d = new Date().toString().slice(0, 15).split(" ");
+let d = new Date().toString().slice(0, 15).split(' ');
 [d[1], d[2]] = [d[2], d[1]];
 const VAT = 0.19;
 let values = {
-  costumerName: "",
-  costumerEmail: "",
-  costumerMobile: "",
-  costumerAddres: "",
-  productName: "",
-  productPrice: "",
-  productQuantity: "",
-  totalAmount: "",
-  invoiceDate: d.join(" "),
+  costumerName: '',
+  costumerEmail: '',
+  costumerMobile: '',
+  costumerAddres: '',
+  productName: '',
+  productPrice: '',
+  productQuantity: '',
+  totalAmount: '',
+  invoiceDate: d.join(' '),
 };
 
 const AddEditInvoice = () => {
@@ -72,17 +72,10 @@ const AddEditInvoice = () => {
     (item) => item.productTitle === productName
   );
 
-  if (quan[0] < productQuantity) {
-    alert(`The stock amount of the product you selected is ${quan[0]}`);
-    navigate("/viewproduct", {
-      state: {
-        quanName,
-      },
-    });
-  }
   console.log(quanName);
+  console.log(quan);
   const sendToContext = () => {
-    if (selectedID.toString() !== "") {
+    if (selectedID.toString() !== '') {
       baseContext.ids.push(selectedID.toString(), productQuantity);
       updateProduct2(baseContext.ids, localId);
     }
@@ -100,6 +93,14 @@ const AddEditInvoice = () => {
     if (id) {
       setValues({ ...data2[id] });
     }
+    if (quan[0] > productQuantity) {
+      alert(`The stock amount of the product you selected is ${quan[0]}`);
+      navigate('/viewproduct', {
+        state: {
+          quanName,
+        },
+      });
+    }
   }, [data2, id]);
 
   useMemo(() => {
@@ -115,11 +116,11 @@ const AddEditInvoice = () => {
 
   const handleSubmit = async (userId) => {
     if (isEmpty(id)) {
-      navigate("/invoicelist");
+      navigate('/invoicelist');
       dispatch(addInvoiceStart(initialValues, localId));
     } else {
-      successNote("Invoice is created");
-      navigate("/invoicelist");
+      successNote('Invoice is created');
+      navigate('/invoicelist');
       dispatch(editInvoiceStart(initialValues, localId, id));
     }
   };
@@ -156,9 +157,9 @@ const AddEditInvoice = () => {
 
       {quan[0] < productQuantity && <BasicModal quan={quan[0]} />}
       {displayName ? (
-        <div className="container mx-6" style={{ marginTop: "5rem" }}>
+        <div className="container mx-6" style={{ marginTop: '5rem' }}>
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={2} sx={{ justifyContent: "center" }}>
+            <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
               <Grid item xs={8}>
                 <TextField
                   type="text"
