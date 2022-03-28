@@ -72,8 +72,6 @@ const AddEditInvoice = () => {
     (item) => item.productTitle === productName
   );
 
-  console.log(quanName);
-  console.log(quan);
   const sendToContext = () => {
     if (selectedID.toString() !== '') {
       baseContext.ids.push(selectedID.toString(), productQuantity);
@@ -93,7 +91,7 @@ const AddEditInvoice = () => {
     if (id) {
       setValues({ ...data2[id] });
     }
-    if (quan[0] > productQuantity) {
+    if (quan[0] < productQuantity) {
       alert(`The stock amount of the product you selected is ${quan[0]}`);
       navigate('/viewproduct', {
         state: {
@@ -101,7 +99,7 @@ const AddEditInvoice = () => {
         },
       });
     }
-  }, [data2, id]);
+  }, [data2, id, productQuantity]);
 
   useMemo(() => {
     const calc = parseFloat(
