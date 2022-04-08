@@ -9,11 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addInvoiceStart, editInvoiceStart } from '../redux/mainredux/actions';
 import PersistentDrawerLeft from '../component/Modal';
 import { successNote } from '../utils/customToastify';
-import {
-  updateProduct2,
-  useFetch,
-  useFetch2,
-} from '../redux/mainredux/crudFunctions';
+import { updateProduct2, useFetch } from '../redux/mainredux/crudFunctions';
 import { BaseContextUi } from '../contexts/BaseContext';
 import BasicModal from '../component/BasicModalAlert';
 
@@ -37,12 +33,13 @@ const AddEditInvoice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let [getPrice] = useFetch();
-  // const delStok = useFetch2();
+
   const data2 = useSelector((state) => state.invoice.invoice);
   const {
     displayName,
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
+  const [button, setButton] = useState(false);
   const [initialValues, setValues] = useState(values);
   const [productTitle, setProductTitle] = useState([]);
   const [price, setPrice] = useState([]);
@@ -86,11 +83,6 @@ const AddEditInvoice = () => {
       productTitle.push(value.productTitle);
       price.push(value.price);
     }
-  }, [getPrice]);
-  useEffect(() => {
-    if (id) {
-      setValues({ ...data2[id] });
-    }
     if (quan[0] < productQuantity) {
       alert(`The stock amount of the product you selected is ${quan[0]}`);
       navigate('/viewproduct', {
@@ -98,6 +90,11 @@ const AddEditInvoice = () => {
           quanName,
         },
       });
+    }
+  }, [getPrice, productQuantity]);
+  useEffect(() => {
+    if (id) {
+      setValues({ ...data2[id] });
     }
   }, [data2, id, productQuantity]);
 
@@ -142,6 +139,7 @@ const AddEditInvoice = () => {
           : productTitle.indexOf(e.target.innerText)
       ];
     setSelectedPrice(prc);
+
     setValues((prev) => ({
       ...prev,
       productName: e.target.innerText,

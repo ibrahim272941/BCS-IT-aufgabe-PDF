@@ -1,9 +1,10 @@
-import * as types from "./actionsTypes";
+import * as types from './actionsTypes';
 
 const initialState = {
   invoice: {},
   error: null,
   loading: false,
+  orders: [],
 };
 
 const invoiceReducer = (state = initialState, action) => {
@@ -42,7 +43,23 @@ const invoiceReducer = (state = initialState, action) => {
         error: action.payload,
         loading: false,
       };
-
+    case types.GET_ORDER_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.GET_ORDER_SUCCESS:
+      return {
+        ...state,
+        orders: action.payload,
+        loading: false,
+      };
+    case types.GET_ORDER_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import * as types from "./actionsTypes";
+import * as types from './actionsTypes';
 /* GET invoice  saved in database  */
 
 export const getInvoiceStart = (localId) => ({
@@ -69,5 +69,19 @@ export const viewInvoiceSucces = (invoice) => ({
 });
 export const viewInvoiceFail = (error) => ({
   type: types.VIEW_INVOICE_FAIL,
+  payload: error,
+});
+
+/* GET order  saved in database  */
+
+export const getOrderStart = () => ({
+  type: types.GET_ORDER_START,
+});
+export const getOrderSucces = (order) => ({
+  type: types.GET_ORDER_SUCCESS,
+  payload: order,
+});
+export const getOrderFail = (error) => ({
+  type: types.GET_ORDER_FAIL,
   payload: error,
 });

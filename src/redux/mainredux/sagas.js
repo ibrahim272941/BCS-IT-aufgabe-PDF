@@ -19,6 +19,8 @@ import {
   editInvoiceFail,
   viewInvoiceSucces,
   viewInvoiceFail,
+  getOrderSucces,
+  getOrderFail,
 } from './actions';
 import * as types from './actionsTypes';
 
@@ -135,12 +137,34 @@ export function* inViewInvoiceAsync({ payload }) {
 export function* onViewInvoice() {
   yield takeLatest(types.VIEW_INVOICE_START, inViewInvoiceAsync);
 }
+
+export function* getOrdersAsync() {
+  try {
+    const userRef = ref(database, `/costumers`);
+    const orders = yield new Promise((resolve) =>
+      onValue(query(userRef), resolve)
+    );
+    yield put(getOrderSucces(orders.val()));
+
+    // if (orders !== null) {
+    //   yield put(getOrderSucces(orders.val()));
+    // } else {
+    //   yield put(getOrderSucces({}));
+    // }
+  } catch (error) {
+    yield put(getOrderFail(error));
+  }
+}
+export function* onGetOrders() {
+  yield takeLatest(types.GET_ORDER_START, getOrdersAsync);
+}
 const invoiceSagas = [
   fork(onGetInvoice),
   fork(onDeleteInvoice),
   fork(onAddInvoice),
   fork(onEditInvoice),
   fork(onViewInvoice),
+  fork(onGetOrders),
 ];
 
 export default function* rootSaga() {
