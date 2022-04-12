@@ -11,7 +11,7 @@ import PersistentDrawerLeft from '../component/Modal';
 import { successNote } from '../utils/customToastify';
 import { updateProduct2, useFetch } from '../redux/mainredux/crudFunctions';
 import { BaseContextUi } from '../contexts/BaseContext';
-import BasicModal from '../component/BasicModalAlert';
+// import BasicModal from '../component/BasicModalAlert';
 
 let d = new Date().toString().slice(0, 15).split(' ');
 [d[1], d[2]] = [d[2], d[1]];
@@ -151,7 +151,7 @@ const AddEditInvoice = () => {
     <>
       <PersistentDrawerLeft />
 
-      {quan[0] < productQuantity && <BasicModal quan={quan[0]} />}
+      {/* {quan[0] < productQuantity && <BasicModal quan={quan[0]} />} */}
       {displayName ? (
         <div className="container mx-6" style={{ marginTop: '5rem' }}>
           <form onSubmit={handleSubmit}>

@@ -12,14 +12,19 @@ import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import PersistentDrawerLeft from '../component/Modal';
 import { getOrderStart } from '../redux/mainredux/actions';
+import BasicModal from '../component/CartViewModal';
 
 const columns = [
-  { id: 'img', label: 'Image', minWidth: 180, align: 'left' },
-  { id: 'title', label: 'Title', minWidth: 170, align: 'left' },
-  { id: 'price', label: 'Price', minWidth: 100, align: 'left' },
-  { id: 'quantity', label: 'Quantity', minWidth: 170, align: 'left' },
-  { id: 'date', label: 'date', minWidth: 170, align: 'left' },
-  { id: 'costumer', label: 'Costumer Name', minWidth: 170, align: 'left' },
+  { id: 'costumer', label: 'Name', minWidth: 170, align: 'left' },
+  { id: 'costumer', label: 'Address', minWidth: 170, align: 'left' },
+  { id: 'costumer', label: 'City', minWidth: 170, align: 'left' },
+  { id: 'costumer', label: 'Country', minWidth: 170, align: 'left' },
+  // { id: 'img', label: 'Image', minWidth: 180, align: 'left' },
+  // { id: 'title', label: 'Title', minWidth: 170, align: 'left' },
+  // { id: 'price', label: 'Price', minWidth: 100, align: 'left' },
+  // { id: 'quantity', label: 'Quantity', minWidth: 170, align: 'left' },
+  { id: 'date', label: 'Date', minWidth: 170, align: 'left' },
+  { id: 'view', label: 'View Cart', minWidth: 170, align: 'left' },
 ];
 const Orders = () => {
   const { orders } = useSelector((state) => state.invoice);
@@ -58,17 +63,20 @@ const Orders = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.cart?.map((item, i) => {
+            {Object.values(orders)?.map((item, i) => {
               return (
                 <TableRow key={i}>
-                  <TableCell>
+                  {/* <TableCell>
                     <img style={{ width: '6rem' }} src={item.img} alt="img" />
+                  </TableCell> */}
+                  <TableCell>{item.fullName}</TableCell>
+                  <TableCell>{item.address}</TableCell>
+                  <TableCell>{item.city}</TableCell>
+                  <TableCell>{item.country}</TableCell>
+                  <TableCell>{item.date}</TableCell>
+                  <TableCell>
+                    <BasicModal key={i} values={item.cart} />
                   </TableCell>
-                  <TableCell>{item.productTitle}</TableCell>
-                  <TableCell>{item.price}</TableCell>
-                  <TableCell>{item.quantity}</TableCell>
-                  <TableCell>{orders.date}</TableCell>
-                  <TableCell>{orders.user}</TableCell>
                 </TableRow>
               );
             })}
