@@ -16,6 +16,7 @@ import BasicModal from '../component/CartViewModal';
 
 const columns = [
   { id: 'costumer', label: 'Name', minWidth: 170, align: 'left' },
+  { id: 'phoneNumber', label: 'Phone Number', minWidth: 170, align: 'left' },
   { id: 'costumer', label: 'Address', minWidth: 170, align: 'left' },
   { id: 'costumer', label: 'City', minWidth: 170, align: 'left' },
   { id: 'costumer', label: 'Country', minWidth: 170, align: 'left' },
@@ -28,9 +29,9 @@ const columns = [
 ];
 const Orders = () => {
   const { orders } = useSelector((state) => state.invoice);
-  const state = useSelector((state) => state.invoice);
+
   const dispatch = useDispatch();
-  console.log(state);
+
   useEffect(() => {
     dispatch(getOrderStart());
   }, [dispatch]);
@@ -63,19 +64,20 @@ const Orders = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.values(orders)?.map((item, i) => {
+            {Object.keys(orders)?.map((id) => {
               return (
-                <TableRow key={i}>
+                <TableRow key={id}>
                   {/* <TableCell>
                     <img style={{ width: '6rem' }} src={item.img} alt="img" />
                   </TableCell> */}
-                  <TableCell>{item.fullName}</TableCell>
-                  <TableCell>{item.address}</TableCell>
-                  <TableCell>{item.city}</TableCell>
-                  <TableCell>{item.country}</TableCell>
-                  <TableCell>{item.date}</TableCell>
+                  <TableCell>{orders[id].fullName}</TableCell>
+                  <TableCell>{orders[id].phoneNumber}</TableCell>
+                  <TableCell>{orders[id].address}</TableCell>
+                  <TableCell>{orders[id].city}</TableCell>
+                  <TableCell>{orders[id].country}</TableCell>
+                  <TableCell>{orders[id].date}</TableCell>
                   <TableCell>
-                    <BasicModal key={i} values={item.cart} />
+                    <BasicModal values={orders[id].cart} id={id} />
                   </TableCell>
                 </TableRow>
               );

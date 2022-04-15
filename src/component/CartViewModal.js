@@ -15,6 +15,8 @@ import {
   StyleSheet,
 } from '@react-pdf/renderer';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import CartViewInvoiceModal from './CartViewInvoiceModal';
 
 const style = {
   // display: 'flex',
@@ -54,15 +56,13 @@ const columns = [
   { id: 'price', label: 'Price', minWidth: 100, align: 'left' },
   { id: 'quantity', label: 'Quantity', minWidth: 170, align: 'left' },
 ];
-const BasicModal = ({ values, productValue }) => {
+const BasicModal = ({ values, id }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [display, setDisplay] = useState(true);
-  const handleClick = (e) => {
-    window.print();
-    setDisplay(!display);
-  };
+  const { orders } = useSelector((state) => state.invoice);
+
   return (
     <div>
       <Button
@@ -74,9 +74,9 @@ const BasicModal = ({ values, productValue }) => {
           marginTop: '.5rem',
         }}
         variant="contained"
-        color="primary"
+        color="warning"
       >
-        Print Qr Code
+        View Cart
       </Button>
       <Modal
         open={open}
@@ -85,6 +85,10 @@ const BasicModal = ({ values, productValue }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          {/* <Button variant="contained" color="primary" onClick={handleClick}>
+            Create Invoice
+          </Button> */}
+          <CartViewInvoiceModal id={id} values={orders[id]} />
           <TableHead>
             <TableRow>
               {columns.map((column) => (
