@@ -13,12 +13,12 @@ const stylesTableHeader = StyleSheet.create({
     flexGrow: 1,
     color: '#000',
   },
-  img: {
-    width: '25%',
+  // img: {
+  //   width: '25%',
 
-    textAlign: 'center',
-    paddingRight: 8,
-  },
+  //   textAlign: 'center',
+  //   paddingRight: 8,
+  // },
   description: {
     width: '50%',
     textAlign: 'center',
@@ -42,7 +42,7 @@ const stylesTableHeader = StyleSheet.create({
 
 const InvoiceTableHeader = () => (
   <View style={stylesTableHeader.container}>
-    <Text style={stylesTableHeader.img}>Image</Text>
+    {/* <Text style={stylesTableHeader.img}>Image</Text> */}
     <Text style={stylesTableHeader.description}>Product</Text>
     <Text style={stylesTableHeader.qty}>Qty</Text>
     {/* <Text style={stylesTableHeader.rate}>Price</Text> */}

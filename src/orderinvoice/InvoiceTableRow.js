@@ -11,9 +11,9 @@ const stylesTableRow = StyleSheet.create({
     height: 35,
     fontStyle: 'bold',
   },
-  img: {
-    width: '20%',
-  },
+  // img: {
+  //   width: '20%',
+  // },
   description: {
     width: '50%',
     textAlign: 'center',
@@ -22,13 +22,13 @@ const stylesTableRow = StyleSheet.create({
     paddingLeft: 8,
   },
   qty: {
-    width: '15%',
+    width: '25%',
 
     textAlign: 'center',
     paddingRight: 8,
   },
   rate: {
-    width: '15%',
+    width: '25%',
 
     textAlign: 'center',
     paddingRight: 8,
@@ -46,11 +46,11 @@ const InvoiceTableRow = ({ items }) => {
           <View key={i} style={stylesTableRow.row}>
             {/* <Text style={stylesTableRow.img}>
             </Text> */}
-            <Image
+            {/* <Image
               style={stylesTableRow.img}
               src="https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_88232402/fee_786_587_png"
               alt="img"
-            />
+            /> */}
             <Text style={stylesTableRow.description}>{item.productTitle}</Text>
             <Text style={stylesTableRow.qty}>{item.quantity}</Text>
             <Text style={stylesTableRow.rate}>{item.price}€</Text>

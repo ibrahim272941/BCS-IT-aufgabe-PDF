@@ -72,6 +72,14 @@ export default function CartViewInvoiceModal({ values, id }) {
       >
         Print Invoice
       </Button>
+      <Button
+        onClick={handleOpen}
+        sx={{ height: '1rem', padding: '1.5rem', marginLeft: '1rem' }}
+        variant="contained"
+        color="success"
+      >
+        Complete the sale
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
