@@ -5,15 +5,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography,
 } from '@mui/material';
-import {
-  Document,
-  Image,
-  Page,
-  PDFViewer,
-  StyleSheet,
-} from '@react-pdf/renderer';
+
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import CartViewInvoiceModal from './CartViewInvoiceModal';
@@ -34,22 +27,7 @@ const style = {
   boxShadow: 24,
   p: 8,
 };
-const styles = StyleSheet.create({
-  page: {
-    fontFamily: 'Helvetica',
 
-    lineHeight: 1.5,
-    flexDirection: 'column',
-  },
-  logo: {
-    width: 74,
-    height: 40,
-  },
-  viewer: {
-    width: '46vw',
-    height: '72vh',
-  },
-});
 const columns = [
   { id: 'img', label: 'Image', minWidth: 180, align: 'left' },
   { id: 'title', label: 'Title', minWidth: 170, align: 'left' },
@@ -60,7 +38,7 @@ const BasicModal = ({ values, id }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [display, setDisplay] = useState(true);
+
   const { orders } = useSelector((state) => state.invoice);
 
   return (

@@ -12,8 +12,7 @@ const MainPage = () => {
   //   alert("Page is not find");
   // }
   // console.log(weg);
-  const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
+
   return (
     <div>
       {/* <MainNavbar /> */}

@@ -7,7 +7,7 @@ import {
   TableRow,
 } from '@mui/material';
 import React, { useEffect } from 'react';
-import { Spinner } from 'react-bootstrap';
+
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import PersistentDrawerLeft from '../component/Modal';
@@ -90,22 +90,3 @@ const Orders = () => {
 };
 
 export default Orders;
-
-{
-  /* // : (
-            //   <div className="text-center">
-            //     <Spinner
-            //       style={{
-            //         width: '10rem',
-            //         height: '10rem',
-            //         marginTop: '10rem',
-            //         alignItems: 'center',
-            //         fontWeight: '900',
-            //       }}
-            //       animation="border"
-            //       variant="warning"
-            //       size="lg"
-            //     />
-            //   </div>
-            // ) */
-}

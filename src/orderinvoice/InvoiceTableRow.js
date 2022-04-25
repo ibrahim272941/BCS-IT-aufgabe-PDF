@@ -1,5 +1,4 @@
-import { Image, StyleSheet, Text, View } from '@react-pdf/renderer';
-import logo from '../invoice/logo.png';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 const stylesTableRow = StyleSheet.create({
   row: {

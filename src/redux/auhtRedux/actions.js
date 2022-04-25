@@ -1,12 +1,11 @@
-import * as types from "./actionTypes";
-import { auth } from "../../auth/getAuth";
+import * as types from './actionTypes';
+import { auth } from '../../auth/getAuth';
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
-} from "firebase/auth";
+} from 'firebase/auth';
 const registerStart = () => ({
   type: types.REGISTER_START,
 });

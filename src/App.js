@@ -1,11 +1,5 @@
-import "./App.css";
-import AppRouter from "./router/AppRouter";
-
-import { useDispatch } from "react-redux";
-import { auth } from "./auth/getAuth";
-import { persistUser } from "./redux/auhtRedux/actions";
-import { onAuthStateChanged } from "firebase/auth";
-import { useEffect } from "react";
+import './App.css';
+import AppRouter from './router/AppRouter';
 
 function App() {
   // const dispatch = useDispatch();

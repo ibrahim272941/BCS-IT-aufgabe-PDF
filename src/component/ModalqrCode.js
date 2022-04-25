@@ -1,11 +1,5 @@
-import { Box, Button, Modal, Typography } from '@mui/material';
-import {
-  Document,
-  Image,
-  Page,
-  PDFViewer,
-  StyleSheet,
-} from '@react-pdf/renderer';
+import { Box, Button, Modal } from '@mui/material';
+
 import React, { useState } from 'react';
 
 const style = {
@@ -24,22 +18,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const styles = StyleSheet.create({
-  page: {
-    fontFamily: 'Helvetica',
 
-    lineHeight: 1.5,
-    flexDirection: 'column',
-  },
-  logo: {
-    width: 74,
-    height: 40,
-  },
-  viewer: {
-    width: '46vw',
-    height: '72vh',
-  },
-});
 const ModalqrCode = ({ value, productValue }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

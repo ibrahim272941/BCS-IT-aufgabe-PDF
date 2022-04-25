@@ -20,7 +20,7 @@ import AddProduct from '../moduls/AddProduct';
 import ViewProduct from '../moduls/ViewProduct';
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
-import { persistUser, persistUserFunc } from '../redux/auhtRedux/actions';
+import { persistUser } from '../redux/auhtRedux/actions';
 import { auth } from '../auth/getAuth';
 import Orders from '../moduls/Orders';
 

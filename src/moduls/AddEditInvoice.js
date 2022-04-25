@@ -39,7 +39,7 @@ const AddEditInvoice = () => {
     displayName,
     reloadUserInfo: { localId },
   } = useSelector((state) => state.user.currentUser);
-  const [button, setButton] = useState(false);
+
   const [initialValues, setValues] = useState(values);
   const [productTitle, setProductTitle] = useState([]);
   const [price, setPrice] = useState([]);

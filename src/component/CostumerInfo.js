@@ -1,5 +1,5 @@
-import { Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { Table } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 const CostumerInfo = () => {
   const { invoice } = useSelector((state) => state.invoice);
@@ -26,7 +26,6 @@ const CostumerInfo = () => {
   }
   sortingProduct.sort((a, b) => b[1] - a[1]);
 
-  console.log(sortingProduct);
   const costumer = invoice
     ? Object.values(invoice).map((item) => item.costumerName)
     : [1, 1];
@@ -48,7 +47,7 @@ const CostumerInfo = () => {
 
   return (
     <div
-      style={{ fontSize: ".76rem" }}
+      style={{ fontSize: '.76rem' }}
       className="d-flex justify-content-around"
     >
       <Table className="w-25" striped bordered hover>

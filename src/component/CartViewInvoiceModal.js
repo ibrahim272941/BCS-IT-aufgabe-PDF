@@ -8,13 +8,9 @@ import InvoiceNo from '../orderinvoice/InvoiceNo';
 import BillTo from '../orderinvoice/BillTo';
 import InvoiceItemsTable from '../orderinvoice/InvoiceItemsTable';
 import InvoiceThankYouMsg from '../orderinvoice/InvoiceThankYouMsg';
-import { onValue, query, ref } from 'firebase/database';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
-import { database } from '../auth/getAuth';
+import { useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
 import logo from '../invoice/logo.png';
 import {
   Document,
@@ -59,9 +55,11 @@ export default function CartViewInvoiceModal({ values, id }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { orders } = useSelector((state) => state.invoice);
-  console.log(values);
 
+  console.log(values);
+  const completeSale = () => {
+    alert('Order delete when you click ok');
+  };
   return (
     <div>
       <Button
@@ -73,7 +71,7 @@ export default function CartViewInvoiceModal({ values, id }) {
         Print Invoice
       </Button>
       <Button
-        onClick={handleOpen}
+        onClick={completeSale}
         sx={{ height: '1rem', padding: '1.5rem', marginLeft: '1rem' }}
         variant="contained"
         color="success"

@@ -63,8 +63,7 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const state = useSelector((state) => state);
-  console.log(state);
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
