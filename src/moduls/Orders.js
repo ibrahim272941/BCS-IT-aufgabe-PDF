@@ -17,9 +17,9 @@ import BasicModal from '../component/CartViewModal';
 const columns = [
   { id: 'costumer', label: 'Name', minWidth: 170, align: 'left' },
   { id: 'phoneNumber', label: 'Phone Number', minWidth: 170, align: 'left' },
-  { id: 'costumer', label: 'Address', minWidth: 170, align: 'left' },
-  { id: 'costumer', label: 'City', minWidth: 170, align: 'left' },
-  { id: 'costumer', label: 'Country', minWidth: 170, align: 'left' },
+  { id: 'address', label: 'Address', minWidth: 170, align: 'left' },
+  { id: 'city', label: 'City', minWidth: 170, align: 'left' },
+  { id: 'country', label: 'Country', minWidth: 170, align: 'left' },
   // { id: 'img', label: 'Image', minWidth: 180, align: 'left' },
   // { id: 'title', label: 'Title', minWidth: 170, align: 'left' },
   // { id: 'price', label: 'Price', minWidth: 100, align: 'left' },

@@ -85,3 +85,16 @@ export const getOrderFail = (error) => ({
   type: types.GET_ORDER_FAIL,
   payload: error,
 });
+
+export const saleOrderStart = (value, id) => ({
+  type: types.SALED_ORDER_START,
+  payload: { value, id },
+});
+export const saleOrderSuccess = () => ({
+  type: types.SALED_ORDER_SUCCESS,
+  payload: {},
+});
+export const saleOrderFail = (error) => ({
+  type: types.SALED_ORDER_FAIL,
+  payload: error,
+});

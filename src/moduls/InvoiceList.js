@@ -1,85 +1,85 @@
-import { alpha } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
+import { alpha } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
 
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { delInvoiceStart, getInvoiceStart } from "../redux/mainredux/actions";
-import PersistentDrawerLeft from "../component/Modal";
-import { Button, TextField } from "@mui/material";
-import { successNote } from "../utils/customToastify";
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { delInvoiceStart, getInvoiceStart } from '../redux/mainredux/actions';
+import PersistentDrawerLeft from '../component/Modal';
+import { Button, TextField } from '@mui/material';
+import { successNote } from '../utils/customToastify';
 
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
 
 const columns = [
-  { id: "check", label: "", minWidth: 10, align: "left" },
-  { id: "name", label: "Name", minWidth: 100, align: "left" },
-  { id: "code", label: "Email", minWidth: 170, align: "left" },
+  { id: 'check', label: '', minWidth: 10, align: 'left' },
+  { id: 'name', label: 'Name', minWidth: 100, align: 'left' },
+  { id: 'code', label: 'Email', minWidth: 170, align: 'left' },
   {
-    id: "population",
-    label: "Mobile",
+    id: 'population',
+    label: 'Mobile',
     minWidth: 100,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US"),
+    align: 'left',
+    format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: "size",
-    label: "Address",
+    id: 'size',
+    label: 'Address',
     minWidth: 180,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US"),
+    align: 'left',
+    format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: "density",
-    label: "Product",
+    id: 'density',
+    label: 'Product',
     minWidth: 100,
-    align: "left",
+    align: 'left',
     format: (value) => value.toFixed(2),
   },
   {
-    id: "productPrice",
-    label: "Price",
+    id: 'productPrice',
+    label: 'Price',
     minWidth: 100,
-    align: "left",
+    align: 'left',
     format: (value) => value.toFixed(2),
   },
   {
-    id: "productQuantity",
-    label: "Quantity",
+    id: 'productQuantity',
+    label: 'Quantity',
     minWidth: 100,
-    align: "left",
+    align: 'left',
     format: (value) => value.toFixed(2),
   },
 
   {
-    id: "invoiceDate",
-    label: "Invoice Date",
+    id: 'invoiceDate',
+    label: 'Invoice Date',
     minWidth: 100,
-    align: "left",
+    align: 'left',
   },
   {
-    id: "totalAmount",
-    label: "Total Amount",
+    id: 'totalAmount',
+    label: 'Total Amount',
     minWidth: 100,
-    align: "left",
+    align: 'left',
     format: (value) => value.toFixed(2),
   },
   {
-    id: "action",
-    label: "Actions",
+    id: 'action',
+    label: 'Actions',
     minWidth: 120,
-    align: "left",
+    align: 'left',
   },
 ];
 export default function EnhancedTable() {
@@ -89,7 +89,7 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
   const { invoice } = useSelector((state) => state.invoice);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   // const baseContext = useBaseContext();
   // const uiProps = useMemo(
@@ -112,9 +112,9 @@ export default function EnhancedTable() {
   }, [dispatch, localId]);
 
   const deleteInvoice = (id) => {
-    if (window.confirm("Are you sure to delete the invoice")) {
+    if (window.confirm('Are you sure to delete the invoice')) {
       dispatch(delInvoiceStart(localId, id));
-      successNote("Invoice is deleted");
+      successNote('Invoice is deleted');
       setTimeout(() => {
         window.location.reload();
       }, 3000);
@@ -124,15 +124,15 @@ export default function EnhancedTable() {
   let last = selected.map((item) => data[item].costumerName);
   const handleInvoice = () => {
     if (selected.length <= 1) {
-      navigate("/view", {
+      navigate('/view', {
         state: selected,
       });
     }
     data && [...new Set(last)].length === 1
-      ? navigate("/view", {
+      ? navigate('/view', {
           state: selected,
         })
-      : alert("The invoices you choose must belong to the same customer.");
+      : alert('The invoices you choose must belong to the same customer.');
   };
   const handleChangeSearch = (e) => {
     let txt = e.target.value;
@@ -140,7 +140,7 @@ export default function EnhancedTable() {
   };
   const data2 = invoice
     ? Object.keys(data).filter((id) => {
-        return search !== "" ? data[id].costumerName.includes(search) : id;
+        return search !== '' ? data[id].costumerName.includes(search) : id;
       })
     : 1;
 
@@ -174,17 +174,17 @@ export default function EnhancedTable() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <PersistentDrawerLeft />{" "}
-      <Paper sx={{ width: "100%", mt: 7 }}>
+    <Box sx={{ width: '100%' }}>
+      <PersistentDrawerLeft />{' '}
+      <Paper sx={{ width: '100%', mt: 7 }}>
         <ToastContainer />
 
         <Toolbar
           sx={{
             // position: "-webkit-sticky",
-            position: "sticky",
+            position: 'sticky',
 
-            top: "50px",
+            top: '50px',
             pl: { sm: 2 },
             pr: { xs: 1, sm: 1 },
             ...(selected.length > 0 && {
@@ -194,12 +194,12 @@ export default function EnhancedTable() {
                   theme.palette.action.activatedOpacity
                 ),
             }),
-            background: "#F9F9FB",
+            background: '#F9F9FB',
           }}
         >
           {selected.length > 0 ? (
             <Typography
-              sx={{ flex: "1 1 100%" }}
+              sx={{ flex: '1 1 100%' }}
               color="inherit"
               variant="subtitle1"
               component="div"
@@ -214,7 +214,7 @@ export default function EnhancedTable() {
               color="warning"
               id="outlined-search"
               type="search"
-              sx={{ margin: "2rem auto", width: "50%" }}
+              sx={{ margin: '2rem auto', width: '50%' }}
               align="center"
             />
           )}
@@ -223,9 +223,9 @@ export default function EnhancedTable() {
             <Button
               onClick={handleInvoice}
               sx={{
-                margin: ".6rem",
-                fontSize: "12px",
-                width: "10rem",
+                margin: '.6rem',
+                fontSize: '12px',
+                width: '10rem',
                 padding: 1,
               }}
               variant="contained"
@@ -246,7 +246,7 @@ export default function EnhancedTable() {
                         key={column.id}
                         align={column.align}
                         style={{ minWidth: column.minWidth }}
-                        sx={{ marginLeft: "3rem" }}
+                        sx={{ marginLeft: '3rem' }}
                       >
                         {column.label}
                       </TableCell>

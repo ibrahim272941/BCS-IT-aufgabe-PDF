@@ -91,7 +91,15 @@ const AddEditInvoice = () => {
         },
       });
     }
-  }, [getPrice, productQuantity]);
+  }, [
+    getPrice,
+    productQuantity,
+    quan,
+    quanName,
+    navigate,
+    productTitle,
+    price,
+  ]);
   useEffect(() => {
     if (id) {
       setValues({ ...data2[id] });

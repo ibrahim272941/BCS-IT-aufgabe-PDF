@@ -9,7 +9,7 @@ import BillTo from '../orderinvoice/BillTo';
 import InvoiceItemsTable from '../orderinvoice/InvoiceItemsTable';
 import InvoiceThankYouMsg from '../orderinvoice/InvoiceThankYouMsg';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import logo from '../invoice/logo.png';
 import {
@@ -19,6 +19,8 @@ import {
   PDFViewer,
   StyleSheet,
 } from '@react-pdf/renderer';
+import { useDispatch } from 'react-redux';
+import { saleOrderStart } from '../redux/mainredux/actions';
 
 const style = {
   position: 'absolute',
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   viewer: {
-    width: '47vw',
+    width: '45vw',
     height: '72vh',
   },
 });
@@ -55,21 +57,24 @@ export default function CartViewInvoiceModal({ values, id }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const dispatch = useDispatch();
 
-  console.log(values);
   const completeSale = () => {
-    alert('Order delete when you click ok');
+    console.log(values, id);
+    dispatch(saleOrderStart(values, id));
+    handleOpen(false);
   };
+
   return (
-    <div>
-      <Button
+    <>
+      {/* <Button
         onClick={handleOpen}
         sx={{ height: '1rem', padding: '1.5rem' }}
         variant="contained"
         color="warning"
       >
         Print Invoice
-      </Button>
+      </Button> */}
       <Button
         onClick={completeSale}
         sx={{ height: '1rem', padding: '1.5rem', marginLeft: '1rem' }}
@@ -78,6 +83,7 @@ export default function CartViewInvoiceModal({ values, id }) {
       >
         Complete the sale
       </Button>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -125,6 +131,6 @@ export default function CartViewInvoiceModal({ values, id }) {
           </PDFViewer>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }

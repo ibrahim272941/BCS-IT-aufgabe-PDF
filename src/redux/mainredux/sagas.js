@@ -21,6 +21,7 @@ import {
   viewInvoiceFail,
   getOrderSucces,
   getOrderFail,
+  saleOrderFail,
 } from './actions';
 import * as types from './actionsTypes';
 
@@ -158,6 +159,24 @@ export function* getOrdersAsync() {
 export function* onGetOrders() {
   yield takeLatest(types.GET_ORDER_START, getOrdersAsync);
 }
+export function* saleOrderAsync({ payload }) {
+  const { value, id } = payload;
+
+  try {
+    const saleOrder = {
+      [id]: value,
+    };
+    const userRef = ref(database, `/saledOrders`);
+    const newUserRef = push(userRef);
+    set(newUserRef, saleOrder);
+  } catch (error) {
+    yield put(saleOrderFail(error));
+    console.log(error);
+  }
+}
+export function* onSaleOrder() {
+  yield takeLatest(types.SALED_ORDER_START, saleOrderAsync);
+}
 const invoiceSagas = [
   fork(onGetInvoice),
   fork(onDeleteInvoice),
@@ -165,6 +184,7 @@ const invoiceSagas = [
   fork(onEditInvoice),
   fork(onViewInvoice),
   fork(onGetOrders),
+  fork(onSaleOrder),
 ];
 
 export default function* rootSaga() {

@@ -2,7 +2,10 @@ import {
   Box,
   Button,
   Modal,
+  Table,
+  TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from '@mui/material';
@@ -42,7 +45,7 @@ const BasicModal = ({ values, id }) => {
   const { orders } = useSelector((state) => state.invoice);
 
   return (
-    <div>
+    <>
       <Button
         onClick={handleOpen}
         sx={{
@@ -67,34 +70,39 @@ const BasicModal = ({ values, id }) => {
             Create Invoice
           </Button> */}
           <CartViewInvoiceModal id={id} values={orders[id]} />
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          {values.map((item, i) => {
-            return (
-              <TableRow key={i}>
-                <TableCell>
-                  <img style={{ width: '6rem' }} src={item.img} alt="img" />
-                </TableCell>
-                <TableCell>{item.productTitle}</TableCell>
-                <TableCell>{item.price}</TableCell>
-                <TableCell>{item.quantity}</TableCell>
+
+          <Table>
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
               </TableRow>
-            );
-          })}
+            </TableHead>
+            <TableBody>
+              {values.map((item, i) => {
+                return (
+                  <TableRow key={i}>
+                    <TableCell>
+                      <img style={{ width: '6rem' }} src={item.img} alt="img" />
+                    </TableCell>
+                    <TableCell>{item.productTitle}</TableCell>
+                    <TableCell>{item.price}</TableCell>
+                    <TableCell>{item.quantity}</TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 };
 
