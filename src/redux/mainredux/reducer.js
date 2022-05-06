@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   orders: [],
   invoiceByOrder: [],
+  saledCompleted: false,
 };
 
 const invoiceReducer = (state = initialState, action) => {
@@ -70,12 +71,28 @@ const invoiceReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        saledCompleted: true,
       };
     case types.SALED_ORDER_FAIL:
       return {
         ...state,
         error: action.payload,
         loading: false,
+      };
+    case types.GET_SALED_ORDER_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.GET_SALED_ORDER_SUCCESS:
+      return {
+        ...state,
+        invoiceByOrder: action.payload,
+      };
+    case types.GET_SALED_ORDER_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

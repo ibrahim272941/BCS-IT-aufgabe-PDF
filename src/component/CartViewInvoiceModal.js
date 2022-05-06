@@ -61,7 +61,8 @@ export default function CartViewInvoiceModal({ values, id }) {
 
   const completeSale = () => {
     console.log(values, id);
-    dispatch(saleOrderStart(values, id));
+    alert("Don't forget to print your invoice!");
+    dispatch(saleOrderStart(values));
     handleOpen(false);
   };
 

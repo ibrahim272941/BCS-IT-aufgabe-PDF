@@ -29,6 +29,8 @@ const columns = [
 ];
 const Orders = () => {
   const { orders } = useSelector((state) => state.invoice);
+  const { saledCompleted } = useSelector((state) => state.invoice);
+  console.log(saledCompleted);
 
   const dispatch = useDispatch();
 
@@ -79,6 +81,7 @@ const Orders = () => {
                   <TableCell>
                     <BasicModal values={orders[id].cart} id={id} />
                   </TableCell>
+                  {saledCompleted ? <TableCell>Saled</TableCell> : null}
                 </TableRow>
               );
             })}
