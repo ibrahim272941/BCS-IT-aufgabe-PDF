@@ -81,7 +81,13 @@ const AddEditInvoice = () => {
       const value = Object.values(getPrice)[i];
 
       productTitle.push(value.productTitle);
+      if (productTitle.includes(value.productTitle)) {
+        productTitle.filter(
+          (item, index) => productTitle.indexOf(item) === index
+        );
+      }
       price.push(value.price);
+      console.log(productTitle.includes(value.productTitle));
     }
     if (quan[0] < productQuantity) {
       alert(`The stock amount of the product you selected is ${quan[0]}`);
@@ -100,6 +106,7 @@ const AddEditInvoice = () => {
     productTitle,
     price,
   ]);
+
   useEffect(() => {
     if (id) {
       setValues({ ...data2[id] });
@@ -138,6 +145,10 @@ const AddEditInvoice = () => {
       [name]: value,
     }));
   };
+  // const Ptitle = productTitle.filter(
+  //   (item, index) => productTitle.indexOf(item) === index
+  // );
+
   const handleChange2 = (e) => {
     let prc;
     prc =
@@ -154,7 +165,7 @@ const AddEditInvoice = () => {
       productPrice: prc,
     }));
   };
-
+  console.log(productName);
   return (
     <>
       <PersistentDrawerLeft />
@@ -210,21 +221,32 @@ const AddEditInvoice = () => {
                 />
               </Grid>
               <Grid item xs={8}>
-                <Autocomplete
-                  options={productTitle}
-                  onChange={handleChange2}
-                  fullWidth
-                  renderInput={(params, i) => (
-                    <TextField
-                      key={i}
-                      {...params}
-                      label="Select Product"
-                      variant="standard"
-                      name="productName"
-                      value={productName}
-                    />
-                  )}
-                />
+                {productName === undefined ? (
+                  <Autocomplete
+                    options={productTitle}
+                    onChange={handleChange2}
+                    fullWidth
+                    renderInput={(params, i) => (
+                      <TextField
+                        key={i}
+                        {...params}
+                        label="Select Product"
+                        variant="standard"
+                        name="productName"
+                        value={productName}
+                      />
+                    )}
+                  />
+                ) : (
+                  <TextField
+                    label="Select Product"
+                    variant="standard"
+                    name="productName"
+                    value={productName}
+                    onChange={handleChange}
+                    fullWidth
+                  />
+                )}
               </Grid>
               {/* <Grid item xs={8}>
                 <TextField

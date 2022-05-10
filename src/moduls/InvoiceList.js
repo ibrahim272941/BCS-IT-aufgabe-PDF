@@ -15,11 +15,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  delInvoiceStart,
-  getInvoiceStart,
-  getSaledOrderStart,
-} from '../redux/mainredux/actions';
+import { delInvoiceStart, getInvoiceStart } from '../redux/mainredux/actions';
 import PersistentDrawerLeft from '../component/Modal';
 import { Button, TextField } from '@mui/material';
 import { successNote } from '../utils/customToastify';
@@ -94,8 +90,6 @@ export default function EnhancedTable() {
   const navigate = useNavigate();
   const { invoice } = useSelector((state) => state.invoice);
   const [search, setSearch] = useState('');
-  const { invoiceByOrder } = useSelector((state) => state.invoice);
-  console.log(invoiceByOrder);
 
   const {
     reloadUserInfo: { localId },
@@ -106,7 +100,6 @@ export default function EnhancedTable() {
 
   useEffect(() => {
     dispatch(getInvoiceStart(localId));
-    dispatch(getSaledOrderStart());
   }, [dispatch, localId]);
 
   const deleteInvoice = (id) => {

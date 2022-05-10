@@ -183,6 +183,7 @@ export function* getSaledOrderAsync() {
     const orders = yield new Promise((resolve) =>
       onValue(query(userRef), resolve)
     );
+
     yield put(getSaledOrderSuccess(orders.val()));
   } catch (error) {
     yield put(getSaledOrderFail(error));

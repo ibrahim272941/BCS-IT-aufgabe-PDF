@@ -11,7 +11,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import PersistentDrawerLeft from '../component/Modal';
-import { getOrderStart } from '../redux/mainredux/actions';
+import { getOrderStart, getSaledOrderStart } from '../redux/mainredux/actions';
 import BasicModal from '../component/CartViewModal';
 
 const columns = [
@@ -29,14 +29,15 @@ const columns = [
 ];
 const Orders = () => {
   const { orders } = useSelector((state) => state.invoice);
-  const { saledCompleted } = useSelector((state) => state.invoice);
-  console.log(saledCompleted);
+  const { invoiceByOrder } = useSelector((state) => state.invoice);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOrderStart());
+    dispatch(getSaledOrderStart());
   }, [dispatch]);
+  // console.log(Object.values(invoiceByOrder)[0].date);
   return (
     <div
       style={{
@@ -66,7 +67,7 @@ const Orders = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.keys(orders)?.map((id) => {
+            {Object.keys(orders)?.map((id, i) => {
               return (
                 <TableRow key={id}>
                   {/* <TableCell>
@@ -81,7 +82,6 @@ const Orders = () => {
                   <TableCell>
                     <BasicModal values={orders[id].cart} id={id} />
                   </TableCell>
-                  {saledCompleted ? <TableCell>Saled</TableCell> : null}
                 </TableRow>
               );
             })}
