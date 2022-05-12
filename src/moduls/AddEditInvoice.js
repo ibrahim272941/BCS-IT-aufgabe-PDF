@@ -81,49 +81,40 @@ const AddEditInvoice = () => {
       const value = Object.values(getPrice)[i];
 
       productTitle.push(value.productTitle);
-      if (productTitle.includes(value.productTitle)) {
-        productTitle.filter(
-          (item, index) => productTitle.indexOf(item) === index
-        );
-      }
-      price.push(value.price);
-      console.log(productTitle.includes(value.productTitle));
-    }
-    if (quan[0] < productQuantity) {
-      alert(`The stock amount of the product you selected is ${quan[0]}`);
-      navigate('/viewproduct', {
-        state: {
-          quanName,
-        },
-      });
-    }
-  }, [
-    getPrice,
-    productQuantity,
-    quan,
-    quanName,
-    navigate,
-    productTitle,
-    price,
-  ]);
 
+      price.push(value.price);
+    }
+
+    // if (quan[0] < productQuantity) {
+    //   alert(`The stock amount of the product you selected is ${quan[0]}`);
+    //   navigate('/viewproduct', {
+    //     state: {
+    //       quanName,
+    //     },
+    //   });
+    // }
+  }, [getPrice, quan, quanName, navigate, productTitle, price]);
+  console.log(productTitle);
   useEffect(() => {
     if (id) {
       setValues({ ...data2[id] });
     }
-  }, [data2, id, productQuantity]);
+  }, [data2, id]);
 
   useMemo(() => {
-    const calc = parseFloat(
-      productQuantity * (parseFloat(seletedPrice) + seletedPrice * VAT)
-    ).toFixed(2);
+    const calc = productPrice
+      ? parseFloat(
+          productQuantity * (parseFloat(productPrice) + productPrice * VAT)
+        ).toFixed(2)
+      : parseFloat(
+          productQuantity * (parseFloat(seletedPrice) + seletedPrice * VAT)
+        ).toFixed(2);
 
     setValues((prev) => ({
       ...prev,
       totalAmount: calc,
     }));
   }, [seletedPrice, productQuantity]);
-
   const handleSubmit = async (userId) => {
     if (isEmpty(id)) {
       navigate('/invoicelist');
@@ -145,9 +136,6 @@ const AddEditInvoice = () => {
       [name]: value,
     }));
   };
-  // const Ptitle = productTitle.filter(
-  //   (item, index) => productTitle.indexOf(item) === index
-  // );
 
   const handleChange2 = (e) => {
     let prc;
@@ -165,7 +153,7 @@ const AddEditInvoice = () => {
       productPrice: prc,
     }));
   };
-  console.log(productName);
+
   return (
     <>
       <PersistentDrawerLeft />
@@ -221,7 +209,7 @@ const AddEditInvoice = () => {
                 />
               </Grid>
               <Grid item xs={8}>
-                {productName === undefined ? (
+                {!productName ? (
                   <Autocomplete
                     options={productTitle}
                     onChange={handleChange2}
@@ -265,7 +253,7 @@ const AddEditInvoice = () => {
                   name="productPrice"
                   label="Product Price"
                   variant="standard"
-                  value={productPrice}
+                  value={productName ? productPrice : ''}
                   onChange={handleChange2}
                   fullWidth
                   InputProps={{ readOnly: true }}
@@ -277,7 +265,7 @@ const AddEditInvoice = () => {
                   name="productQuantity"
                   label="Quantity"
                   variant="standard"
-                  value={productQuantity}
+                  value={productName ? productQuantity : ''}
                   onChange={handleChange}
                   fullWidth
                 />
@@ -289,7 +277,7 @@ const AddEditInvoice = () => {
                   name="totalAmount"
                   label="Total amount"
                   variant="standard"
-                  value={totalAmount}
+                  value={productName ? totalAmount : ''}
                   onChange={handleChange}
                   fullWidth
                   InputProps={{ readOnly: true }}

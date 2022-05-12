@@ -93,7 +93,7 @@ const CostumerInfo = () => {
             })}
         </tbody>
       </Table>
-      <Table className="w-25" striped bordered hover>
+      {/* <Table className="w-25" striped bordered hover>
         <thead>
           <tr className="text-center">
             <th colSpan={2}>Least-Purchasing Costumers</th>
@@ -116,7 +116,7 @@ const CostumerInfo = () => {
             </tr>
           )}
         </tbody>
-      </Table>
+      </Table> */}
     </div>
   );
 };
