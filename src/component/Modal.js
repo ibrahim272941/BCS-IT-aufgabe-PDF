@@ -132,11 +132,11 @@ export default function PersistentDrawerLeft() {
                   Main Page
                 </NavLink>
               </ListItem>
-              <ListItem button>
+              {/* <ListItem button>
                 <NavLink to="/orders" className="btn btn-warning w-100">
                   Orders Page
                 </NavLink>
-              </ListItem>
+              </ListItem> */}
               <ListItem button>
                 <NavLink to="/invoice" className="btn btn-warning w-100">
                   New invoice

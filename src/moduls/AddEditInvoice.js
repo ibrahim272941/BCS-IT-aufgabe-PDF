@@ -81,10 +81,14 @@ const AddEditInvoice = () => {
       const value = Object.values(getPrice)[i];
 
       productTitle.push(value.productTitle);
-
+      if (productTitle.includes(value.productTitle)) {
+        productTitle.filter(
+          (item, index) => productTitle.indexOf(item) === index
+        );
+        console.log(productTitle);
+      }
       price.push(value.price);
     }
-
     // if (quan[0] < productQuantity) {
     //   alert(`The stock amount of the product you selected is ${quan[0]}`);
     //   navigate('/viewproduct', {
