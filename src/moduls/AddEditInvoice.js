@@ -56,25 +56,25 @@ const AddEditInvoice = () => {
     totalAmount,
     invoiceDate,
   } = initialValues;
-  const selectedID = Object.values(getPrice)
-    .map(
-      (item, i) => item.productTitle === productName && Object.keys(getPrice)[i]
-    )
-    .filter((item) => item !== false);
+  // const selectedID = Object.values(getPrice)
+  //   .map(
+  //     (item, i) => item.productTitle === productName && Object.keys(getPrice)[i]
+  //   )
+  //   .filter((item) => item !== false);
 
-  let quan = Object.values(getPrice)
-    .map((item) => item.productTitle === productName && item.quantity)
-    .filter((item) => item !== false);
-  let quanName = Object.values(getPrice).filter(
-    (item) => item.productTitle === productName
-  );
+  // let quan = Object.values(getPrice)
+  //   .map((item) => item.productTitle === productName && item.quantity)
+  //   .filter((item) => item !== false);
+  // let quanName = Object.values(getPrice).filter(
+  //   (item) => item.productTitle === productName
+  // );
 
-  const sendToContext = () => {
-    if (selectedID.toString() !== '') {
-      baseContext.ids.push(selectedID.toString(), productQuantity);
-      updateProduct2(baseContext.ids, localId);
-    }
-  };
+  // const sendToContext = () => {
+  //   if (selectedID.toString() !== '') {
+  //     baseContext.ids.push(selectedID.toString(), productQuantity);
+  //     updateProduct2(baseContext.ids, localId);
+  //   }
+  // };
 
   useEffect(() => {
     for (let i = 0; i < Object.values(getPrice).length; i++) {
@@ -97,7 +97,7 @@ const AddEditInvoice = () => {
     //     },
     //   });
     // }
-  }, [getPrice, quan, quanName, navigate, productTitle, price]);
+  }, [getPrice, navigate, productTitle, price]);
   console.log(productTitle);
   useEffect(() => {
     if (id) {
@@ -118,7 +118,7 @@ const AddEditInvoice = () => {
       ...prev,
       totalAmount: calc,
     }));
-  }, [seletedPrice, productQuantity]);
+  }, [seletedPrice, productQuantity, productPrice]);
   const handleSubmit = async (userId) => {
     if (isEmpty(id)) {
       navigate('/invoicelist');
@@ -294,7 +294,7 @@ const AddEditInvoice = () => {
                   variant="contained"
                   color="warning"
                   fullWidth
-                  onClick={sendToContext}
+                  // onClick={sendToContext}
                 >
                   Create Invoice
                 </Button>
